@@ -213,55 +213,60 @@ const Home = ({navigation}) => {
       <View>
         <TitleBar />
       </View>
-      <View style={styles.marqueeAndCarouselContainer}>
-        <View style={{backgroundColor: '#ffdbf5'}}>
-          <OfferText />
+      <ScrollView>
+        <View style={styles.marqueeAndCarouselContainer}>
+          <View style={{backgroundColor: '#ffdbf5'}}>
+            <OfferText />
+          </View>
+          <View>
+            <Carousel
+              loop
+              width={SCREEN_WIDTH}
+              height={SCREEN_WIDTH / 2}
+              autoPlay={true}
+              data={ALL_CAROUSELS}
+              scrollAnimationDuration={1000}
+              // onSnapToItem={index => console.log('current index:', index)}
+              renderItem={({index, item}) => (
+                <View
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    justifyContent: 'center',
+                  }}>
+                  {/* <Text style={{textAlign: 'center', fontSize: 30}}>{item}</Text> */}
+                  <Image
+                    source={item.img}
+                    style={{
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                      width: SCREEN_WIDTH,
+                      height: normalize(187),
+                    }}
+                  />
+                </View>
+              )}
+            />
+          </View>
+          <View style={{backgroundColor: '#ffdbf5'}}>
+            <OfferText />
+          </View>
+        </View>
+        <View style={styles.transactionCompContainer}>
+          <TransComp />
         </View>
         <View>
-          <Carousel
-            loop
-            width={SCREEN_WIDTH}
-            height={SCREEN_WIDTH / 2}
-            autoPlay={true}
-            data={ALL_CAROUSELS}
-            scrollAnimationDuration={1000}
-            // onSnapToItem={index => console.log('current index:', index)}
-            renderItem={({index, item}) => (
-              <View
-                style={{
-                  flex: 1,
-                  borderWidth: 1,
-                  justifyContent: 'center',
-                }}>
-                {/* <Text style={{textAlign: 'center', fontSize: 30}}>{item}</Text> */}
-                <Image
-                  source={item.img}
-                  style={{
-                    alignItems: 'center',
-                    alignSelf: 'center',
-                    width: SCREEN_WIDTH,
-                    height: normalize(187),
-                  }}
-                />
-              </View>
-            )}
-          />
+          <Text>
+            jjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf sidfiurstgfbksd
+            dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
+            sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
+            sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
+            sadf sryidufrwrefysgf sidfiurstgfbksd
+            dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
+            sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
+            sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
+          </Text>
         </View>
-        <View style={{backgroundColor: '#ffdbf5'}}>
-          <OfferText />
-        </View>
-      </View>
-      <ScrollView>
-        <Text>
-          jjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf sidfiurstgfbksd
-          dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
-          sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
-          sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
-          sadf sryidufrwrefysgf sidfiurstgfbksd
-          dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
-          sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
-          sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
-        </Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -272,5 +277,10 @@ export default Home;
 const styles = StyleSheet.create({
   marqueeAndCarouselContainer: {
     width: SCREEN_WIDTH,
+  },
+  transactionCompContainer: {
+    width: SCREEN_WIDTH,
+    height: 'auto',
+    backgroundColor: '#d7e2ff',
   },
 });
