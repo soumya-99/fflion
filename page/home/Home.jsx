@@ -1,30 +1,13 @@
-import {
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  FlatList,
-  PixelRatio,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, Image, View, TouchableOpacity} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
-import {authstyles} from '../style/pagestyle';
-import Icon from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
-import {
-  responsiveHeight,
-  responsiveWidth,
-  responsiveFontSize,
-} from 'react-native-responsive-dimensions';
 import {ScrollView} from 'react-native-gesture-handler';
-import OvalShapeButton from '../../component/Small/OvalShapeButton';
 import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
 import {AuthContext} from '../../src/context/AuthContext';
 import TransComp from '../../component/trans_component/TransComp';
-import Banner from '../../component/banner/Banner';
 import OfferText from '../../component/offerText/OfferText';
 import {useIsFocused} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
