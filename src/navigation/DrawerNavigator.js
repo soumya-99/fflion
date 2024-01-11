@@ -92,7 +92,7 @@ function ImageDrawerContent(navigation) {
           <Text style={styles.textview}>
             {userInfo?.user?.name.toUpperCase()}
           </Text>
-          <Text style={styles.textview}>Coin {wlBal}</Text>
+          <Text style={styles.textview}>₹{wlBal}</Text>
         </View>
       </View>
 
