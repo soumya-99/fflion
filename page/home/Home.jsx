@@ -11,8 +11,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {authstyles} from '../style/pagestyle';
 import Icon from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import normalize, {SCREEN_WIDTH} from 'react-native-normalize';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -32,6 +33,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import carou0 from '../../assets/carou1.jpeg';
 import carou1 from '../../assets/carou2.jpeg';
 import carou2 from '../../assets/carou3.jpeg';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ALL_CAROUSELS = [
   {
@@ -52,146 +54,37 @@ const Home = ({navigation}) => {
   const [gameNameList, setGameNameList] = useState();
   const {getGameList} = handleGetGameName();
 
-  function getColorByLetter(letter) {
-    const alphabets = [
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'Q',
-      'R',
-      'S',
-      'T',
-      'U',
-      'V',
-      'W',
-      'X',
-      'Y',
-      'Z',
-    ];
-    const colors = [
-      '#FF6633',
-      '#FFB399',
-      '#FF33FF',
-      '#8062D6',
-      '#00B3E6',
-      '#E6B333',
-      '#3366E6',
-      '#999966',
-      '#99FF99',
-      '#B34D4D',
-      '#80B300',
-      '#809900',
-      '#E6B3B3',
-      '#6680B3',
-      '#66991A',
-      '#FF99E6',
-      '#CCFF1A',
-      '#FF1A66',
-      '#E6331A',
-      '#33FFCC',
-      '#66994D',
-      '#B366CC',
-      '#4D8000',
-      '#B33300',
-      '#CC80CC',
-      '#66664D',
-      '#991AFF',
-    ];
-    let upperLetter = letter.toUpperCase();
-
-    const isAmpersandPresent = alphabets.includes(upperLetter);
-    if (isAmpersandPresent) {
-      return colors[alphabets.indexOf(upperLetter)];
-    } else {
-      return '#000000';
-    }
-  }
-
-  const GameListTwo = ({item, index}) => {
+  const GameListNew = ({item}) => {
     return (
-      <>
-        {/* Main Cointainer */}
-        <View style={{width: '100%'}}>
-          <View
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingVertical: 10,
-              paddingHorizontal: 15,
-              alignItems: 'center',
-              marginBottom: 10,
-              marginTop: 10,
-              marginLeft: 10,
-            }}>
-            <View
-              style={{
-                position: 'absolute',
-                left: -10,
-                top: -10,
-                height: 50,
-                width: 50,
-                borderWidth: 2,
-                borderBottomColor: 'red',
-                borderTopColor: 'yellow',
-                borderLeftColor: 'green',
-                backgroundColor: '#fff',
-              }}>
-              {/* image */}
-              <Image
-                source={require('../../assets/icon/dice.png')}
-                style={{width: '100%', height: '100%'}}
-                resizeMode="cover"
-              />
-            </View>
-            {/* Game Name */}
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: 'white',
-                left: 30,
-                maxWidth: '70%',
-                textAlign: 'center',
-                width: '70%',
-                backgroundColor: '#ff2937',
-              }}>
-              {item.game_name}
-            </Text>
-
-            {/* Play container */}
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('GameTime', {
-                  game_id: item.game_id,
-                  game_name: item.game_name,
-                })
-              }
-              style={{
-                backgroundColor: 'yellow',
-                paddingVertical: 5,
-                paddingHorizontal: 10,
-              }}>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
-                Play
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </>
+      <View style={{alignItems: 'center'}}>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.gameBox}>
+          <Text style={styles.linearGradientbuttonText}>{item.game_name}</Text>
+        </LinearGradient>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('GameTime', {
+              game_id: item.game_id,
+              game_name: item.game_name,
+            })
+          }
+          style={{
+            height: normalize(30),
+            width: normalize(70),
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            top: normalize(-15),
+            borderRadius: normalize(10),
+          }}>
+          <Text style={{textAlign: 'center', justifyContent: 'center'}}>
+            PLAY <AntDesign name="caretright" size={12} color="tomato" />
+          </Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -230,20 +123,11 @@ const Home = ({navigation}) => {
               renderItem={({index, item}) => (
                 <View
                   style={{
-                    flex: 1,
                     borderWidth: 1,
                     justifyContent: 'center',
                   }}>
                   {/* <Text style={{textAlign: 'center', fontSize: 30}}>{item}</Text> */}
-                  <Image
-                    source={item.img}
-                    style={{
-                      alignItems: 'center',
-                      alignSelf: 'center',
-                      width: SCREEN_WIDTH,
-                      height: normalize(187),
-                    }}
-                  />
+                  <Image source={item.img} style={styles.carouselImageStyle} />
                 </View>
               )}
             />
@@ -255,17 +139,17 @@ const Home = ({navigation}) => {
         <View style={styles.transactionCompContainer}>
           <TransComp />
         </View>
-        <View>
-          <Text>
-            jjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf sidfiurstgfbksd
-            dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
-            sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
-            sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
-            sadf sryidufrwrefysgf sidfiurstgfbksd
-            dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
-            sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
-            sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
-          </Text>
+        <View style={{padding: normalize(10)}}>
+          <View style={{marginBottom: normalize(10)}}>
+            <Text style={{fontSize: normalize(25), fontWeight: '700'}}>
+              Today's Highlight
+            </Text>
+          </View>
+          <View style={styles.gameListWrapper}>
+            {gameNameList?.map((item, index) => (
+              <GameListNew key={index} item={item} index={index} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -278,9 +162,33 @@ const styles = StyleSheet.create({
   marqueeAndCarouselContainer: {
     width: SCREEN_WIDTH,
   },
+  carouselImageStyle: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: SCREEN_WIDTH,
+    height: normalize(187),
+  },
   transactionCompContainer: {
     width: SCREEN_WIDTH,
     height: 'auto',
     backgroundColor: '#d7e2ff',
+  },
+  gameBox: {
+    width: SCREEN_WIDTH / 2.3,
+    height: SCREEN_HEIGHT / 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: normalize(5),
+    borderRadius: normalize(10),
+  },
+  linearGradientbuttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  gameListWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
   },
 });
