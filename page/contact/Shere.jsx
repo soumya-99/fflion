@@ -1,46 +1,57 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Linking } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
-import TitleBar from '../../component/titlebar/TitleBar'
-import { authstyles } from '../style/pagestyle'
-import normalize from 'react-native-normalize'
-import { AuthContext } from '../../src/context/AuthContext'
-import axios from 'axios'
-import { BASE_URL } from '../../src/config'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import TitleBar from '../../component/titlebar/TitleBar';
+import {authstyles} from '../style/pagestyle';
+import normalize from 'react-native-normalize';
+import {AuthContext} from '../../src/context/AuthContext';
+import axios from 'axios';
+import {BASE_URL} from '../../src/config';
 import Share from 'react-native-share';
-import Banner from '../../component/banner/Banner'
-import TransComp from '../../component/trans_component/TransComp'
+import Banner from '../../component/banner/Banner';
+import TransComp from '../../component/trans_component/TransComp';
 
 const Shere = () => {
-  const { userInfo, isLoading } = useContext(AuthContext);
+  const {userInfo, isLoading} = useContext(AuthContext);
   const [upiData, setUpiData] = useState({});
   useEffect(() => {
     get_game_info();
   }, []);
   const get_game_info = async () => {
-    await axios.get(`${BASE_URL}/offer`, {
-      headers: {
-        'Authorization': `Bearer ${userInfo.token}`
-      }
-    }).then(res => {
-      console.log("res", res);
-      let gameinfo = res.data;
-      setUpiData(gameinfo.data);
-      console.log("gamecontact", gameinfo);
-    }).catch(er => {
-      console.log("result Network ", er);
-    });
-  }
+    await axios
+      .get(`${BASE_URL}/offer`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      })
+      .then(res => {
+        console.log('res', res);
+        let gameinfo = res.data;
+        setUpiData(gameinfo.data);
+        console.log('gamecontact', gameinfo);
+      })
+      .catch(er => {
+        console.log('result Network ', er);
+      });
+  };
 
-console.log("userinf",userInfo.user)
+  console.log('userinf', userInfo.user);
 
   const handleWhatsApp = () => {
     const url = `whatsapp://send?phone=${upiData.whatsapp}`;
     // const url = `whatsapp://send?phone=917319328962`;
-    Linking.openURL(url).catch(() => alert('Make sure WhatsApp is installed on your device'));
-    
+    Linking.openURL(url).catch(() =>
+      alert('Make sure WhatsApp is installed on your device'),
+    );
   };
 
-  const handleMobile = async() => {
+  const handleMobile = async () => {
     try {
       const shareOptions = {
         title: 'Share By ',
@@ -48,7 +59,7 @@ console.log("userinf",userInfo.user)
         // url: `${BASE_URL}/download-apk`, // Optional URL to include with the shared content
         subject: 'Refer & Earn Now!', // For email
       };
-  
+
       await Share.open(shareOptions);
     } catch (error) {
       console.log('Error sharing:', error.message);
@@ -60,69 +71,67 @@ console.log("userinf",userInfo.user)
         <TitleBar />
       </View>
       <View style={authstyles.body}>
-      <View style={styles.list_container}>
+        <View style={styles.list_container}>
           {/* <View style={styles.comp1}>
            <OfferText/>
           </View> */}
           <View style={styles.comp2}>
-            <Banner/>
+            <Banner />
           </View>
           <View style={styles.comp3}>
             <TransComp />
           </View>
-          
         </View>
         <View style={styles.list_container2}>
           <View style={styles.card}>
             <View style={styles.imageContainer}>
-              <Image source={require('../../assets/icon/sharee.png')} style={styles.image} resizeMode="contain" />
+              <Image
+                source={require('../../assets/icon/sharee.png')}
+                style={styles.image}
+                resizeMode="contain"
+              />
             </View>
             <TouchableOpacity style={styles.button} onPress={handleMobile}>
               <Text style={styles.buttonText}>Shere Now</Text>
             </TouchableOpacity>
-            
           </View>
         </View>
-
       </View>
-
-
     </View>
-  )
-}
+  );
+};
 
-export default Shere
+export default Shere;
 
 const styles = StyleSheet.create({
   list_container: {
-    flex: 2
+    // flex: 2
   },
   list_container2: {
-    flex: 3
+    // flex: 3
   },
   // comp1:{
   //   flex:1
   // },
-  comp2:{
-    flex:5
+  comp2: {
+    // flex:5
   },
-  comp3:{
-    flex:3
+  comp3: {
+    // flex:3
   },
   card: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     borderRadius: normalize(8),
     padding: normalize(16),
-   
+
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: normalize(0.3),
     shadowRadius: normalize(4),
     elevation: normalize(5),
-    marginBottom: normalize(15)
+    marginBottom: normalize(15),
   },
-
 
   imageContainer: {
     alignItems: 'center', // Center  horizontally
@@ -130,10 +139,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   image: {
-    width: "100%",
-    height: "80%",
+    width: '100%',
+    height: '80%',
     resizeMode: 'cover',
-   
   },
   button: {
     backgroundColor: 'red',
@@ -141,7 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom:10
+    marginBottom: 10,
   },
   button2: {
     backgroundColor: 'green',
@@ -149,11 +157,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom:10
+    marginBottom: 10,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-})
+});

@@ -89,7 +89,10 @@ const GameEntry = ({route, navigation}) => {
         return;
       }
       if (singleAmount < 10) {
-        ToastAndroid.show('check you Single amount it should be more than 9', ToastAndroid.SHORT);
+        ToastAndroid.show(
+          'check you Single amount it should be more than 9',
+          ToastAndroid.SHORT,
+        );
         return;
       }
     }
@@ -101,13 +104,16 @@ const GameEntry = ({route, navigation}) => {
       }
 
       if (juriAmount < 5) {
-        ToastAndroid.show('check you Jodi amount, it`s should be more than 4 ', ToastAndroid.SHORT);
+        ToastAndroid.show(
+          'check you Jodi amount, it`s should be more than 4 ',
+          ToastAndroid.SHORT,
+        );
         return;
       }
 
       if (juriAmount > 20) {
         ToastAndroid.show(
-          'You can`t add Jodi price more than 20' ,
+          'You can`t add Jodi price more than 20',
           ToastAndroid.SHORT,
         );
         return;
@@ -487,10 +493,10 @@ export default GameEntry;
 
 const styles = StyleSheet.create({
   list_container: {
-    flex: 2,
+    // flex: 2,
   },
   list_container2: {
-    flex: 4,
+    // flex: 4,
   },
   // comp1:{
   //     flex:1
@@ -499,7 +505,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   comp3: {
-    flex: 3,
+    // flex: 3,
   },
   inputContainer: {
     backgroundColor: '#3fc367',
