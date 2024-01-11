@@ -84,7 +84,7 @@ const TitleBar = () => {
       <View style={styles.coldiv}>
         <View style={styles.logo_icon}>
           <TouchableOpacity onPress={handleCopyToClipboard}>
-            <Ionicons name="reload-circle" size={30} color="#555555" />
+            <Ionicons name="wallet" size={20} color="#555555" />
           </TouchableOpacity>
         </View>
 
