@@ -3,14 +3,14 @@ import normalize from 'react-native-normalize';
 
 const authstyles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#FFFFFF',
   },
   title: {
-    flex: 8,
+    // flex: 8,
   },
   body: {
-    flex: 92,
+    // flex: 92,
     marginHorizontal: normalize(20),
   },
 });

@@ -12,7 +12,7 @@ import TitleBar from '../../component/titlebar/TitleBar';
 import {authstyles} from '../style/pagestyle';
 import Icon from 'react-native-vector-icons/Entypo';
 
-import normalize from 'react-native-normalize';
+import normalize, {SCREEN_WIDTH} from 'react-native-normalize';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -26,6 +26,24 @@ import TransComp from '../../component/trans_component/TransComp';
 import Banner from '../../component/banner/Banner';
 import OfferText from '../../component/offerText/OfferText';
 import {useIsFocused} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import Carousel from 'react-native-reanimated-carousel';
+
+import carou0 from '../../assets/carou1.jpeg';
+import carou1 from '../../assets/carou2.jpeg';
+import carou2 from '../../assets/carou3.jpeg';
+
+const ALL_CAROUSELS = [
+  {
+    img: carou0,
+  },
+  {
+    img: carou1,
+  },
+  {
+    img: carou2,
+  },
+];
 
 const Home = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -191,143 +209,68 @@ const Home = ({navigation}) => {
   }, [isFocused]);
 
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          <View style={styles.comp1}>
-            <OfferText />
-          </View>
-          <View style={styles.comp2}>
-            <Banner />
-          </View>
-          <View style={styles.comp3}>
-            <TransComp />
-          </View>
+      <View style={styles.marqueeAndCarouselContainer}>
+        <View style={{backgroundColor: '#ffdbf5'}}>
+          <OfferText />
         </View>
-        <View style={styles.list_container2}>
-          <View style={styles.list_sub_container}>
-            <FlatList
-              data={gameNameList}
-              keyExtractor={item => item.game_id}
-              renderItem={({item, index}) => (
-                <GameListTwo item={item} index={index} />
-              )}
-            />
-          </View>
+        <View>
+          <Carousel
+            loop
+            width={SCREEN_WIDTH}
+            height={SCREEN_WIDTH / 2}
+            autoPlay={true}
+            data={ALL_CAROUSELS}
+            scrollAnimationDuration={1000}
+            // onSnapToItem={index => console.log('current index:', index)}
+            renderItem={({index, item}) => (
+              <View
+                style={{
+                  flex: 1,
+                  borderWidth: 1,
+                  justifyContent: 'center',
+                }}>
+                {/* <Text style={{textAlign: 'center', fontSize: 30}}>{item}</Text> */}
+                <Image
+                  source={item.img}
+                  style={{
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    width: SCREEN_WIDTH,
+                    height: normalize(187),
+                  }}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <View style={{backgroundColor: '#ffdbf5'}}>
+          <OfferText />
         </View>
       </View>
-    </View>
+      <ScrollView>
+        <Text>
+          jjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf sidfiurstgfbksd
+          dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
+          sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
+          sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
+          sadf sryidufrwrefysgf sidfiurstgfbksd
+          dasoyhfsjjasdfhisduhyisdghfriwefris sadf sryidufrwrefysgf
+          sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris sadf
+          sryidufrwrefysgf sidfiurstgfbksd dasoyhfsjjasdfhisduhyisdghfriwefris
+        </Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
-  list_container: {
-    flex: 2,
-  },
-  list_container2: {
-    flex: 3,
-  },
-  comp1: {
-    flex: 1,
-  },
-  comp2: {
-    flex: 5,
-  },
-  comp3: {
-    flex: 3,
-  },
-
-  ovalContainer: {
-    marginBottom: 10,
-  },
-  oval: {
-    left: 110,
-    width: PixelRatio.roundToNearestPixel(65), // Adjust the width and height as per your desired oval size
-    height: 50,
-    borderWidth: 2,
-    borderColor: 'black',
-    borderRadius: 100, // Half of the width to create an illusion of an oval
-    backgroundColor: 'green', // Set the green background color here
-    transform: [{scaleX: 5}], // Scale the view horizontally to create the oval shape
-  },
-
-  ovalText: {
-    width: '100%',
-    position: 'absolute',
-    top: PixelRatio.roundToNearestPixel(40),
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: 'black',
-  },
-
-  gameName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#FFFAD7',
-  },
-  card: {
-    backgroundColor: '#060047',
-
-    paddingVertical: 8,
-    paddingHorizontal: 25,
-    width: '100%',
-    marginVertical: 10,
-  },
-  shadowProp: {
-    shadowColor: '#171717',
-    shadowOffset: {width: -2, height: 1},
-    shadowOpacity: 1,
-    shadowRadius: 3,
-    elevation: 10,
-  },
-
-  playText: {
-    fontWeight: 'bold',
-    color: '#FF90BB',
-    height: 60,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontSize: 20,
-  },
-
-  // =======================================
-
-  container2: {
-    flex: 1,
-  },
-
-  infocon: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: normalize(5),
-  },
-  textCont: {
-    fontSize: normalize(18),
-    color: 'white',
-    flex: 7,
-  },
-  iconCont: {
-    flex: 1,
-    paddingVertical: normalize(5),
-    color: 'white',
-    marginHorizontal: normalize(10),
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: responsiveFontSize(2.1),
-  },
-  icon: {
-    borderRadius: normalize(25),
-    aspectRatio: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: normalize(15),
-    padding: normalize(1),
-    backgroundColor: 'green',
-    flex: 1,
+  marqueeAndCarouselContainer: {
+    width: SCREEN_WIDTH,
   },
 });
