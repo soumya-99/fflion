@@ -102,7 +102,7 @@ const Home = ({navigation}) => {
   }, [isFocused]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
       <View>
         <TitleBar />
       </View>
