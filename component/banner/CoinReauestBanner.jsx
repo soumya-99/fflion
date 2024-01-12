@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, Image, Dimensions,TouchableOpacity,Clipboard } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions,TouchableOpacity } from 'react-native'
+import Clipboard from '@react-native-clipboard/clipboard';
 import React, { useContext, useEffect, useState } from 'react'
 import normalize from 'react-native-normalize'
 import { useDimensionsChange } from 'react-native-responsive-dimensions';

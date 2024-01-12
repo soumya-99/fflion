@@ -64,7 +64,7 @@ const TitleBar = () => {
         <View style={styles.logo_icon}>
           <AntDesign
             name="menuunfold"
-            size={30}
+            size={40}
             color="#000000"
             onPress={handleOpenDrawer}
           />

@@ -5,15 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import React, {useState, useContext} from 'react';
-import {authstyles} from '../../style/pagestyle';
 import TitleBar from '../../../component/titlebar/TitleBar';
 import {Dropdown} from 'react-native-element-dropdown';
 import axios from 'axios';
 import {BASE_URL} from '../../../src/config';
 import {AuthContext} from '../../../src/context/AuthContext';
-import TransComp from '../../../component/trans_component/TransComp';
-import CoinReauestBanner from '../../../component/banner/CoinReauestBanner';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
@@ -73,6 +71,16 @@ const Deposit = ({navigation}) => {
       })
       .catch(error => console.error(error));
   };
+
+  // const copyToClipboard = str => {
+  //   Clipboard.setString(str);
+  //   // ToastAndroid.showWithGravity(
+  //   //   `${str} Copied.`,
+  //   //   ToastAndroid.SHORT,
+  //   //   ToastAndroid.CENTER,
+  //   // );
+  // };
+
   return (
     <SafeAreaView>
       <View>
@@ -96,7 +104,9 @@ const Deposit = ({navigation}) => {
                 <Text style={styles.insideBoxTextStyle}>
                   Phone Pe: 1234567890
                 </Text>
-                <TouchableOpacity style={styles.copyButton}>
+                <TouchableOpacity
+                  style={styles.copyButton}
+                  onPress={() => Clipboard.setString('1234567890')}>
                   <Text style={styles.copyButtonText}>Click to Copy</Text>
                 </TouchableOpacity>
               </View>
@@ -104,13 +114,17 @@ const Deposit = ({navigation}) => {
                 <Text style={styles.insideBoxTextStyle}>
                   Google Pay: 1234567890
                 </Text>
-                <TouchableOpacity style={styles.copyButton}>
+                <TouchableOpacity
+                  style={styles.copyButton}
+                  onPress={() => Clipboard.setString('1234567890')}>
                   <Text style={styles.copyButtonText}>Click to Copy</Text>
                 </TouchableOpacity>
               </View>
               <View style={[styles.row, {marginBottom: normalize(-5)}]}>
                 <Text style={{color: '#FFFFFF'}}>PayTM: 1234567890</Text>
-                <TouchableOpacity style={styles.copyButton}>
+                <TouchableOpacity
+                  style={styles.copyButton}
+                  onPress={() => Clipboard.setString('1234567890')}>
                   <Text style={styles.copyButtonText}>Click to Copy</Text>
                 </TouchableOpacity>
               </View>
