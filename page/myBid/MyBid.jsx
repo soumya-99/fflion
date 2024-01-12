@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ScrollView,
 } from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
@@ -15,6 +16,8 @@ import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
 import {AuthContext} from '../../src/context/AuthContext';
 import LudoImage from '../../assets/icon/dice.png';
 import {useIsFocused} from '@react-navigation/native';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const MyBid = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -37,57 +40,29 @@ const MyBid = ({navigation}) => {
 
   const GameListTwo = ({item, index}) => {
     return (
-      <>
-        {/* Main Cointainer */}
-        <View style={{width: '100%'}}>
-          <View
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingVertical: 10,
-              paddingHorizontal: 15,
-              alignItems: 'center',
-              marginBottom: 10,
-              marginTop: 10,
-              marginLeft: 10,
-            }}>
-            <View
-              style={{
-                position: 'absolute',
-                left: -10,
-                top: -10,
-                height: 50,
-                width: 50,
-                borderWidth: 2,
-                borderBottomColor: 'red',
-                borderTopColor: 'yellow',
-                borderLeftColor: 'green',
-                backgroundColor: '#fff',
-              }}>
-              {/* image */}
-              <Image
-                source={LudoImage}
-                style={{width: '100%', height: '100%'}}
-                resizeMode="cover"
-              />
-            </View>
-            {/* Game Name */}
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: 'white',
-                left: 30,
-                maxWidth: '70%',
-                textAlign: 'center',
-                width: '70%',
-                backgroundColor: '#ff2937',
-              }}>
-              {item.game_name}
-            </Text>
-
-            {/* Play container */}
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: normalize(8),
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            width: SCREEN_WIDTH / 1.04,
+            height: SCREEN_HEIGHT / 10,
+            backgroundColor: 'dodgerblue',
+            borderRadius: normalize(10),
+          }}>
+          <View style={{width: '20%'}}>
+            <Text>Image</Text>
+          </View>
+          <View style={{width: '30%'}}>
+            <Text>{item.game_name}</Text>
+          </View>
+          <View>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('AllBid', {
@@ -96,39 +71,28 @@ const MyBid = ({navigation}) => {
                 })
               }
               style={{
-                backgroundColor: 'yellow',
-                paddingVertical: 5,
-                paddingHorizontal: 10,
+                height: '50%',
+                width: '130%',
+                backgroundColor: '#FFFFFF',
+                borderRadius: normalize(10),
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
-                Bid
-              </Text>
+              <Text>SHOW</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </>
+      </View>
     );
   };
+
   return (
-    <View style={authstyles.container}>
+    <SafeAreaView style={authstyles.container}>
       <View style={authstyles.title}>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        {/* <Text>My Bid</Text> */}
-
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <Banner />
-          </View>
-          {/* <View style={styles.comp3}>
-            <TransComp />
-          </View> */}
-        </View>
-        <View style={styles.list_container2}>
+      <ScrollView>
+        <View>
           <FlatList
             data={gameNameList}
             keyExtractor={item => item.game_id}
@@ -137,27 +101,11 @@ const MyBid = ({navigation}) => {
             )}
           />
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default MyBid;
 
-const styles = StyleSheet.create({
-  list_container: {
-    // flex: 1
-  },
-  list_container2: {
-    // flex: 4
-  },
-  comp1: {
-    // flex: 1
-  },
-  comp2: {
-    // flex: 5
-  },
-  comp3: {
-    // flex: 3
-  },
-});
+const styles = StyleSheet.create({});
