@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {authstyles} from '../../style/pagestyle';
 import TitleBar from '../../../component/titlebar/TitleBar';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -14,11 +14,16 @@ import {BASE_URL} from '../../../src/config';
 import {AuthContext} from '../../../src/context/AuthContext';
 import Banner from '../../../component/banner/Banner';
 import TransComp from '../../../component/trans_component/TransComp';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView} from 'react-native-gesture-handler';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
+import LinearGradient from 'react-native-linear-gradient';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 
 const data = [
-  {label: 'BKash', value: '1'},
-  {label: 'Nagad', value: '2'},
-  {label: 'ROCKET', value: '3'},
+  {label: 'Phone Pe', value: '1'},
+  {label: 'Google Pay', value: '2'},
+  {label: 'PayTM', value: '3'},
 ];
 
 const Withdrawal = ({navigation}) => {
@@ -29,6 +34,9 @@ const Withdrawal = ({navigation}) => {
   const [transactionNumber, onChangeTransactionNumber] = useState();
   const [amount, onChangeAmount] = useState();
   const {userInfo} = useContext(AuthContext);
+  const isFocused = useIsFocused();
+
+  const [wlBal, setWlBal] = useState();
 
   const handleRequest = async () => {
     if (!value && !transactionNumber && !amount) {
@@ -68,162 +76,196 @@ const Withdrawal = ({navigation}) => {
       .catch(error => console.error(error.message));
   };
 
+  useEffect(() => {
+    if (isFocused) {
+      getGameNameData();
+    }
+  }, [navigation.isFocused()]);
+
+  const getGameNameData = async () => {
+    await axios
+      .get(`${BASE_URL}/total_money_Wallet`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      })
+      .then(res => {
+        let resData = res.data;
+        setWlBal(resData.data[0].total_value_amount);
+        console.log('titBlance', resData);
+      })
+      .catch(er => {
+        console.log('title bal', er);
+      });
+  };
+
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <Banner />
-          </View>
-          {/* <View style={styles.comp3}>
-            <TransComp />
-          </View> */}
-        </View>
-        <View style={styles.list_container2}>
-          {/* <Text>Wid</Text> */}
-
-          <View style={styles.container}>
-            {/* tittle */}
-            <Text style={styles.titleText}>Withdral Money</Text>
-
-            {/* choose payment method */}
-            {/* Label */}
-            <Text style={styles.textLabel}>Choose Payment Method</Text>
-            {/* DropDown */}
-            <Dropdown
-              style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
-              placeholderStyle={styles.placeholderStyle}
-              selectedTextStyle={styles.selectedTextStyle}
-              itemTextStyle={styles.itemTextStyle}
-              data={data}
-              maxHeight={300}
-              labelField="label"
-              valueField="value"
-              placeholder={!isFocus ? 'Select item' : '...'}
-              value={value}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
-              onChange={item => {
-                setValue(item.value);
-                setPaymentMod(item.label);
-                setIsFocus(false);
-              }}
-            />
-            {/* Transaction number Label */}
-            <Text style={styles.textLabel}>Transaction Number</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeTransactionNumber}
-              value={transactionNumber}
-              placeholder="Enter Number"
-              placeholderTextColor={'grey'}
-            />
-            {/* Amount Label */}
-            <Text style={styles.textLabel}>Transaction Amount</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeAmount}
-              value={amount}
-              placeholder="Enter Amount"
-              keyboardType="number-pad"
-              placeholderTextColor={'grey'}
-            />
-            {/* Action Button */}
-            <TouchableOpacity
-              onPress={handleRequest}
+      <ScrollView>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          <View
+            style={{
+              flexDirection: 'row',
+              padding: normalize(10),
+            }}>
+            <View
               style={{
-                padding: 10,
-                backgroundColor: '#00631f',
-                alignSelf: 'center',
-                marginTop: 10,
-                borderRadius: 5,
+                width: SCREEN_WIDTH / 2.1,
+                height: SCREEN_HEIGHT / 4.2,
+                backgroundColor: '#FFFFFF',
+                borderTopLeftRadius: normalize(20),
+                borderBottomLeftRadius: normalize(20),
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
               }}>
-              <Text style={styles.textButton}>REQUEST</Text>
-            </TouchableOpacity>
+              <Text style={{color: 'purple'}}>Total Balance</Text>
+              <View style={styles.boxAmountContainer}>
+                <Text style={styles.boxAmountText}>
+                  ₹{Number(wlBal).toFixed(2)}
+                </Text>
+              </View>
+              <TouchableOpacity>
+                <Text style={{textDecorationLine: 'underline'}}>
+                  Update Account?
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <LinearGradient
+              start={{x: 1, y: 0}}
+              end={{x: 0, y: 2}}
+              colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+              style={{
+                width: SCREEN_WIDTH / 2.1,
+                height: SCREEN_HEIGHT / 4.2,
+                borderTopRightRadius: normalize(20),
+                borderBottomRightRadius: normalize(20),
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#FFFFFF'}}>Withdraw Balance</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeTransactionNumber}
+                value={transactionNumber}
+                placeholder="TNX. NO."
+                keyboardType="numeric"
+              />
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeAmount}
+                value={amount}
+                placeholder="(₹) ENTER AMOUNT"
+                keyboardType="number-pad"
+              />
+              <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                itemTextStyle={styles.itemTextStyle}
+                data={data}
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!isFocus ? 'Select item' : 'Choose...'}
+                value={value}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                onChange={item => {
+                  setValue(item.value);
+                  setPaymentMod(item.label);
+                  setIsFocus(false);
+                }}
+              />
+              <TouchableOpacity
+                onPress={handleRequest}
+                style={styles.submitButton}>
+                <Text
+                  style={[
+                    styles.insideBoxTextStyle,
+                    {
+                      textAlign: 'center',
+                      fontSize: normalize(20),
+                      fontWeight: '700',
+                    },
+                  ]}>
+                  SUBMIT
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
           </View>
-        </View>
-      </View>
-    </View>
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Withdrawal;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 1
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    padding: normalize(10),
   },
-  list_container2: {
-    // flex: 4
+  boxAmountContainer: {
+    width: normalize(150),
+    height: normalize(50),
+    backgroundColor: '#ffdcbb',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: normalize(10),
+    borderWidth: 1,
+    borderColor: '#8c5000',
   },
-  comp1: {
-    // flex: 1
-  },
-  comp2: {
-    // flex: 5
-  },
-  comp3: {
-    // flex: 3
-  },
-  container: {
-    backgroundColor: '#3367fe',
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-  },
-  titleText: {
-    color: '#363134',
-    fontSize: 24,
+  boxAmountText: {
     fontWeight: '600',
-    textAlign: 'center',
-    padding: 5,
+    fontSize: normalize(22),
+    color: '#2d1600',
   },
-
-  textLabel: {
+  input: {
+    padding: normalize(10),
+    justifyContent: 'center',
+    width: '85%',
+    height: '16%',
+    backgroundColor: 'white',
     color: 'black',
-    fontWeight: '500',
-    fontSize: 14,
-    margin: 5,
-    marginBottom: 1,
-    elevation: 100,
-    letterSpacing: 1,
+    fontSize: 11,
+    borderRadius: 5,
   },
   dropdown: {
-    height: 50,
+    height: 25,
+    width: '85%',
     borderColor: 'gray',
     borderWidth: 0.5,
-    borderRadius: 8,
+    borderRadius: 5,
     paddingHorizontal: 8,
     backgroundColor: 'white',
   },
   placeholderStyle: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 12,
   },
   selectedTextStyle: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 12,
   },
   itemTextStyle: {
     color: 'black',
   },
-  input: {
-    width: '100%',
-    backgroundColor: 'white',
-    color: 'black',
-    fontSize: 16,
-    borderRadius: 5,
-  },
-  textButton: {
-    textAlign: 'center',
-    color: '#fff',
-    padding: 5,
-    fontSize: 16,
-    fontWeight: '600',
+  insideBoxTextStyle: {color: '#2c0050'},
+  submitButton: {
+    height: '20%',
+    width: '85%',
+    backgroundColor: '#f2daff',
+    borderRadius: normalize(15),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
