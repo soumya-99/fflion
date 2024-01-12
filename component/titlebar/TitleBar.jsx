@@ -10,6 +10,7 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import normalize from 'react-native-normalize';
 import {AuthContext} from '../../src/context/AuthContext';
 import {BASE_URL} from '../../src/config';
@@ -61,9 +62,9 @@ const TitleBar = () => {
     <View style={styles.titleContainer}>
       <View style={styles.coldiv}>
         <View style={styles.logo_icon}>
-          <Ionicons
-            name="menu"
-            size={40}
+          <AntDesign
+            name="menuunfold"
+            size={30}
             color="#000000"
             onPress={handleOpenDrawer}
           />

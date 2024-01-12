@@ -14,11 +14,15 @@ import {BASE_URL} from '../../../src/config';
 import {AuthContext} from '../../../src/context/AuthContext';
 import TransComp from '../../../component/trans_component/TransComp';
 import CoinReauestBanner from '../../../component/banner/CoinReauestBanner';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView} from 'react-native-gesture-handler';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
+import LinearGradient from 'react-native-linear-gradient';
 
 const data = [
-  {label: 'BKash', value: '1'},
-  {label: 'Nagad', value: '2'},
-  {label: 'ROCKET', value: '3'},
+  {label: 'Phone Pe', value: '1'},
+  {label: 'Google Pay', value: '2'},
+  {label: 'PayTM', value: '3'},
 ];
 
 const Deposit = ({navigation}) => {
@@ -70,33 +74,82 @@ const Deposit = ({navigation}) => {
       .catch(error => console.error(error));
   };
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <CoinReauestBanner />
+      <ScrollView>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          <View style={styles.headerBox}>
+            <Text style={styles.insideBoxTextStyle}>
+              আমাদের ফোন-পে, গুগল-পে, পেটিএম নাম্বার নীচে দেওয়া আছে।
+            </Text>
+            <Text style={styles.insideBoxTextStyle}>
+              Minimum Add Balance: ₹500
+            </Text>
+            <View style={styles.paymentMethodsNameWrapper}>
+              <View style={styles.row}>
+                <Text style={styles.insideBoxTextStyle}>
+                  Phone Pe: 1234567890
+                </Text>
+                <TouchableOpacity style={styles.copyButton}>
+                  <Text style={styles.copyButtonText}>Click to Copy</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.insideBoxTextStyle}>
+                  Google Pay: 1234567890
+                </Text>
+                <TouchableOpacity style={styles.copyButton}>
+                  <Text style={styles.copyButtonText}>Click to Copy</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.row, {marginBottom: normalize(-5)}]}>
+                <Text style={{color: '#FFFFFF'}}>PayTM: 1234567890</Text>
+                <TouchableOpacity style={styles.copyButton}>
+                  <Text style={styles.copyButtonText}>Click to Copy</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-          {/* <View style={styles.comp3}>
-            <TransComp />
-          </View> */}
-        </View>
-        <View style={styles.list_container2}>
-          <View style={styles.container}>
-            {/* tittle */}
-            <Text style={styles.titleText}>Send Money</Text>
 
-            {/* choose payment method */}
-            {/* Label */}
-            <Text style={styles.textLabel}>Choose Payment Method</Text>
-            {/* DropDown */}
+          <View style={{marginTop: normalize(50)}}>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeAmount}
+              value={amount}
+              placeholder="(₹) ENTER AMOUNT"
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeTransactionNumber}
+              value={transactionNumber}
+              placeholder="ENTER TRANSACTION NUMBER"
+              keyboardType="phone-pad"
+            />
+          </View>
+
+          <View
+            style={{
+              justifyContent: 'space-around',
+              height: SCREEN_HEIGHT / 8,
+              marginTop: normalize(30),
+            }}>
+            <Text
+              style={{
+                fontSize: normalize(25),
+                fontWeight: '700',
+                color: '#FFFFFF',
+              }}>
+              Select Money Transfer Mode
+            </Text>
             <Dropdown
-              style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+              style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
               selectedTextStyle={styles.selectedTextStyle}
               itemTextStyle={styles.itemTextStyle}
@@ -104,7 +157,7 @@ const Deposit = ({navigation}) => {
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder={!isFocus ? 'Select item' : '...'}
+              placeholder={!isFocus ? 'Select Item' : 'Choose...'}
               value={value}
               onFocus={() => setIsFocus(true)}
               onBlur={() => setIsFocus(false)}
@@ -114,91 +167,88 @@ const Deposit = ({navigation}) => {
                 setIsFocus(false);
               }}
             />
-            {/* Transaction number Label */}
-            <Text style={styles.textLabel}>Transaction Number</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeTransactionNumber}
-              value={transactionNumber}
-              placeholder="Enter Number"
-              placeholderTextColor={'grey'}
-            />
-            {/* Amount Label */}
-            <Text style={styles.textLabel}>Transaction Amount</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeAmount}
-              value={amount}
-              placeholder="Enter Amount"
-              keyboardType="number-pad"
-              placeholderTextColor={'grey'}
-            />
-            {/* Action Button */}
+          </View>
+
+          <View style={{marginTop: normalize(30)}}>
             <TouchableOpacity
               onPress={handleRequest}
-              style={{
-                padding: 10,
-                backgroundColor: '#00631f',
-                alignSelf: 'center',
-                marginTop: 10,
-                borderRadius: 5,
-              }}>
-              <Text style={styles.textButton}>REQUEST</Text>
+              style={styles.submitButton}>
+              <Text
+                style={[
+                  styles.insideBoxTextStyle,
+                  {
+                    textAlign: 'center',
+                    fontSize: normalize(20),
+                    fontWeight: '700',
+                  },
+                ]}>
+                REQUEST BALANCE
+              </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
-    </View>
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Deposit;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 1
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    padding: normalize(10),
   },
-  list_container2: {
-    // flex: 4
+  headerBox: {
+    width: SCREEN_WIDTH / 1.04,
+    height: SCREEN_HEIGHT / 4.5,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    padding: normalize(5),
+    alignItems: 'center',
   },
-  comp1: {
-    // flex: 1
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: normalize(5),
   },
-  comp2: {
-    // flex: 5
+  insideBoxTextStyle: {color: '#FFFFFF'},
+  paymentMethodsNameWrapper: {
+    width: SCREEN_WIDTH / 1.04,
+    padding: normalize(20),
   },
-  comp3: {
-    // flex: 3
+  copyButton: {
+    height: normalize(25),
+    width: normalize(100),
+    borderRadius: normalize(10),
+    backgroundColor: 'hotpink',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  container: {
-    backgroundColor: '#3367fe',
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-  },
-  titleText: {
-    color: '#363134',
-    fontSize: 24,
-    fontWeight: '600',
-    textAlign: 'center',
-    padding: 5,
+  copyButtonText: {
+    color: '#FFFFFF',
+    textTransform: 'uppercase',
+    fontSize: normalize(14),
   },
 
-  textLabel: {
-    color: 'black',
-    fontWeight: '500',
-    fontSize: 14,
-    margin: 5,
-    marginBottom: 1,
-    elevation: 100,
-    letterSpacing: 1,
+  input: {
+    height: normalize(60),
+    width: SCREEN_WIDTH / 1.04,
+    margin: normalize(12),
+    backgroundColor: '#FFFFFFAF',
+    color: '#000000',
+    padding: normalize(15),
+    borderRadius: normalize(10),
   },
+
   dropdown: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    backgroundColor: 'white',
+    height: normalize(60),
+    margin: normalize(12),
+    backgroundColor: '#FFFFFFAF',
+    color: '#000000',
+    padding: normalize(15),
+    borderRadius: normalize(10),
   },
   placeholderStyle: {
     fontSize: 16,
@@ -211,18 +261,13 @@ const styles = StyleSheet.create({
   itemTextStyle: {
     color: 'black',
   },
-  input: {
-    width: '100%',
-    backgroundColor: 'white',
-    color: 'black',
-    fontSize: 16,
-    borderRadius: 5,
-  },
-  textButton: {
-    textAlign: 'center',
-    color: '#fff',
-    padding: 5,
-    fontSize: 16,
-    fontWeight: '600',
+
+  submitButton: {
+    height: SCREEN_HEIGHT / 13,
+    width: SCREEN_WIDTH / 1.2,
+    backgroundColor: 'darkblue',
+    borderRadius: normalize(15),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
