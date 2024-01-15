@@ -18,12 +18,15 @@ import LudoImage from '../../assets/icon/dice.png';
 import {useIsFocused} from '@react-navigation/native';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
+
+import avatar1 from '../../assets/icon/avatar1.jpg';
 
 const MyBid = ({navigation}) => {
   const isFocused = useIsFocused();
 
   const {userInfo} = useContext(AuthContext);
-  const [gameNameList, setGameNameList] = useState();
+  const [gameNameList, setGameNameList] = useState([]);
   const {getGameList} = handleGetGameName();
   useEffect(() => {
     if (!userInfo) {
@@ -46,23 +49,42 @@ const MyBid = ({navigation}) => {
           alignItems: 'center',
           padding: normalize(8),
         }}>
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: 'center',
             width: SCREEN_WIDTH / 1.04,
             height: SCREEN_HEIGHT / 10,
             backgroundColor: 'dodgerblue',
             borderRadius: normalize(10),
+          }}> */}
+        <LinearGradient
+          start={{x: 1, y: 0}}
+          end={{x: 0, y: 2}}
+          colors={['#8c1e96', '#1b2196']}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: SCREEN_WIDTH / 1.04,
+            height: SCREEN_HEIGHT / 10,
+            borderRadius: normalize(10),
           }}>
-          <View style={{width: '20%'}}>
-            <Text>Image</Text>
+          <View
+            style={{width: '17%', height: '70%', paddingLeft: normalize(10)}}>
+            <Image
+              source={avatar1}
+              style={{width: '100%', height: '100%', borderRadius: 60}}
+              resizeMode="cover"
+            />
           </View>
-          <View style={{width: '30%'}}>
-            <Text>{item.game_name}</Text>
+          <View style={{width: '50%'}}>
+            <Text style={{color: '#FFFFFF', fontWeight: '700'}}>
+              {item.game_name}
+            </Text>
           </View>
-          <View>
+          <View style={{paddingRight: normalize(20)}}>
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('AllBid', {
@@ -72,16 +94,17 @@ const MyBid = ({navigation}) => {
               }
               style={{
                 height: '50%',
-                width: '130%',
+                width: '120%',
                 backgroundColor: '#FFFFFF',
                 borderRadius: normalize(10),
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Text>SHOW</Text>
+              <Text style={{fontWeight: '600', color: '#1b2196'}}>SHOW</Text>
             </TouchableOpacity>
           </View>
-        </View>
+          {/* </View> */}
+        </LinearGradient>
       </View>
     );
   };
@@ -92,15 +115,15 @@ const MyBid = ({navigation}) => {
         <TitleBar />
       </View>
       <ScrollView>
-        <View>
-          <FlatList
-            data={gameNameList}
-            keyExtractor={item => item.game_id}
-            renderItem={({item, index}) => (
-              <GameListTwo item={item} index={index} />
-            )}
-          />
-        </View>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          {gameNameList?.map((item, index) => (
+            <GameListTwo key={index} item={item} index={index} />
+          ))}
+        </LinearGradient>
       </ScrollView>
     </SafeAreaView>
   );
@@ -108,4 +131,10 @@ const MyBid = ({navigation}) => {
 
 export default MyBid;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    // padding: normalize(10),
+  },
+});
