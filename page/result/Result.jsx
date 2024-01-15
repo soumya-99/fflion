@@ -5,17 +5,22 @@ import {
   Image,
   TouchableOpacity,
   PixelRatio,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {authstyles} from '../style/pagestyle';
 import {AuthContext} from '../../src/context/AuthContext';
 import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
-import {FlatList} from 'react-native-gesture-handler';
 import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
 import LudoImage from '../../assets/icon/dice.png';
 import {useIsFocused} from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+
+import avatar1 from '../../assets/icon/avatar1.jpg';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 
 const Result = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -37,125 +42,99 @@ const Result = ({navigation}) => {
       .catch(error => console.error(error));
   }, [isFocused]);
 
-  const Games = ({item, index}) => {
+  const GameListTwo = ({item, index}) => {
     return (
-      <View style={{}}>
-        <View
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: normalize(8),
+        }}>
+        <LinearGradient
+          start={{x: 1, y: 0}}
+          end={{x: 0, y: 2}}
+          colors={['#8c1e96', '#1b2196']}
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            paddingVertical: 10,
-            paddingHorizontal: 15,
             alignItems: 'center',
-            marginBottom: 10,
-            marginTop: 10,
-            marginLeft: 10,
+            width: SCREEN_WIDTH / 1.04,
+            height: SCREEN_HEIGHT / 10,
+            borderRadius: normalize(10),
           }}>
           <View
-            style={{
-              position: 'absolute',
-              left: -10,
-              top: -10,
-              height: 50,
-              width: 50,
-              borderWidth: 2,
-              borderBottomColor: 'red',
-              borderTopColor: 'yellow',
-              borderLeftColor: 'green',
-              backgroundColor: '#fff',
-            }}>
-            {/* image */}
+            style={{width: '17%', height: '70%', paddingLeft: normalize(10)}}>
             <Image
-              source={LudoImage}
-              style={{width: '100%', height: '100%'}}
+              source={avatar1}
+              style={{width: '100%', height: '100%', borderRadius: 60}}
               resizeMode="cover"
             />
           </View>
-          {/* Game Name */}
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              color: 'white',
-              left: 30,
-              maxWidth: '70%',
-              textAlign: 'center',
-              width: '70%',
-              backgroundColor: '#ff2937',
-            }}>
-            {item.game_name}
-          </Text>
-
-          {/* Play container */}
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('ResultDetails', {
-                game_id: item.game_id,
-              })
-            }
-            style={{
-              backgroundColor: 'yellow',
-              paddingVertical: 5,
-              paddingHorizontal: 10,
-            }}>
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
-              Show
+          <View style={{width: '50%'}}>
+            <Text style={{color: '#FFFFFF', fontWeight: '700'}}>
+              {item.game_name}
             </Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+          <View style={{paddingRight: normalize(20)}}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('ResultDetails', {
+                  game_id: item.game_id,
+                })
+              }
+              style={{
+                height: '50%',
+                width: '120%',
+                backgroundColor: '#FFFFFF',
+                borderRadius: normalize(10),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontWeight: '600', color: '#1b2196'}}>SHOW</Text>
+            </TouchableOpacity>
+          </View>
+          {/* </View> */}
+        </LinearGradient>
       </View>
     );
   };
 
   return (
-    <View style={authstyles.container}>
+    <SafeAreaView style={authstyles.container}>
       <View style={authstyles.title}>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <Banner />
+      <ScrollView>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          <View style={{padding: normalize(20)}}>
+            <Text
+              style={{
+                fontSize: normalize(25),
+                fontWeight: '700',
+                color: '#FFFFFF',
+              }}>
+              Results
+            </Text>
           </View>
-          {/* <View style={styles.comp3}>
-            <TransComp />
-          </View>
-           */}
-        </View>
-        <View style={styles.list_container2}>
-          {/* <Text>Result</Text> */}
-
-          <FlatList
-            data={gameNameList}
-            keyExtractor={item => item.game_id}
-            renderItem={({item, index}) => <Games item={item} index={index} />}
-          />
-        </View>
-      </View>
-    </View>
+          {gameNameList?.map((item, index) => (
+            <GameListTwo key={index} item={item} index={index} />
+          ))}
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Result;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 1
-  },
-  list_container2: {
-    // flex: 4
-  },
-  // comp1:{
-  //   flex:1
-  // },
-  comp2: {
-    // flex:5
-  },
-  comp3: {
-    // flex:3
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    // padding: normalize(10),
   },
 });

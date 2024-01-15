@@ -97,7 +97,7 @@ const MyBid = ({navigation}) => {
 
   return (
     <SafeAreaView style={authstyles.container}>
-      <View style={authstyles.title}>
+      <View>
         <TitleBar />
       </View>
       <ScrollView>
@@ -106,6 +106,16 @@ const MyBid = ({navigation}) => {
           end={{x: 1, y: 0}}
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
+          <View style={{padding: normalize(20)}}>
+            <Text
+              style={{
+                fontSize: normalize(25),
+                fontWeight: '700',
+                color: '#FFFFFF',
+              }}>
+              Playing History
+            </Text>
+          </View>
           {gameNameList?.map((item, index) => (
             <GameListTwo key={index} item={item} index={index} />
           ))}
