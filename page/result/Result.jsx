@@ -10,11 +10,8 @@ import {
 } from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
-import {authstyles} from '../style/pagestyle';
 import {AuthContext} from '../../src/context/AuthContext';
 import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
 import LudoImage from '../../assets/icon/dice.png';
 import {useIsFocused} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -100,8 +97,8 @@ const Result = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
+      <View>
         <TitleBar />
       </View>
       <ScrollView>

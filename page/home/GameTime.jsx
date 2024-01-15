@@ -1,4 +1,12 @@
-import {StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
@@ -8,6 +16,8 @@ import OfferText from '../../component/offerText/OfferText';
 import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
 import {useIsFocused} from '@react-navigation/native';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
+import LinearGradient from 'react-native-linear-gradient';
 
 const GameTime = ({navigation, route}) => {
   const isFocused = useIsFocused();
@@ -126,19 +136,19 @@ const GameTime = ({navigation, route}) => {
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>
+              style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
               GAME TIME
             </Text>
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
-              style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>
+              style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
               {item.game_time}
             </Text>
             <Text
               numberOfLines={2}
               ellipsizeMode="tail"
-              style={{fontSize: 12, fontWeight: 'bold', color: 'white'}}>
+              style={{fontSize: 12, fontWeight: 'bold', color: 'black'}}>
               RESULT : {item.result_time}
             </Text>
           </View>
@@ -148,7 +158,7 @@ const GameTime = ({navigation, route}) => {
               style={{
                 fontSize: 16,
                 fontWeight: 'bold',
-                color: 'white',
+                color: 'black',
                 letterSpacing: 1,
               }}>
               {ordinalNumber} Baji
@@ -172,54 +182,128 @@ const GameTime = ({navigation, route}) => {
     );
   };
 
+  const GameListTwo = ({item, index}) => {
+    const futureGame = findFutureGame();
+    const isLive = futureGame != null && futureGame == item.game_id;
+    // console.log("hello  ", item)
+    const ordinalNumber =
+      index + 1 === 1
+        ? '1st'
+        : index + 1 === 2
+        ? '2nd'
+        : index + 1 === 3
+        ? '3rd'
+        : `${index + 1}th`;
+
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: normalize(8),
+        }}>
+        <LinearGradient
+          start={{x: 1, y: 0}}
+          end={{x: 0, y: 2}}
+          colors={['#8c1e96', '#1b2196']}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: SCREEN_WIDTH / 1.04,
+            height: SCREEN_HEIGHT / 10,
+            borderRadius: normalize(10),
+          }}>
+          <View
+            style={{
+              width: '40%',
+              height: '70%',
+              paddingLeft: normalize(20),
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{fontSize: 13, fontWeight: 'bold', color: '#FFFFFF'}}>
+              GAME TIME
+            </Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{fontSize: 13, fontWeight: 'bold', color: '#FFFFFF'}}>
+              {item.game_time}
+            </Text>
+            <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
+              style={{fontSize: 12, fontWeight: 'bold', color: '#FFFFFF'}}>
+              RESULT : {item.result_time}
+            </Text>
+          </View>
+          <View style={{width: '20%'}}>
+            <Text style={{color: '#FFFFFF', fontWeight: '700'}}>
+              {ordinalNumber} Baji
+            </Text>
+          </View>
+          <View style={{paddingRight: normalize(35)}}>
+            <TouchableOpacity
+              onPress={() =>
+                isLive &&
+                navigation.navigate('GameEntry', {
+                  itemData: item,
+                })
+              }
+              style={{
+                height: '50%',
+                width: '140%',
+                backgroundColor: isLive ? '#0b9c92' : 'hotpink',
+                borderRadius: normalize(10),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontWeight: '600', color: '#FFFFFF'}}>SHOW</Text>
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
+      </View>
+    );
+  };
+
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        {/* <Text>Profile</Text> */}
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-                        <OfferText />
-                    </View> */}
-          <View style={styles.comp2}>
-            <Banner />
-          </View>
-          {/* <View style={styles.comp3}>
-                        <TransComp />
-                    </View> */}
-        </View>
-        <View style={styles.list_container2}>
-          <FlatList
+      <ScrollView>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          {/* <FlatList
             data={gameTime}
             keyExtractor={item => item.game_id}
             renderItem={({item, index}) => (
-              <GameTimeList item={item} index={index} />
+              <GameListTwo item={item} index={index} />
             )}
-          />
-        </View>
-      </View>
-    </View>
+          /> */}
+
+          {gameTime?.map((item, index) => (
+            <GameListTwo key={item.game_id} item={item} index={index} />
+          ))}
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default GameTime;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 1
-  },
-  list_container2: {
-    // flex: 4
-  },
-  // comp1:{
-  //     flex:1
-  //   },
-  comp2: {
-    // flex: 6
-  },
-  comp3: {
-    // flex: 3
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    // padding: normalize(10),
   },
 });

@@ -96,7 +96,7 @@ const MyBid = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={authstyles.container}>
+    <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
       <View>
         <TitleBar />
       </View>
