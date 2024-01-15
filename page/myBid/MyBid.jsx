@@ -4,17 +4,13 @@ import {
   View,
   Image,
   TouchableOpacity,
-  FlatList,
   ScrollView,
 } from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {authstyles} from '../style/pagestyle';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
 import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
 import {AuthContext} from '../../src/context/AuthContext';
-import LudoImage from '../../assets/icon/dice.png';
 import {useIsFocused} from '@react-navigation/native';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -49,16 +45,6 @@ const MyBid = ({navigation}) => {
           alignItems: 'center',
           padding: normalize(8),
         }}>
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: SCREEN_WIDTH / 1.04,
-            height: SCREEN_HEIGHT / 10,
-            backgroundColor: 'dodgerblue',
-            borderRadius: normalize(10),
-          }}> */}
         <LinearGradient
           start={{x: 1, y: 0}}
           end={{x: 0, y: 2}}
