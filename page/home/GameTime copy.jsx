@@ -3,13 +3,18 @@ import {
   Text,
   View,
   TouchableOpacity,
+  FlatList,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
+import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
 import handleGetGameTime from '../../hooks/controller/Game/handleGetGameTime';
 import {AuthContext} from '../../src/context/AuthContext';
+import OfferText from '../../component/offerText/OfferText';
+import Banner from '../../component/banner/Banner';
+import TransComp from '../../component/trans_component/TransComp';
 import {useIsFocused} from '@react-navigation/native';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
@@ -89,6 +94,93 @@ const GameTime = ({navigation, route}) => {
     //     console.log(kk)
     // }
   }, [gameTime]);
+
+  const GameTimeList = ({item, index}) => {
+    const futureGame = findFutureGame();
+    const isLive = futureGame != null && futureGame == item.game_id;
+    // console.log("hello  ", item)
+    const ordinalNumber =
+      index + 1 === 1
+        ? '1st'
+        : index + 1 === 2
+        ? '2nd'
+        : index + 1 === 3
+        ? '3rd'
+        : `${index + 1}th`;
+    return (
+      <>
+        {/* Main Cointainer */}
+
+        <TouchableOpacity
+          onPress={() =>
+            isLive &&
+            navigation.navigate('GameEntry', {
+              itemData: item,
+            })
+          }
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            alignItems: 'center',
+            marginBottom: 10,
+            marginTop: 10,
+            marginLeft: 10,
+            borderColor: 'rgba(255, 255, 255, 0.5)',
+            borderWidth: 1,
+          }}>
+          {/* Game Name */}
+          <View style={{flexDirection: 'column'}}>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+              GAME TIME
+            </Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+              {item.game_time}
+            </Text>
+            <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
+              style={{fontSize: 12, fontWeight: 'bold', color: 'black'}}>
+              RESULT : {item.result_time}
+            </Text>
+          </View>
+
+          <View>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: 'black',
+                letterSpacing: 1,
+              }}>
+              {ordinalNumber} Baji
+            </Text>
+          </View>
+
+          {/* Play container */}
+          <View
+            style={{
+              backgroundColor: isLive ? 'yellow' : '#fff',
+              paddingVertical: 5,
+              paddingHorizontal: 10,
+              borderRadius: 5,
+            }}>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+              {isLive ? 'Play ' : 'Close'}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </>
+    );
+  };
 
   const GameListTwo = ({item, index}) => {
     const futureGame = findFutureGame();

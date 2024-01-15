@@ -5,16 +5,21 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
-import {authstyles} from '../style/pagestyle';
-import normalize from 'react-native-normalize';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {AuthContext} from '../../src/context/AuthContext';
 import axios from 'axios';
 import {BASE_URL} from '../../src/config';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
+import {ScrollView} from 'react-native-gesture-handler';
+
+import carou1 from '../../assets/carou1.jpeg';
+import phone from '../../assets/logo/phone.png';
+import whatsapp from '../../assets/logo/whatsapp.png';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Contact = () => {
   const {userInfo, isLoading} = useContext(AuthContext);
@@ -53,105 +58,126 @@ const Contact = () => {
     // Linking.openURL(`tel:7319328962`);
   };
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <Banner />
+      <ScrollView>
+        <ImageBackground
+          source={carou1}
+          style={styles.image}
+          imageStyle={{
+            resizeMode: 'cover',
+          }}
+          blurRadius={0}>
+          <View
+            style={{
+              flex: 0.18,
+              width: SCREEN_WIDTH,
+              height: SCREEN_HEIGHT / 20,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              justifyContent: 'center',
+              top: '82%',
+            }}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontSize: 20,
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              We are happy to Help You!
+            </Text>
           </View>
-          <View style={styles.comp3}>
-            <TransComp />
+        </ImageBackground>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          <View style={{padding: normalize(20)}}>
+            <Text
+              style={{
+                color: '#ffffff',
+                fontSize: normalize(30),
+                fontWeight: '800',
+                textAlign: 'center',
+              }}>
+              Just give us a call or WhatsApp your query.
+            </Text>
           </View>
-        </View>
-        <View style={styles.list_container2}>
-          <View style={styles.card}>
-            <View style={styles.imageContainer}>
+          <View
+            style={{
+              width: SCREEN_WIDTH,
+              padding: normalize(20),
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}>
+            <TouchableOpacity
+              style={{
+                height: SCREEN_HEIGHT / 6.7,
+                width: SCREEN_WIDTH / 3,
+                padding: normalize(10),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={handleMobile}>
               <Image
-                source={require('../../assets/logo/phone.png')}
-                style={styles.image}
-                resizeMode="contain"
+                source={phone}
+                style={{height: '100%', width: '100%'}}
+                resizeMode="cover"
               />
-            </View>
-            <TouchableOpacity style={styles.button} onPress={handleMobile}>
-              <Text style={styles.buttonText}>Call Now</Text>
+              <Text
+                style={{
+                  paddingTop: normalize(10),
+                  color: '#FFFFFF',
+                  fontSize: 16,
+                  fontWeight: '600',
+                }}>
+                Call Helpline
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button2} onPress={handleWhatsApp}>
-              <Text style={styles.buttonText}>Whatsapp Now</Text>
+            <TouchableOpacity
+              style={{
+                height: SCREEN_HEIGHT / 6,
+                width: SCREEN_WIDTH / 3,
+                padding: normalize(10),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={handleWhatsApp}>
+              <Image
+                source={whatsapp}
+                style={{height: '100%', width: '100%'}}
+              />
+              <Text
+                style={{
+                  paddingTop: normalize(10),
+                  color: '#FFFFFF',
+                  fontSize: 16,
+                  fontWeight: '600',
+                }}>
+                WhatsApp
+              </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
-    </View>
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Contact;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 2
-  },
-  list_container2: {
-    // flex: 3
-  },
-  // comp1:{
-  //   flex:1
-  // },
-  comp2: {
-    // flex:5
-  },
-  comp3: {
-    // flex:3
-  },
-  card: {
-    // flex: 1,
-    backgroundColor: '#fff',
-    borderRadius: normalize(8),
-    padding: normalize(16),
-
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: normalize(0.3),
-    shadowRadius: normalize(4),
-    elevation: normalize(5),
-    marginBottom: normalize(15),
-  },
-
-  imageContainer: {
-    alignItems: 'center', // Center  horizontally
-    justifyContent: 'center', // Center vertically
-    marginBottom: 8,
-  },
   image: {
     width: '100%',
-    height: '80%',
-    resizeMode: 'cover',
+    height: SCREEN_HEIGHT / 3,
   },
-  button: {
-    backgroundColor: 'red',
-    padding: 12,
-    borderRadius: 8,
+  linearGradientBg: {
+    height: SCREEN_HEIGHT / 2,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  button2: {
-    backgroundColor: 'green',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    // padding: normalize(10),
+    justifyContent: 'space-evenly',
   },
 });
