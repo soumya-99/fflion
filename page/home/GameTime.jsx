@@ -170,7 +170,9 @@ const GameTime = ({navigation, route}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <Text style={{fontWeight: '600', color: '#FFFFFF'}}>SHOW</Text>
+              <Text style={{fontWeight: '600', color: '#FFFFFF'}}>
+                {isLive ? 'Play ' : 'Close'}
+              </Text>
             </TouchableOpacity>
           </View>
         </LinearGradient>
