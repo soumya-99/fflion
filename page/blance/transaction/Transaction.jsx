@@ -9,6 +9,8 @@ import {AuthContext} from '../../../src/context/AuthContext';
 import {useIsFocused} from '@react-navigation/native';
 import Banner from '../../../component/banner/Banner';
 import TransComp from '../../../component/trans_component/TransComp';
+import LinearGradient from 'react-native-linear-gradient';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 const Transaction = () => {
   const {userInfo} = useContext(AuthContext);
   const [allTransaction, setAllTransaction] = useState([]);
@@ -34,98 +36,91 @@ const Transaction = () => {
   const TransactionCardUi = ({item}) => {
     const newdate = new Date(item.created_at);
     return (
-      <View
-        style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.2)',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingVertical: 10,
-          paddingHorizontal: 15,
-          marginBottom: 10,
-          marginTop: 10,
-          marginLeft: 10,
-          width: '100%',
-        }}>
-        {/* card container */}
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {/* Icon */}
-          <View
-            style={{
-              backgroundColor: 'white',
-              padding: 5,
-              borderRadius: 50,
-              marginRight: 10,
-            }}>
-            <FontAwesome name="trophy" size={30} color="#000000" />
+      <LinearGradient
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 0}}
+        colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+        style={styles.linearGradientBg}>
+        {/* <View>
+          <Text>Your Transaction</Text>
+        </View> */}
+        <View
+          style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingVertical: 10,
+            paddingHorizontal: 15,
+            borderRadius: 20,
+            width: '100%',
+          }}>
+          {/* card container */}
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            {/* Icon */}
+            <View
+              style={{
+                backgroundColor: 'white',
+                padding: 5,
+                borderRadius: 50,
+                marginRight: 10,
+              }}>
+              <FontAwesome name="trophy" size={30} color="#000000" />
+            </View>
+            {/* All Texts */}
+            <View>
+              <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
+                {item.amount}
+              </Text>
+
+              <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
+                {newdate.toLocaleString()}
+              </Text>
+
+              <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
+                Type :{' '}
+                {item.trns_flag == 'D'
+                  ? 'DEPOSIT'
+                  : item.trns_flag == 'W'
+                  ? 'WITHDRAL'
+                  : item.trns_flag == 'WI'
+                  ? 'WINING'
+                  : item.trns_flag == 'EF'
+                  ? 'ENTRY FEE'
+                  : ''}
+              </Text>
+            </View>
           </View>
-          {/* All Texts */}
-          <View>
-            <Text style={{color: 'black', fontWeight: '500'}}>
-              {item.amount}
-            </Text>
 
-            <Text style={{color: 'black', fontWeight: '500'}}>
-              {newdate.toLocaleString()}
-            </Text>
-
-            <Text style={{color: 'black', fontWeight: '500'}}>
-              Type :{' '}
-              {item.trns_flag == 'D'
-                ? 'DEPOSIT'
-                : item.trns_flag == 'W'
-                ? 'WITHDRAL'
-                : item.trns_flag == 'WI'
-                ? 'WINING'
-                : item.trns_flag == 'EF'
-                ? 'ENTRY FEE'
-                : ''}
+          {/* Pending */}
+          <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+            <Text
+              style={{
+                backgroundColor: '#fff',
+                fontSize: 14,
+                color: 'black',
+                fontWeight: '600',
+                padding: 10,
+                borderRadius: 5,
+              }}>
+              {item.status == '0' ? 'PENDING' : 'SUCCESSFUL'}
             </Text>
           </View>
         </View>
-
-        {/* Pending */}
-        <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-          <Text
-            style={{
-              backgroundColor: '#fff',
-              fontSize: 14,
-              color: 'black',
-              fontWeight: '600',
-              padding: 10,
-              borderRadius: 5,
-            }}>
-            {item.status == '0' ? 'PENDING' : 'SUCCESSFUL'}
-          </Text>
-        </View>
-      </View>
+      </LinearGradient>
     );
   };
 
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <View>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <Banner />
-          </View>
-          {/* <View style={styles.comp3}>
-            <TransComp />
-          </View> */}
-        </View>
-        <View style={styles.list_container2}>
-          {/* <Text>Trans</Text> */}
-          <FlatList
-            data={allTransaction}
-            keyExtractor={item => item.game_id}
-            renderItem={({item, index}) => <TransactionCardUi item={item} />}
-          />
-        </View>
+      <View>
+        <FlatList
+          data={allTransaction}
+          keyExtractor={item => item.game_id}
+          renderItem={({item, index}) => <TransactionCardUi item={item} />}
+        />
       </View>
     </View>
   );
@@ -134,19 +129,9 @@ const Transaction = () => {
 export default Transaction;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 1
-  },
-  list_container2: {
-    // flex: 4
-  },
-  comp1: {
-    // flex: 1
-  },
-  comp2: {
-    // flex: 5
-  },
-  comp3: {
-    // flex: 3
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    padding: normalize(10),
   },
 });
