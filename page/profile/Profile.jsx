@@ -4,8 +4,9 @@ import TitleBar from '../../component/titlebar/TitleBar';
 import {authstyles} from '../style/pagestyle';
 import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
-import normalize from 'react-native-normalize';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {AuthContext} from '../../src/context/AuthContext';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Profile = () => {
   const {userInfo, isLoading} = useContext(AuthContext);
@@ -16,7 +17,51 @@ const Profile = () => {
         <TitleBar />
       </View>
       <ScrollView>
-        
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          <LinearGradient
+            start={{x: 1, y: 0}}
+            end={{x: 0, y: 2}}
+            colors={['#8c1e96', '#1b2196']}
+            style={styles.gameBox}>
+            <View>
+              <Text
+                style={{
+                  color: '#FFFFFF',
+                  fontWeight: '700',
+                  fontSize: normalize(22),
+                }}>
+                PERSONAL INFORMATION
+              </Text>
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: '#FFFFFF',
+                  width: '100%',
+                }}></View>
+            </View>
+            <View style={{justifyContent: 'space-evenly', height: '100%'}}>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={styles.textStyle}>ID.</Text>
+                <Text style={styles.textStyle}>{userInfo.user.id}</Text>
+              </View>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={styles.textStyle}>Name</Text>
+                <Text style={styles.textStyle}>{userInfo.user.name}</Text>
+              </View>
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={styles.textStyle}>Phone Number</Text>
+                <Text style={styles.textStyle}>{userInfo.user.mobile_no}</Text>
+              </View>
+            </View>
+          </LinearGradient>
+        </LinearGradient>
       </ScrollView>
     </SafeAreaView>
   );
@@ -25,16 +70,22 @@ const Profile = () => {
 export default Profile;
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: normalize(8),
-    padding: normalize(16),
-
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: normalize(0.3),
-    shadowRadius: normalize(4),
-    elevation: normalize(5),
-    marginBottom: normalize(15),
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    padding: normalize(20),
+  },
+  gameBox: {
+    width: SCREEN_WIDTH / 1.1,
+    height: SCREEN_HEIGHT / 4,
+    borderWidth: 1,
+    borderColor: '#FFFFFF',
+    padding: normalize(20),
+    borderRadius: normalize(20),
+  },
+  textStyle: {
+    fontSize: normalize(18),
+    color: '#FFFFFF',
+    fontWeight: '600',
   },
 });
