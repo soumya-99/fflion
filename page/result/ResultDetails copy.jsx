@@ -3,7 +3,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ExampleOne from './Test';
+import ExampleOne from './ExampleOne';
 import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
 import {AuthContext} from '../../src/context/AuthContext';
 import handleGetResult from '../../hooks/controller/Game/Results/handleGetResult';
