@@ -538,7 +538,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     borderWidth: 1,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 15,
     borderWidth: 0,
     backgroundColor: 'white',
     color: 'black',
