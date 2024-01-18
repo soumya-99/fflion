@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import TitleBar from '../../../component/titlebar/TitleBar';
 import {Dropdown} from 'react-native-element-dropdown';
 import axios from 'axios';
@@ -16,6 +16,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 
 const data = [
   {label: 'Phone Pe', value: '1'},
@@ -28,9 +29,12 @@ const Deposit = ({navigation}) => {
   const [paymentMod, setPaymentMod] = useState();
 
   const [isFocus, setIsFocus] = useState(false);
+  const [upiData, setUpiData] = useState({});
   const [transactionNumber, onChangeTransactionNumber] = useState();
   const [amount, onChangeAmount] = useState();
   const {userInfo} = useContext(AuthContext);
+  // const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const handleRequest = async () => {
     if (!value && !transactionNumber && !amount) {
@@ -72,14 +76,29 @@ const Deposit = ({navigation}) => {
       .catch(error => console.error(error));
   };
 
-  // const copyToClipboard = str => {
-  //   Clipboard.setString(str);
-  //   // ToastAndroid.showWithGravity(
-  //   //   `${str} Copied.`,
-  //   //   ToastAndroid.SHORT,
-  //   //   ToastAndroid.CENTER,
-  //   // );
-  // };
+  useEffect(() => {
+    if (isFocused) {
+      get_game_info();
+    }
+  }, [navigation.isFocused()]);
+
+  const get_game_info = async () => {
+    await axios
+      .get(`${BASE_URL}/offer`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      })
+      .then(res => {
+        console.log('res', res);
+        let gameinfo = res.data;
+        setUpiData(gameinfo.data);
+        console.log('gamecontact', gameinfo);
+      })
+      .catch(er => {
+        console.log('result Network ', er);
+      });
+  };
 
   return (
     <SafeAreaView>
@@ -102,29 +121,37 @@ const Deposit = ({navigation}) => {
             <View style={styles.paymentMethodsNameWrapper}>
               <View style={styles.row}>
                 <Text style={styles.insideBoxTextStyle}>
-                  Phone Pe: 1234567890
+                  Phone Pe: {upiData.trans_no}
                 </Text>
                 <TouchableOpacity
                   style={styles.copyButton}
-                  onPress={() => Clipboard.setString('1234567890')}>
+                  onPress={() =>
+                    Clipboard.setString(upiData.trans_no.toString())
+                  }>
                   <Text style={styles.copyButtonText}>Click to Copy</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.row}>
                 <Text style={styles.insideBoxTextStyle}>
-                  Google Pay: 1234567890
+                  Google Pay: {upiData.trans_no}
                 </Text>
                 <TouchableOpacity
                   style={styles.copyButton}
-                  onPress={() => Clipboard.setString('1234567890')}>
+                  onPress={() =>
+                    Clipboard.setString(upiData.trans_no.toString())
+                  }>
                   <Text style={styles.copyButtonText}>Click to Copy</Text>
                 </TouchableOpacity>
               </View>
               <View style={[styles.row, {marginBottom: normalize(-5)}]}>
-                <Text style={{color: '#FFFFFF'}}>PayTM: 1234567890</Text>
+                <Text style={{color: '#FFFFFF'}}>
+                  PayTM: {upiData.trans_no}
+                </Text>
                 <TouchableOpacity
                   style={styles.copyButton}
-                  onPress={() => Clipboard.setString('1234567890')}>
+                  onPress={() =>
+                    Clipboard.setString(upiData.trans_no.toString())
+                  }>
                   <Text style={styles.copyButtonText}>Click to Copy</Text>
                 </TouchableOpacity>
               </View>
