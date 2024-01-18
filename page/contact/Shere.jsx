@@ -5,17 +5,19 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  SafeAreaView,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {authstyles} from '../style/pagestyle';
-import normalize from 'react-native-normalize';
+import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {AuthContext} from '../../src/context/AuthContext';
 import axios from 'axios';
 import {BASE_URL} from '../../src/config';
 import Share from 'react-native-share';
 import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Shere = () => {
   const {userInfo, isLoading} = useContext(AuthContext);
@@ -55,7 +57,7 @@ const Shere = () => {
     try {
       const shareOptions = {
         title: 'Share By ',
-        message: `🌟 Get the FFLion App 🌟\n 📱 Download: ${BASE_URL}/download-apk \n👥 Referral Code: ${userInfo.user.id} \nRefer By :-${userInfo.user.name} \n👉 Refer & Earn Now! 👈`,
+        message: `🌟 Get the FFLion App 🌟\n 📱 Download: ${BASE_URL}/download-apk \n👥 Referral Code: ${userInfo.user.id} \nRefer By :${userInfo.user.name} \n👉 Refer & Earn Now! 👈`,
         // url: `${BASE_URL}/download-apk`, // Optional URL to include with the shared content
         subject: 'Refer & Earn Now!', // For email
       };
@@ -66,23 +68,17 @@ const Shere = () => {
     }
   };
   return (
-    <View style={authstyles.container}>
-      <View style={authstyles.title}>
+    <SafeAreaView>
+      <View>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        <View style={styles.list_container}>
-          {/* <View style={styles.comp1}>
-           <OfferText/>
-          </View> */}
-          <View style={styles.comp2}>
-            <Banner />
-          </View>
-          <View style={styles.comp3}>
-            <TransComp />
-          </View>
-        </View>
-        <View style={styles.list_container2}>
+
+      <LinearGradient
+        start={{x: 0, y: 1}}
+        end={{x: 1, y: 0}}
+        colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+        style={styles.linearGradientBg}>
+        <View style={{padding: normalize(20), width: SCREEN_WIDTH / 1}}>
           <View style={styles.card}>
             <View style={styles.imageContainer}>
               <Image
@@ -92,37 +88,27 @@ const Shere = () => {
               />
             </View>
             <TouchableOpacity style={styles.button} onPress={handleMobile}>
-              <Text style={styles.buttonText}>Shere Now</Text>
+              <Text style={styles.buttonText}>Share Now</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
-    </View>
+      </LinearGradient>
+    </SafeAreaView>
   );
 };
 
 export default Shere;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 2
-  },
-  list_container2: {
-    // flex: 3
-  },
-  // comp1:{
-  //   flex:1
-  // },
-  comp2: {
-    // flex:5
-  },
-  comp3: {
-    // flex:3
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    // padding: normalize(10),
   },
   card: {
     // flex: 1,
-    backgroundColor: '#fff',
-    borderRadius: normalize(8),
+    backgroundColor: '#E39FF6',
+    borderRadius: normalize(30),
     padding: normalize(16),
 
     shadowColor: '#000',
@@ -134,8 +120,8 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    alignItems: 'center', // Center  horizontally
-    justifyContent: 'center', // Center vertically
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 8,
   },
   image: {
@@ -144,7 +130,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: '#A1045A',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
@@ -163,5 +149,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
 });
