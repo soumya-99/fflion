@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import TitleBar from '../../component/titlebar/TitleBar'
 import { authstyles } from '../style/pagestyle'
@@ -37,11 +37,16 @@ const About = () => {
 
   console.log("dsjhfjhd",upiData.tandc);
   return (
-    <SafeAreaView>
-      <ScrollView>
-        
-      </ScrollView>
-    </SafeAreaView>
+    <View style={authstyles.container}>
+    <View style={authstyles.title}>
+      <TitleBar />
+    </View>
+    <View style={authstyles.body}>
+      <View style={styles.card}>
+          <Text style={{color:"#000",fontSize:16}}>{upiData.tandc}</Text>
+        </View>
+    </View>
+  </View>
   )
 }
 
