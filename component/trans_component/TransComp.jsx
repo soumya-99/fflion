@@ -10,7 +10,7 @@ const TransComp = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate('Deposit')}
         style={styles.buttonComponent}>
-        <Text style={styles.buttonText}>Send Money</Text>
+        <Text style={styles.buttonText}>Add Money</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('Withdrawal')}

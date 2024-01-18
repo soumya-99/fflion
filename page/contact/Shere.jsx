@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   card: {
     // flex: 1,
-    backgroundColor: '#E39FF6',
+    backgroundColor: '#E39FF6CC',
     borderRadius: normalize(30),
     padding: normalize(16),
 
