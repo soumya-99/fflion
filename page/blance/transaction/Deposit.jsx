@@ -116,7 +116,7 @@ const Deposit = ({navigation}) => {
               আমাদের ফোন-পে, গুগল-পে, পেটিএম নাম্বার নীচে দেওয়া আছে।
             </Text>
             <Text style={styles.insideBoxTextStyle}>
-              Minimum Add Balance: ₹500
+              Minimum Add Balance: ₹100
             </Text>
             <View style={styles.paymentMethodsNameWrapper}>
               <View style={styles.row}>
