@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   View,
+  SafeAreaView,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {authstyles} from '../style/pagestyle';
@@ -15,6 +16,8 @@ import {BASE_URL} from '../../src/config';
 import {AuthContext} from '../../src/context/AuthContext';
 import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
+import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
+import LinearGradient from 'react-native-linear-gradient';
 
 const GameEntry = ({route, navigation}) => {
   const {itemData} = route.params;
@@ -237,275 +240,280 @@ const GameEntry = ({route, navigation}) => {
     getGameNameData();
   }, [gameEntryArray]);
   return (
-    <View style={authstyles.container}>
+    <SafeAreaView>
       <View style={authstyles.title}>
         <TitleBar />
       </View>
-      <View style={authstyles.body}>
-        {/* input Conatiner */}
+      <ScrollView style={styles.list_container2}>
+        <LinearGradient
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 0}}
+          colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+          style={styles.linearGradientBg}>
+          {/* <View style={styles.inputContainer}> */}
+          <LinearGradient
+            start={{x: 0, y: 1}}
+            end={{x: 1, y: 0}}
+            colors={['#5ce1ff', '#8c1e96', '#1b2196']}
+            style={styles.inputContainer}>
+            {/* Single */}
+            <View style={{}}>
+              {/* title */}
+              <Text style={styles.titleStyle}> SINGLE </Text>
+              {/* textinput 1 */}
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={changeSingleNumber}
+                placeholder="Number"
+                value={singleNumber}
+                numberOfLines={2}
+                placeholderTextColor={'black'}
+                keyboardType="numeric"
+              />
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={changeSingleAmount}
+                placeholder="Amount"
+                placeholderTextColor={'black'}
+                keyboardType="numeric"
+                value={singleAmount}
+              />
+              {/* textinput 2 */}
+            </View>
+            {/* juri */}
+            <View style={{}}>
+              {/* title */}
+              <Text style={styles.titleStyle}> JODI </Text>
+              {/* textinput 1 */}
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={changeJurieNumber}
+                placeholder="Number"
+                value={juriNumber}
+                placeholderTextColor={'black'}
+                keyboardType="numeric"
+              />
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={changeJuriAmount}
+                placeholder="Amount"
+                value={juriAmount}
+                placeholderTextColor={'black'}
+                keyboardType="numeric"
+              />
+              {/* textinput 2 */}
+            </View>
 
-        <ScrollView style={styles.list_container2}>
-          <View style={styles.comp2}>
-            <Banner />
+            <View style={{}}>
+              {/* title */}
+              <Text style={styles.titleStyle}> PATTI </Text>
+              {/* textinput 1 */}
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={changePattiNumber}
+                placeholder="Number"
+                value={pattiNumber}
+                placeholderTextColor={'black'}
+                keyboardType="numeric"
+              />
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={changePattiAmount}
+                placeholder="Amount"
+                value={pattiAmount}
+                placeholderTextColor={'black'}
+                keyboardType="numeric"
+              />
+              {/* textinput 2 */}
+            </View>
+          </LinearGradient>
+
+          <TouchableOpacity
+            onPress={handleSetGameEntryArray}
+            style={{
+              alignSelf: 'center',
+              backgroundColor: 'orange',
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              margin: 10,
+              borderRadius: 10,
+            }}>
+            <Text
+              style={{
+                fontWeight: '600',
+                color: '#ffff',
+                fontSize: 20,
+                textTransform: 'uppercase',
+              }}>
+              Add Bid
+            </Text>
+          </TouchableOpacity>
+
+          {/* Table */}
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderTopRightRadius: 5,
+              borderTopLeftRadius: 5,
+              backgroundColor: '#FFFFFFAA',
+              width: '93.4%',
+            }}>
+            {/* blanck text */}
+            <Text
+              style={{
+                ...styles.cellText,
+                borderRightWidth: 0,
+                borderLeftWidth: 0,
+              }}>
+              {'  '}
+            </Text>
+            {/* single Text */}
+            <Text
+              style={{
+                ...styles.cellText,
+                borderRightWidth: 0,
+                borderLeftWidth: 0,
+                textAlign: 'center',
+              }}>
+              {'Single'}
+            </Text>
+            {/* Juri Text */}
+            <Text
+              style={{
+                ...styles.cellText,
+                borderRightWidth: 0,
+                textAlign: 'center',
+              }}>
+              {'Jodi'}
+            </Text>
+            {/* Patti Text */}
+            <Text
+              style={{
+                ...styles.cellText,
+                borderRightWidth: 0,
+                textAlign: 'center',
+              }}>
+              {'Patti'}
+            </Text>
+            {/* Blanck text */}
+            <Text
+              style={{
+                ...styles.cellText,
+                borderRightWidth: 1,
+                borderLeftWidth: 0,
+              }}>
+              {''}
+            </Text>
           </View>
-          <View style={{}}>
-            <View style={styles.inputContainer}>
-              {/* Single */}
-              <View style={{}}>
-                {/* title */}
-                <Text style={styles.titleStyle}> SINGLE </Text>
-                {/* textinput 1 */}
-                <TextInput
-                  style={styles.textInputStyle}
-                  onChangeText={changeSingleNumber}
-                  placeholder="Number"
-                  value={singleNumber}
-                  numberOfLines={2}
-                  placeholderTextColor={'black'}
-                  keyboardType="numeric"
-                />
-                <TextInput
-                  style={styles.textInputStyle}
-                  onChangeText={changeSingleAmount}
-                  placeholder="Amount"
-                  placeholderTextColor={'black'}
-                  keyboardType="numeric"
-                  value={singleAmount}
-                />
-                {/* textinput 2 */}
-              </View>
-              {/* juri */}
-              <View style={{}}>
-                {/* title */}
-                <Text style={styles.titleStyle}> JODI </Text>
-                {/* textinput 1 */}
-                <TextInput
-                  style={styles.textInputStyle}
-                  onChangeText={changeJurieNumber}
-                  placeholder="Number"
-                  value={juriNumber}
-                  placeholderTextColor={'black'}
-                  keyboardType="numeric"
-                />
-                <TextInput
-                  style={styles.textInputStyle}
-                  onChangeText={changeJuriAmount}
-                  placeholder="Amount"
-                  value={juriAmount}
-                  placeholderTextColor={'black'}
-                  keyboardType="numeric"
-                />
-                {/* textinput 2 */}
-              </View>
 
-              <View style={{}}>
-                {/* title */}
-                <Text style={styles.titleStyle}> PATTI </Text>
-                {/* textinput 1 */}
-                <TextInput
-                  style={styles.textInputStyle}
-                  onChangeText={changePattiNumber}
-                  placeholder="Number"
-                  value={pattiNumber}
-                  placeholderTextColor={'black'}
-                  keyboardType="numeric"
-                />
-                <TextInput
-                  style={styles.textInputStyle}
-                  onChangeText={changePattiAmount}
-                  placeholder="Amount"
-                  value={pattiAmount}
-                  placeholderTextColor={'black'}
-                  keyboardType="numeric"
-                />
-                {/* textinput 2 */}
-              </View>
-            </View>
-
-            <TouchableOpacity
-              onPress={handleSetGameEntryArray}
-              style={{
-                alignSelf: 'center',
-                backgroundColor: '#3299ff',
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                margin: 10,
-                borderRadius: 10,
-              }}>
-              <Text style={{fontWeight: '600', color: '#ffff', fontSize: 20}}>
-                Add Bid
-              </Text>
-            </TouchableOpacity>
-
-            {/* Table */}
-
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                borderWidth: 1,
-                borderTopRightRadius: 5,
-                borderTopLeftRadius: 5,
-                backgroundColor: 'white',
-              }}>
-              {/* blanck text */}
-              <Text
+          {gameEntryArray &&
+            gameEntryArray.map((props, index) => (
+              <View
                 style={{
-                  ...styles.cellText,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                }}>
-                {'  '}
-              </Text>
-              {/* single Text */}
-              <Text
-                style={{
-                  ...styles.cellText,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  textAlign: 'center',
-                }}>
-                {'Single'}
-              </Text>
-              {/* Juri Text */}
-              <Text
-                style={{
-                  ...styles.cellText,
-                  borderRightWidth: 0,
-                  textAlign: 'center',
-                }}>
-                {'Jodi'}
-              </Text>
-              {/* Patti Text */}
-              <Text
-                style={{
-                  ...styles.cellText,
-                  borderRightWidth: 0,
-                  textAlign: 'center',
-                }}>
-                {'Patti'}
-              </Text>
-              {/* Blanck text */}
-              <Text
-                style={{
-                  ...styles.cellText,
-                  borderRightWidth: 1,
-                  borderLeftWidth: 0,
-                }}>
-                {''}
-              </Text>
-            </View>
-
-            {gameEntryArray &&
-              gameEntryArray.map((props, index) => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-around',
-                    borderWidth: 1,
-                    backgroundColor: 'white',
-                  }}
-                  key={index}>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        alignItems: 'center',
-                        borderBottomWidth: 1,
-                      }}>
-                      {/* Text 1 */}
-                      <Text style={{...styles.cellText, borderLeftWidth: 0}}>
-                        {'Digits'}
-                      </Text>
-                      {/* single Text */}
-                      <Text style={styles.cellText}>{props.singleNumber}</Text>
-                      {/* Juri Text */}
-                      <Text style={styles.cellText}>{props.juriNumber}</Text>
-                      {/* Patti Text */}
-                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
-                        {props.pattiNumber}
-                      </Text>
-                    </View>
-
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        alignItems: 'center',
-                      }}>
-                      {/* Text 1 */}
-                      <Text style={{...styles.cellText, borderLeftWidth: 0}}>
-                        {'Amount'}
-                      </Text>
-                      {/* single Text */}
-                      <Text style={styles.cellText}>{props.singleAmount}</Text>
-                      {/* Juri Text */}
-                      <Text style={styles.cellText}>{props.juriAmount}</Text>
-                      {/* Patti Text */}
-                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
-                        {props.pattiAmount}
-                      </Text>
-                    </View>
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                  borderWidth: 1,
+                  backgroundColor: '#EEEEEE55',
+                }}
+                key={index}>
+                <View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      borderBottomWidth: 1,
+                    }}>
+                    {/* Text 1 */}
+                    <Text style={{...styles.cellText, borderLeftWidth: 0}}>
+                      {'Digits'}
+                    </Text>
+                    {/* single Text */}
+                    <Text style={styles.cellText}>{props.singleNumber}</Text>
+                    {/* Juri Text */}
+                    <Text style={styles.cellText}>{props.juriNumber}</Text>
+                    {/* Patti Text */}
+                    <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                      {props.pattiNumber}
+                    </Text>
                   </View>
 
-                  {/* delete button */}
-                  <TouchableOpacity
-                    onPress={() => handleDeleteRow(index)}
+                  <View
                     style={{
-                      paddingHorizontal: 2,
-                      backgroundColor: 'red',
-                      height: 30,
-                      justifyContent: 'center',
-                      borderRadius: 2,
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
                     }}>
-                    <Text
-                      style={{fontWeight: '700', fontSize: 12, color: 'white'}}>
-                      Delete
+                    {/* Text 1 */}
+                    <Text style={{...styles.cellText, borderLeftWidth: 0}}>
+                      {'Amount'}
                     </Text>
-                  </TouchableOpacity>
+                    {/* single Text */}
+                    <Text style={styles.cellText}>{props.singleAmount}</Text>
+                    {/* Juri Text */}
+                    <Text style={styles.cellText}>{props.juriAmount}</Text>
+                    {/* Patti Text */}
+                    <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                      {props.pattiAmount}
+                    </Text>
+                  </View>
                 </View>
-              ))}
 
-            <TouchableOpacity
-              onPress={() => handleUploadToTheServer()}
+                {/* delete button */}
+                <TouchableOpacity
+                  onPress={() => handleDeleteRow(index)}
+                  style={{
+                    paddingHorizontal: 2,
+                    backgroundColor: 'red',
+                    height: 30,
+                    justifyContent: 'center',
+                    borderRadius: 2,
+                  }}>
+                  <Text
+                    style={{fontWeight: '700', fontSize: 12, color: 'white'}}>
+                    Delete
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+
+          <TouchableOpacity
+            onPress={() => handleUploadToTheServer()}
+            style={{
+              alignSelf: 'center',
+              backgroundColor: 'gold',
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+              margin: 10,
+              borderRadius: 10,
+            }}>
+            <Text
               style={{
-                alignSelf: 'center',
-                backgroundColor: '#3299ff',
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                margin: 10,
-                borderRadius: 10,
+                fontWeight: '600',
+                color: '#ffff',
+                fontSize: 20,
+                textTransform: 'uppercase',
               }}>
-              <Text style={{fontWeight: '600', color: '#fff', fontSize: 20}}>
-                Submit
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </View>
-    </View>
+              Submit
+            </Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default GameEntry;
 
 const styles = StyleSheet.create({
-  list_container: {
-    // flex: 2,
-  },
-  list_container2: {
-    // flex: 4,
-  },
-  // comp1:{
-  //     flex:1
-  //   },
-  comp2: {
-    height: 150,
-  },
-  comp3: {
-    // flex: 3,
+  linearGradientBg: {
+    height: SCREEN_HEIGHT,
+    alignItems: 'center',
+    padding: normalize(10),
   },
   inputContainer: {
     backgroundColor: '#3fc367',
@@ -520,7 +528,7 @@ const styles = StyleSheet.create({
   titleStyle: {
     textAlign: 'center',
     fontWeight: '900',
-    color: 'black',
+    color: '#FFFFFF',
   },
   textInputStyle: {
     width: PixelRatio.roundToNearestPixel(95),
@@ -536,12 +544,11 @@ const styles = StyleSheet.create({
     color: 'black',
     elevation: 5,
   },
-
   cellText: {
     borderLeftWidth: 1,
     paddingHorizontal: 2,
     width: 70,
     fontWeight: '500',
-    color: 'black',
+    color: '#FFFFFF',
   },
 });
