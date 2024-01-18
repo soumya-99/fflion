@@ -151,7 +151,7 @@ const GameTime = ({navigation, route}) => {
           </View>
           <View style={{width: '20%'}}>
             <Text style={{color: '#FFFFFF', fontWeight: '700'}}>
-              {ordinalNumber} Baji
+              {ordinalNumber} Bazi
             </Text>
           </View>
           <View style={{paddingRight: normalize(35)}}>
