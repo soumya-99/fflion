@@ -35,6 +35,26 @@ const GameEntry = ({route, navigation}) => {
   const [gameEntryArray, setGameEntry] = useState([]);
   const [wlBal, setWlBal] = useState();
 
+  const [single, setSingle] = useState(() => false);
+  const [jodi, setJodi] = useState(() => false);
+  const [patti, setPatti] = useState(() => false);
+
+  const handleSingleChnage = () => {
+    setSingle(true);
+    setJodi(false);
+    setPatti(false);
+  };
+  const handleJodiChnage = () => {
+    setJodi(true);
+    setSingle(false);
+    setPatti(false);
+  };
+  const handlePattiChnage = () => {
+    setPatti(true);
+    setSingle(false);
+    setJodi(false);
+  };
+
   const getGameNameData = async () => {
     await axios
       .get(`${BASE_URL}/total_money_Wallet`, {
@@ -251,81 +271,140 @@ const GameEntry = ({route, navigation}) => {
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
           {/* <View style={styles.inputContainer}> */}
+          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+            <TouchableOpacity
+              onPress={handleSingleChnage}
+              style={{
+                alignSelf: 'center',
+                backgroundColor: 'orange',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                margin: 10,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontWeight: '600',
+                  color: '#ffff',
+                  fontSize: 16,
+                  textTransform: 'uppercase',
+                }}>
+                SINGLE
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleJodiChnage}
+              style={{
+                alignSelf: 'center',
+                backgroundColor: 'lavender',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                margin: 10,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontWeight: '600',
+                  color: '#000000',
+                  fontSize: 16,
+                  textTransform: 'uppercase',
+                }}>
+                JODI
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handlePattiChnage}
+              style={{
+                alignSelf: 'center',
+                backgroundColor: 'dodgerblue',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                margin: 10,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontWeight: '600',
+                  color: '#ffff',
+                  fontSize: 16,
+                  textTransform: 'uppercase',
+                }}>
+                PATTI
+              </Text>
+            </TouchableOpacity>
+          </View>
           <LinearGradient
             start={{x: 0, y: 1}}
             end={{x: 1, y: 0}}
             colors={['#5ce1ff', '#8c1e96', '#1b2196']}
             style={styles.inputContainer}>
             {/* Single */}
-            <View style={{}}>
-              {/* title */}
-              <Text style={styles.titleStyle}> SINGLE </Text>
-              {/* textinput 1 */}
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={changeSingleNumber}
-                placeholder="Number"
-                value={singleNumber}
-                numberOfLines={2}
-                placeholderTextColor={'black'}
-                keyboardType="numeric"
-              />
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={changeSingleAmount}
-                placeholder="Amount"
-                placeholderTextColor={'black'}
-                keyboardType="numeric"
-                value={singleAmount}
-              />
-              {/* textinput 2 */}
-            </View>
+            {single && (
+              <View style={{}}>
+                <Text style={styles.titleStyle}> SINGLE </Text>
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changeSingleNumber}
+                  placeholder="Number"
+                  value={singleNumber}
+                  numberOfLines={2}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changeSingleAmount}
+                  placeholder="Amount"
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                  value={singleAmount}
+                />
+              </View>
+            )}
             {/* juri */}
-            <View style={{}}>
-              {/* title */}
-              <Text style={styles.titleStyle}> JODI </Text>
-              {/* textinput 1 */}
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={changeJurieNumber}
-                placeholder="Number"
-                value={juriNumber}
-                placeholderTextColor={'black'}
-                keyboardType="numeric"
-              />
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={changeJuriAmount}
-                placeholder="Amount"
-                value={juriAmount}
-                placeholderTextColor={'black'}
-                keyboardType="numeric"
-              />
-              {/* textinput 2 */}
-            </View>
+            {jodi && (
+              <View style={{}}>
+                <Text style={styles.titleStyle}> JODI </Text>
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changeJurieNumber}
+                  placeholder="Number"
+                  value={juriNumber}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changeJuriAmount}
+                  placeholder="Amount"
+                  value={juriAmount}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                />
+              </View>
+            )}
 
-            <View style={{}}>
-              {/* title */}
-              <Text style={styles.titleStyle}> PATTI </Text>
-              {/* textinput 1 */}
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={changePattiNumber}
-                placeholder="Number"
-                value={pattiNumber}
-                placeholderTextColor={'black'}
-                keyboardType="numeric"
-              />
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={changePattiAmount}
-                placeholder="Amount"
-                value={pattiAmount}
-                placeholderTextColor={'black'}
-                keyboardType="numeric"
-              />
-              {/* textinput 2 */}
-            </View>
+            {patti && (
+              <View style={{}}>
+                <Text style={styles.titleStyle}> PATTI </Text>
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changePattiNumber}
+                  placeholder="Number"
+                  value={pattiNumber}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changePattiAmount}
+                  placeholder="Amount"
+                  value={pattiAmount}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                />
+              </View>
+            )}
           </LinearGradient>
 
           <TouchableOpacity
@@ -482,7 +561,10 @@ const GameEntry = ({route, navigation}) => {
             ))}
 
           <TouchableOpacity
-            onPress={() => handleUploadToTheServer()}
+            onPress={() => {
+              handleUploadToTheServer();
+              // navigation.navigate('FFLION');
+            }}
             style={{
               alignSelf: 'center',
               backgroundColor: 'gold',
@@ -518,7 +600,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: '#3fc367',
     width: '100%',
-    borderRadius: 10,
+    borderRadius: normalize(20),
     elevation: 8,
     borderWidth: 0.5,
     flexDirection: 'row',
@@ -528,12 +610,13 @@ const styles = StyleSheet.create({
   titleStyle: {
     textAlign: 'center',
     fontWeight: '900',
+    fontSize: normalize(25),
     color: '#FFFFFF',
   },
   textInputStyle: {
-    width: PixelRatio.roundToNearestPixel(95),
-    maxWidth: PixelRatio.roundToNearestPixel(95),
-    height: 40,
+    width: PixelRatio.roundToNearestPixel(300),
+    maxWidth: PixelRatio.roundToNearestPixel(300),
+    height: 50,
     margin: 5,
     marginVertical: 4,
     borderWidth: 1,
