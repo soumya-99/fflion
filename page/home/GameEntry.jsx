@@ -18,6 +18,7 @@ import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
+import {generateUniqueThreeDigitNumbersFromFiveDigit} from '../../src/utils/cp_algorithm';
 
 const GameEntry = ({route, navigation}) => {
   const {itemData} = route.params;
@@ -32,27 +33,73 @@ const GameEntry = ({route, navigation}) => {
   const [pattiNumber, changePattiNumber] = useState('');
   const [pattiAmount, changePattiAmount] = useState('');
 
+  const [cpNumber, changeCpNumber] = useState('');
+  const [cpAmount, changeCpAmount] = useState('');
+
   const [gameEntryArray, setGameEntry] = useState([]);
   const [wlBal, setWlBal] = useState();
 
   const [single, setSingle] = useState(() => false);
   const [jodi, setJodi] = useState(() => false);
   const [patti, setPatti] = useState(() => false);
+  const [cp, setCp] = useState(() => false);
 
   const handleSingleChnage = () => {
     setSingle(true);
     setJodi(false);
     setPatti(false);
+    setCp(false);
+
+    setGameEntry([]);
+    changeJurieNumber('');
+    changeJuriAmount('');
+    changePattiNumber('');
+    changePattiAmount('');
+    changeCpNumber('');
+    changeCpAmount('');
   };
   const handleJodiChnage = () => {
     setJodi(true);
     setSingle(false);
     setPatti(false);
+    setCp(false);
+
+    setGameEntry([]);
+    changeSingleNumber('');
+    changeSingleAmount('');
+    changePattiNumber('');
+    changePattiAmount('');
+    changeCpNumber('');
+    changeCpAmount('');
   };
   const handlePattiChnage = () => {
     setPatti(true);
     setSingle(false);
     setJodi(false);
+    setCp(false);
+
+    setGameEntry([]);
+    changeSingleNumber('');
+    changeSingleAmount('');
+    changeJurieNumber('');
+    changeJuriAmount('');
+    changeCpNumber('');
+    changeCpAmount('');
+  };
+
+  const handleCpChnage = () => {
+    setCp(true);
+    setPatti(false);
+    setSingle(false);
+    setJodi(false);
+
+    setGameEntry([]);
+    changeSingleNumber('');
+    changeSingleAmount('');
+    changeJurieNumber('');
+    changeJuriAmount('');
+    changePattiNumber('');
+    changePattiAmount('');
   };
 
   const getGameNameData = async () => {
@@ -87,33 +134,33 @@ const GameEntry = ({route, navigation}) => {
   function handleSetGameEntryArray() {
     if (singleAmount) {
       if (!singleNumber) {
-        ToastAndroid.show('plese add Single Number', ToastAndroid.SHORT);
+        ToastAndroid.show('Please add Single Number', ToastAndroid.SHORT);
         return;
       }
     }
 
     if (juriAmount) {
       if (!juriNumber) {
-        ToastAndroid.show('plese add Juri Number', ToastAndroid.SHORT);
+        ToastAndroid.show('Please add Juri Number', ToastAndroid.SHORT);
         return;
       }
     }
 
     if (pattiAmount) {
       if (!pattiNumber) {
-        ToastAndroid.show('plese add Patti Number', ToastAndroid.SHORT);
+        ToastAndroid.show('Please add Patti Number', ToastAndroid.SHORT);
         return;
       }
     }
 
     if (singleNumber) {
       if (!singleAmount) {
-        ToastAndroid.show('plese add Single Amount', ToastAndroid.SHORT);
+        ToastAndroid.show('Please add Single Amount', ToastAndroid.SHORT);
         return;
       }
       if (singleAmount < 10) {
         ToastAndroid.show(
-          'check you Single amount it should be more than 9',
+          'Check you Single amount it should be more than 9',
           ToastAndroid.SHORT,
         );
         return;
@@ -122,13 +169,13 @@ const GameEntry = ({route, navigation}) => {
 
     if (juriNumber) {
       if (!juriAmount) {
-        ToastAndroid.show('plese add Juri Amount', ToastAndroid.SHORT);
+        ToastAndroid.show('Please add Juri Amount', ToastAndroid.SHORT);
         return;
       }
 
       if (juriAmount < 5) {
         ToastAndroid.show(
-          'check you Jodi amount, it`s should be more than 4 ',
+          'Check you Jodi amount, it`s should be more than 4 ',
           ToastAndroid.SHORT,
         );
         return;
@@ -145,7 +192,7 @@ const GameEntry = ({route, navigation}) => {
 
     if (pattiNumber) {
       if (!pattiAmount) {
-        ToastAndroid.show('plese add Patti Amount', ToastAndroid.SHORT);
+        ToastAndroid.show('Please add Patti Amount', ToastAndroid.SHORT);
         return;
       }
 
@@ -162,6 +209,28 @@ const GameEntry = ({route, navigation}) => {
       }
     }
 
+    if (cpAmount) {
+      if (!cpNumber) {
+        ToastAndroid.show('Please add CP Number', ToastAndroid.SHORT);
+        return;
+      }
+
+      if (cpAmount > 100) {
+        ToastAndroid.show(
+          'You can`t add price more than 100 for CP.',
+          ToastAndroid.SHORT,
+        );
+        return;
+      }
+    }
+
+    if (cpNumber) {
+      if (cpNumber.length < 5) {
+        ToastAndroid.show('CP number must be 5 digits.', ToastAndroid.SHORT);
+        return;
+      }
+    }
+
     if (gameEntryArray.length + 1 > 7) {
       return ToastAndroid.showWithGravity(
         'Maximum Bid limit Reached',
@@ -169,13 +238,15 @@ const GameEntry = ({route, navigation}) => {
         ToastAndroid.CENTER,
       );
     }
-    const newArray = {
+    const newFieldsObject = {
       singleNumber,
       singleAmount,
       juriNumber,
       juriAmount,
       pattiNumber,
       pattiAmount,
+      cpNumber,
+      cpAmount,
     };
     if (
       singleAmount ||
@@ -183,9 +254,25 @@ const GameEntry = ({route, navigation}) => {
       pattiAmount ||
       singleNumber ||
       juriNumber ||
-      pattiAmount
+      pattiAmount ||
+      cpNumber ||
+      cpAmount
     ) {
-      setGameEntry(oldArray => [...oldArray, newArray]);
+      if (cp) {
+        let cpNumbers = generateUniqueThreeDigitNumbersFromFiveDigit(
+          parseInt(cpNumber),
+        );
+        cpNumbers.forEach(item => {
+          let itemStr = item.toString();
+          console.log('itemStritemStritemStritemStritemStr', itemStr);
+          setGameEntry(oldFieldsObject => [
+            ...oldFieldsObject,
+            {...newFieldsObject, pattiNumber: itemStr, pattiAmount: cpAmount},
+          ]);
+        });
+      } else {
+        setGameEntry(oldFieldsObject => [...oldFieldsObject, newFieldsObject]);
+      }
     }
 
     changeSingleNumber('');
@@ -194,6 +281,8 @@ const GameEntry = ({route, navigation}) => {
     changeJurieNumber('');
     changePattiAmount('');
     changePattiNumber('');
+    changeCpNumber('');
+    changeCpAmount('');
   }
   console.log(gameEntryArray.length);
   const handleDeleteRow = rowId => {
@@ -211,7 +300,7 @@ const GameEntry = ({route, navigation}) => {
 
   const handleUploadToTheServer = async () => {
     if (gameEntryArray.length == 0) {
-      return ToastAndroid.show('plese add Data', ToastAndroid.LONG);
+      return ToastAndroid.show('Please add Data', ToastAndroid.LONG);
     }
     const totalBidAmount = calculateTotalAmount(gameEntryArray);
     if (totalBidAmount > wlBal) {
@@ -260,11 +349,11 @@ const GameEntry = ({route, navigation}) => {
     getGameNameData();
   }, [gameEntryArray]);
   return (
-    <SafeAreaView>
-      <View style={authstyles.title}>
+    <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
+      <View>
         <TitleBar />
       </View>
-      <ScrollView style={styles.list_container2}>
+      <ScrollView>
         <LinearGradient
           start={{x: 0, y: 1}}
           end={{x: 1, y: 0}}
@@ -330,6 +419,26 @@ const GameEntry = ({route, navigation}) => {
                   textTransform: 'uppercase',
                 }}>
                 PATTI
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleCpChnage}
+              style={{
+                alignSelf: 'center',
+                backgroundColor: 'tomato',
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                margin: 10,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontWeight: '600',
+                  color: '#ffff',
+                  fontSize: 16,
+                  textTransform: 'uppercase',
+                }}>
+                CP
               </Text>
             </TouchableOpacity>
           </View>
@@ -405,6 +514,29 @@ const GameEntry = ({route, navigation}) => {
                 />
               </View>
             )}
+
+            {cp && (
+              <View style={{}}>
+                <Text style={styles.titleStyle}> CP </Text>
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changeCpNumber}
+                  placeholder="Number"
+                  value={cpNumber}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                  maxLength={5}
+                />
+                <TextInput
+                  style={styles.textInputStyle}
+                  onChangeText={changeCpAmount}
+                  placeholder="Amount"
+                  value={cpAmount}
+                  placeholderTextColor={'black'}
+                  keyboardType="numeric"
+                />
+              </View>
+            )}
           </LinearGradient>
 
           <TouchableOpacity
@@ -449,34 +581,47 @@ const GameEntry = ({route, navigation}) => {
               }}>
               {'  '}
             </Text>
-            {/* single Text */}
-            <Text
-              style={{
-                ...styles.cellText,
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                textAlign: 'center',
-              }}>
-              {'Single'}
-            </Text>
-            {/* Juri Text */}
-            <Text
-              style={{
-                ...styles.cellText,
-                borderRightWidth: 0,
-                textAlign: 'center',
-              }}>
-              {'Jodi'}
-            </Text>
-            {/* Patti Text */}
-            <Text
-              style={{
-                ...styles.cellText,
-                borderRightWidth: 0,
-                textAlign: 'center',
-              }}>
-              {'Patti'}
-            </Text>
+            {single && (
+              <Text
+                style={{
+                  ...styles.cellText,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  textAlign: 'center',
+                }}>
+                {'Single'}
+              </Text>
+            )}
+            {jodi && (
+              <Text
+                style={{
+                  ...styles.cellText,
+                  borderRightWidth: 0,
+                  textAlign: 'center',
+                }}>
+                {'Jodi'}
+              </Text>
+            )}
+            {patti && (
+              <Text
+                style={{
+                  ...styles.cellText,
+                  borderRightWidth: 0,
+                  textAlign: 'center',
+                }}>
+                {'Patti'}
+              </Text>
+            )}
+            {cp && (
+              <Text
+                style={{
+                  ...styles.cellText,
+                  borderRightWidth: 0,
+                  textAlign: 'center',
+                }}>
+                {'CP'}
+              </Text>
+            )}
             {/* Blanck text */}
             <Text
               style={{
@@ -512,13 +657,25 @@ const GameEntry = ({route, navigation}) => {
                       {'Digits'}
                     </Text>
                     {/* single Text */}
-                    <Text style={styles.cellText}>{props.singleNumber}</Text>
+                    {single && (
+                      <Text style={styles.cellText}>{props.singleNumber}</Text>
+                    )}
                     {/* Juri Text */}
-                    <Text style={styles.cellText}>{props.juriNumber}</Text>
+                    {jodi && (
+                      <Text style={styles.cellText}>{props.juriNumber}</Text>
+                    )}
                     {/* Patti Text */}
-                    <Text style={{...styles.cellText, borderRightWidth: 1}}>
-                      {props.pattiNumber}
-                    </Text>
+                    {patti && (
+                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                        {props.pattiNumber}
+                      </Text>
+                    )}
+                    {/* CP Text */}
+                    {cp && (
+                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                        {props.pattiNumber}
+                      </Text>
+                    )}
                   </View>
 
                   <View
@@ -531,14 +688,26 @@ const GameEntry = ({route, navigation}) => {
                     <Text style={{...styles.cellText, borderLeftWidth: 0}}>
                       {'Amount'}
                     </Text>
-                    {/* single Text */}
-                    <Text style={styles.cellText}>{props.singleAmount}</Text>
-                    {/* Juri Text */}
-                    <Text style={styles.cellText}>{props.juriAmount}</Text>
-                    {/* Patti Text */}
-                    <Text style={{...styles.cellText, borderRightWidth: 1}}>
-                      {props.pattiAmount}
-                    </Text>
+                    {/* single Amount */}
+                    {single && (
+                      <Text style={styles.cellText}>{props.singleAmount}</Text>
+                    )}
+                    {/* Juri Amount */}
+                    {jodi && (
+                      <Text style={styles.cellText}>{props.juriAmount}</Text>
+                    )}
+                    {/* Patti Amount */}
+                    {patti && (
+                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                        {props.pattiAmount}
+                      </Text>
+                    )}
+                    {/* CP Amount */}
+                    {cp && (
+                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                        {props.pattiAmount}
+                      </Text>
+                    )}
                   </View>
                 </View>
 
@@ -567,7 +736,7 @@ const GameEntry = ({route, navigation}) => {
             }}
             style={{
               alignSelf: 'center',
-              backgroundColor: 'gold',
+              backgroundColor: '#010048',
               paddingHorizontal: 20,
               paddingVertical: 10,
               margin: 10,
@@ -593,7 +762,9 @@ export default GameEntry;
 
 const styles = StyleSheet.create({
   linearGradientBg: {
-    height: SCREEN_HEIGHT,
+    // height: SCREEN_HEIGHT * 1.1,
+    minHeight: SCREEN_HEIGHT,
+    height: 'auto',
     alignItems: 'center',
     padding: normalize(10),
   },
@@ -628,7 +799,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cellText: {
-    borderLeftWidth: 1,
+    // borderLeftWidth: 1,
     paddingHorizontal: 2,
     width: 70,
     fontWeight: '500',
