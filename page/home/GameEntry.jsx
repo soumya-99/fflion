@@ -18,7 +18,10 @@ import Banner from '../../component/banner/Banner';
 import TransComp from '../../component/trans_component/TransComp';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
-import {generateUniqueThreeDigitNumbersFromFiveDigit} from '../../src/utils/cp_algorithm';
+import {
+  checkMoreThanOneZero,
+  generateUniqueThreeDigitNumbersFromFiveDigit,
+} from '../../src/utils/cp_algorithm';
 
 const GameEntry = ({route, navigation}) => {
   const {itemData} = route.params;
@@ -227,6 +230,14 @@ const GameEntry = ({route, navigation}) => {
     if (cpNumber) {
       if (cpNumber.length < 5) {
         ToastAndroid.show('CP number must be 5 digits.', ToastAndroid.SHORT);
+        return;
+      }
+      let isMoreThanOneZero = checkMoreThanOneZero(parseInt(cpNumber));
+      if (isMoreThanOneZero) {
+        ToastAndroid.show(
+          "You can't add more than 1 zero.",
+          ToastAndroid.SHORT,
+        );
         return;
       }
     }
@@ -562,7 +573,7 @@ const GameEntry = ({route, navigation}) => {
 
           {/* Table */}
 
-          <View
+          {/* <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -572,7 +583,6 @@ const GameEntry = ({route, navigation}) => {
               backgroundColor: '#FFFFFFAA',
               width: '93.4%',
             }}>
-            {/* blanck text */}
             <Text
               style={{
                 ...styles.cellText,
@@ -622,7 +632,6 @@ const GameEntry = ({route, navigation}) => {
                 {'CP'}
               </Text>
             )}
-            {/* Blanck text */}
             <Text
               style={{
                 ...styles.cellText,
@@ -631,12 +640,13 @@ const GameEntry = ({route, navigation}) => {
               }}>
               {''}
             </Text>
-          </View>
+          </View> */}
 
           {gameEntryArray &&
             gameEntryArray.map((props, index) => (
               <View
                 style={{
+                  width: '100%',
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'space-around',
@@ -717,12 +727,19 @@ const GameEntry = ({route, navigation}) => {
                   style={{
                     paddingHorizontal: 2,
                     backgroundColor: 'red',
-                    height: 30,
+                    height: 35,
+                    width: 60,
                     justifyContent: 'center',
-                    borderRadius: 2,
+                    alignItems: 'center',
+                    borderRadius: 10,
                   }}>
                   <Text
-                    style={{fontWeight: '700', fontSize: 12, color: 'white'}}>
+                    style={{
+                      fontWeight: '700',
+                      fontSize: 12,
+                      color: 'white',
+                      textTransform: 'uppercase',
+                    }}>
                     Delete
                   </Text>
                 </TouchableOpacity>
@@ -800,6 +817,7 @@ const styles = StyleSheet.create({
   },
   cellText: {
     // borderLeftWidth: 1,
+    fontSize: normalize(20),
     paddingHorizontal: 2,
     width: 70,
     fontWeight: '500',
