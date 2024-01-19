@@ -58,7 +58,12 @@ const BidDetails = ({navigation, route}) => {
           end={{x: 1, y: 0}}
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
-          <View style={{marginBottom: normalize(20), padding: normalize(20)}}>
+          <View
+            style={{
+              marginBottom: normalize(20),
+              padding: normalize(20),
+              width: SCREEN_WIDTH,
+            }}>
             <Text
               style={{
                 textAlign: 'center',
@@ -71,8 +76,9 @@ const BidDetails = ({navigation, route}) => {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-around',
+                justifyContent: 'space-between',
                 marginTop: SCREEN_HEIGHT / 20,
+                padding: 10,
               }}>
               <TouchableOpacity
                 onPress={() => setOpen(true)}
@@ -206,6 +212,7 @@ const BidDetails = ({navigation, route}) => {
                     justifyContent: 'space-around',
                     borderWidth: 1,
                     backgroundColor: '#FFFFFFAA',
+                    width: '100%',
                   }}>
                   <View
                     style={{
