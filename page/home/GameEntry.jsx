@@ -8,20 +8,17 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
-import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
 import {BASE_URL} from '../../src/config';
 import {AuthContext} from '../../src/context/AuthContext';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   areDigitsUnique,
-  checkMoreThanOneZero,
   generateUniqueThreeDigitNumbersFromFiveDigit,
+  generatePermutations,
 } from '../../src/utils/cp_algorithm';
 
 const GameEntry = ({route, navigation}) => {
@@ -162,9 +159,9 @@ const GameEntry = ({route, navigation}) => {
         ToastAndroid.show('Please add Single Amount', ToastAndroid.SHORT);
         return;
       }
-      if (singleAmount < 10) {
+      if (singleAmount < 5) {
         ToastAndroid.show(
-          'Check you Single amount it should be more than 9',
+          'Single amount should be more than ₹5.',
           ToastAndroid.SHORT,
         );
         return;
@@ -177,21 +174,21 @@ const GameEntry = ({route, navigation}) => {
         return;
       }
 
-      if (juriAmount < 5) {
+      if (juriAmount < 1 || juriAmount > 100) {
         ToastAndroid.show(
-          'Check you Jodi amount, it`s should be more than 4 ',
+          'Jodi amount should be in between ₹1 to ₹100.',
           ToastAndroid.SHORT,
         );
         return;
       }
 
-      if (juriAmount > 20) {
-        ToastAndroid.show(
-          'You can`t add Jodi price more than 20',
-          ToastAndroid.SHORT,
-        );
-        return;
-      }
+      // if (juriAmount > 20) {
+      //   ToastAndroid.show(
+      //     'You can`t add Jodi price more than 20',
+      //     ToastAndroid.SHORT,
+      //   );
+      //   return;
+      // }
     }
 
     if (pattiNumber) {
@@ -200,17 +197,20 @@ const GameEntry = ({route, navigation}) => {
         return;
       }
 
-      if (pattiAmount < 5) {
-        ToastAndroid.show('Please add More Patti Ammount ', ToastAndroid.SHORT);
-        return;
-      }
-      if (pattiAmount > 20) {
+      if (pattiAmount < 1 || pattiAmount > 100) {
         ToastAndroid.show(
-          'You can`t add price more than 20 for patti',
+          'Patti amount should be in between ₹1 to ₹100.',
           ToastAndroid.SHORT,
         );
         return;
       }
+      // if (pattiAmount > 20) {
+      //   ToastAndroid.show(
+      //     'You can`t add price more than 20 for patti',
+      //     ToastAndroid.SHORT,
+      //   );
+      //   return;
+      // }
     }
 
     if (cpAmount) {
@@ -268,9 +268,10 @@ const GameEntry = ({route, navigation}) => {
       cpAmount
     ) {
       if (cp) {
-        let cpNumbers = generateUniqueThreeDigitNumbersFromFiveDigit(
-          parseInt(cpNumber),
-        );
+        // let cpNumbers = generateUniqueThreeDigitNumbersFromFiveDigit(
+        //   parseInt(cpNumber),
+        // );
+        let cpNumbers = generatePermutations(parseInt(cpNumber));
         cpNumbers.forEach(item => {
           let itemStr = item.toString();
           console.log('itemStritemStritemStritemStritemStr', itemStr);
@@ -468,6 +469,7 @@ const GameEntry = ({route, navigation}) => {
                   numberOfLines={2}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
+                  maxLength={1}
                 />
                 <TextInput
                   style={styles.textInputStyle}
@@ -490,6 +492,7 @@ const GameEntry = ({route, navigation}) => {
                   value={juriNumber}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
+                  maxLength={2}
                 />
                 <TextInput
                   style={styles.textInputStyle}
@@ -512,6 +515,7 @@ const GameEntry = ({route, navigation}) => {
                   value={pattiNumber}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
+                  maxLength={3}
                 />
                 <TextInput
                   style={styles.textInputStyle}

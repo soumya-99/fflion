@@ -39,3 +39,28 @@ export const generateUniqueThreeDigitNumbersFromFiveDigit = baseNumber => {
   const sortedNumbers = Array.from(uniqueNumbers).sort((a, b) => a - b);
   return sortedNumbers;
 };
+
+/**
+ * The function `generatePermutations` takes an input number, sorts its digits in ascending order, and
+ * generates all possible three-digit permutations of the digits.
+ * @param inputNumber - The inputNumber parameter is the number for which we want to generate
+ * permutations.
+ * @returns The function `generatePermutations` returns an array of permutations. Each permutation is a
+ * three-digit number formed by selecting three digits from the input number and arranging them in
+ * ascending order.
+ */
+export function generatePermutations(inputNumber) {
+  const digits = String(inputNumber).split('').map(Number);
+  digits.sort((a, b) => a - b);
+  const permutations = [];
+
+  for (let i = 0; i < digits.length - 2; i++) {
+    for (let j = i + 1; j < digits.length - 1; j++) {
+      for (let k = j + 1; k < digits.length; k++) {
+        permutations.push(digits[i] * 100 + digits[j] * 10 + digits[k]);
+      }
+    }
+  }
+
+  return permutations;
+}
