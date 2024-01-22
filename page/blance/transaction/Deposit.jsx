@@ -41,7 +41,7 @@ const Deposit = ({navigation}) => {
       return alert('Please fill all the value.');
     }
 
-    if (amount <= 100) {
+    if (amount < 100) {
       return alert('Please add minimum balance of 100.');
     }
     console.log(amount, paymentMod, transactionNumber);
