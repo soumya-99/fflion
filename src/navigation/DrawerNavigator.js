@@ -253,7 +253,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="About"
+        name="Game Rules"
         component={About}
         options={{
           drawerIcon: ({focused, color, size}) => (
