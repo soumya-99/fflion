@@ -817,7 +817,7 @@ const styles = StyleSheet.create({
   },
   cellText: {
     // borderLeftWidth: 1,
-    fontSize: normalize(20),
+    fontSize: normalize(18),
     paddingHorizontal: 2,
     width: 70,
     fontWeight: '500',

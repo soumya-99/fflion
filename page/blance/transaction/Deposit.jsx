@@ -38,11 +38,11 @@ const Deposit = ({navigation}) => {
 
   const handleRequest = async () => {
     if (!value && !transactionNumber && !amount) {
-      return alert('please fill all the value');
+      return alert('Please fill all the value.');
     }
 
-    if (amount < 200) {
-      return alert('please add more than 200');
+    if (amount <= 100) {
+      return alert('Please add minimum balance of 100.');
     }
     console.log(amount, paymentMod, transactionNumber);
     axios
