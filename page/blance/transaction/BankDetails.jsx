@@ -147,13 +147,13 @@ const styles = StyleSheet.create({
   input: {
     padding: normalize(10),
     justifyContent: 'center',
-    width: 150,
-    height: 40,
+    width: normalize(150),
+    height: normalize(40),
     // backgroundColor: 'rgba(255, 255, 255, 0)',
     borderColor: '#FFF',
     borderWidth: 1,
     color: '#FFFFFF',
-    fontSize: 17,
-    borderRadius: 20,
+    fontSize: normalize(17),
+    borderRadius: 15,
   },
 });
