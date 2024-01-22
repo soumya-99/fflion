@@ -19,6 +19,7 @@ import TransComp from '../../component/trans_component/TransComp';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
 import {
+  areDigitsUnique,
   checkMoreThanOneZero,
   generateUniqueThreeDigitNumbersFromFiveDigit,
 } from '../../src/utils/cp_algorithm';
@@ -232,12 +233,9 @@ const GameEntry = ({route, navigation}) => {
         ToastAndroid.show('CP number must be 5 digits.', ToastAndroid.SHORT);
         return;
       }
-      let isMoreThanOneZero = checkMoreThanOneZero(parseInt(cpNumber));
-      if (isMoreThanOneZero) {
-        ToastAndroid.show(
-          "You can't add more than 1 zero.",
-          ToastAndroid.SHORT,
-        );
+      let isUnique = areDigitsUnique(parseInt(cpNumber));
+      if (!isUnique) {
+        ToastAndroid.show('All digits should be unique.', ToastAndroid.SHORT);
         return;
       }
     }

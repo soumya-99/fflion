@@ -1,13 +1,20 @@
-import {ToastAndroid} from 'react-native';
-
-export function checkMoreThanOneZero(number) {
-  const numberString = number.toString();
-  const zeroCount = (numberString.match(/0/g) || []).length;
-  if (zeroCount > 1) {
-    return true;
-  } else {
-    return false;
+/**
+ * The function checks if all the digits in a given number are unique.
+ * @param number - The number parameter is the input number that we want to check if its digits are
+ * unique.
+ * @returns The function `areDigitsUnique` returns a boolean value. It returns `true` if all the digits
+ * in the given number are unique, and `false` otherwise.
+ */
+export function areDigitsUnique(number) {
+  const numString = number.toString();
+  for (let i = 0; i < numString.length; i++) {
+    for (let j = i + 1; j < numString.length; j++) {
+      if (numString[i] === numString[j]) {
+        return false;
+      }
+    }
   }
+  return true;
 }
 
 /**
@@ -17,15 +24,6 @@ export function checkMoreThanOneZero(number) {
  * three-digit numbers, sorted in ascending order.
  */
 export const generateUniqueThreeDigitNumbersFromFiveDigit = baseNumber => {
-  //   const isMoreThanOneZero = checkMoreThanOneZero(baseNumber);
-  //   if (!isMoreThanOneZero) {
-  //     ToastAndroid.show(
-  //       "You can't add more than 1 zero.",
-  //       ToastAndroid.SHORT,
-  //       ToastAndroid.CENTER,
-  //     );
-  //     return;
-  //   }
   const uniqueNumbers = new Set();
 
   while (uniqueNumbers.size < 10) {
