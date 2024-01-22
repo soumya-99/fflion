@@ -132,6 +132,16 @@ const AllBid = ({navigation, route}) => {
           end={{x: 1, y: 0}}
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
+          <Text
+            style={{
+              textAlign: 'center',
+              color: '#FFFFFF',
+              fontSize: normalize(20),
+              fontWeight: '600',
+              padding: normalize(5),
+            }}>
+            {game_name}
+          </Text>
           {/* <FlatList
             data={gameTime}
             keyExtractor={item => item.game_id}
