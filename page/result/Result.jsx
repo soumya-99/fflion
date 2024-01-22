@@ -77,6 +77,7 @@ const Result = ({navigation}) => {
               onPress={() =>
                 navigation.navigate('ResultDetails', {
                   game_id: item.game_id,
+                  game_name: item.game_name,
                 })
               }
               style={{

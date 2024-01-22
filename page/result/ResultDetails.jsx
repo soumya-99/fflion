@@ -25,7 +25,7 @@ const ResultDetails = ({navigation, route}) => {
   const {userInfo} = useContext(AuthContext);
   const [results, setResults] = useState();
   const {getResult} = handleGetResult();
-  const {game_id} = route.params;
+  const {game_id, game_name} = route.params;
   const {getGameTime} = handleGetGameTime();
   const [gameLength, SetGameLength] = useState();
   const isFocused = useIsFocused();
@@ -71,6 +71,15 @@ const ResultDetails = ({navigation, route}) => {
         end={{x: 1, y: 0}}
         colors={['#5ce1ff', '#8c1e96', '#1b2196']}
         style={styles.linearGradientBg}>
+        <Text
+          style={{
+            textAlign: 'center',
+            color: '#FFFFFF',
+            fontSize: normalize(30),
+            fontWeight: '600',
+          }}>
+          {game_name}
+        </Text>
         <View
           style={{
             flexDirection: 'row',
