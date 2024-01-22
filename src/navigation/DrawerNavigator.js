@@ -33,6 +33,7 @@ import {BASE_URL} from '../config';
 import Shere from '../../page/contact/Shere';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
+import BankDeatils from '../../page/blance/transaction/BankDetails';
 
 const Drawer = createDrawerNavigator();
 
@@ -203,6 +204,20 @@ const DrawerNavigator = () => {
             // <MaterialIcons name="home" color={color} size={size} />
             <MaterialIcons
               name={focused ? 'show-chart' : 'show-chart'}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Bank Details"
+        component={BankDeatils}
+        options={{
+          drawerIcon: ({focused, color, size}) => (
+            // <MaterialIcons name="home" color={color} size={size} />
+            <MaterialIcons
+              name={focused ? 'comment-bank' : 'comment-bank'}
               size={size}
               color={color}
             />

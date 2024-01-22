@@ -131,7 +131,8 @@ const Withdrawal = ({navigation}) => {
                   ₹{Number(wlBal).toFixed(2)}
                 </Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Bank Details')}>
                 <Text style={{textDecorationLine: 'underline'}}>
                   Update Account?
                 </Text>
