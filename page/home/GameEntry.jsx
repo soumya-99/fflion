@@ -19,6 +19,7 @@ import {
   areDigitsUnique,
   generateUniqueThreeDigitNumbersFromFiveDigit,
   generatePermutations,
+  findPermute,
 } from '../../src/utils/cp_algorithm';
 
 const GameEntry = ({route, navigation}) => {
@@ -271,7 +272,13 @@ const GameEntry = ({route, navigation}) => {
         // let cpNumbers = generateUniqueThreeDigitNumbersFromFiveDigit(
         //   parseInt(cpNumber),
         // );
-        let cpNumbers = generatePermutations(parseInt(cpNumber));
+        let inputString = cpNumber;
+        let kValue = 3;
+        let cpNumbers = [];
+        let tempArray = [];
+
+        findPermute(inputString, kValue, cpNumbers, tempArray, 0);
+        // let cpNumbers = generatePermutations(parseInt(cpNumber));
         cpNumbers.forEach(item => {
           let itemStr = item.toString();
           console.log('itemStritemStritemStritemStritemStr', itemStr);

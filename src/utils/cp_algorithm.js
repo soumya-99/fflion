@@ -64,3 +64,22 @@ export function generatePermutations(inputNumber) {
 
   return permutations;
 }
+
+// Optimized version of the previous function
+export function findPermute(input, k, res, temp, i) {
+  let sortedNumber = input
+    .split('')
+    .map(Number)
+    .sort((a, b) => a - b)
+    .join('');
+  if (temp.length === k) {
+    res.push(temp.join('')); // Join the characters to form a string
+    return;
+  }
+
+  for (let j = i; j < sortedNumber.length; j++) {
+    temp.push(sortedNumber[j]);
+    findPermute(sortedNumber, k, res, temp, j + 1);
+    temp.pop();
+  }
+}
