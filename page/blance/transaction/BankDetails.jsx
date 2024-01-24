@@ -2,22 +2,13 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   SafeAreaView,
   ScrollView,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import TitleBar from '../../../component/titlebar/TitleBar';
-import {authstyles} from '../../style/pagestyle';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import axios from 'axios';
-import {BASE_URL} from '../../../src/config';
-import {AuthContext} from '../../../src/context/AuthContext';
-import {useIsFocused} from '@react-navigation/native';
-import Banner from '../../../component/banner/Banner';
-import TransComp from '../../../component/trans_component/TransComp';
 import LinearGradient from 'react-native-linear-gradient';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 const BankDeatils = () => {
@@ -147,7 +138,7 @@ const styles = StyleSheet.create({
   input: {
     padding: normalize(10),
     justifyContent: 'center',
-    width: normalize(150),
+    width: normalize(180),
     height: normalize(40),
     // backgroundColor: 'rgba(255, 255, 255, 0)',
     borderColor: '#FFF',
