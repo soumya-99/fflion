@@ -7,17 +7,71 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TitleBar from '../../../component/titlebar/TitleBar';
 import LinearGradient from 'react-native-linear-gradient';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
+import axios from 'axios';
+import {BASE_URL} from '../../../src/config';
+import {AuthContext} from '../../../src/context/AuthContext';
+import {useIsFocused} from '@react-navigation/native';
 const BankDeatils = () => {
+  const isFocused = useIsFocused();
+  const {userInfo} = useContext(AuthContext);
   const [bName, setBName] = useState('');
   const [accNo, setAccNo] = useState('');
   const [ifscCode, setIfscCode] = useState('');
 
-  const handleUpdateDetails = () => {
+  const fetchBankDetails = async () => {
+    await axios
+      .get(
+        `${BASE_URL}/add-account`,
+        // {},
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        },
+      )
+      .then(res => {
+        console.log('BANK DETAILS FETCHED...', res.data);
+        setBName(res.data?.bank_name);
+        setAccNo(res.data?.account_no);
+        setIfscCode(res.data?.ifsc_code);
+      })
+      .catch(err => {
+        console.log('Error fetching Bank Details...', err);
+      });
+  };
+
+  useEffect(() => {
+    fetchBankDetails();
+  }, [isFocused]);
+
+  const handleUpdateDetails = async () => {
     console.log('handleUpdateDetails');
+    await axios
+      .post(
+        `${BASE_URL}/add-account`,
+        {
+          account_no: accNo.toString(),
+          bank_name: bName,
+          ifsc_code: ifscCode,
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        },
+      )
+      .then(res => {
+        console.log('handleUpdateDetails SUCC', res.data);
+      })
+      .catch(err => {
+        console.log('handleUpdateDetails ERRR', err);
+      });
   };
   return (
     <SafeAreaView style={{marginBottom: SCREEN_HEIGHT / 18}}>
@@ -69,14 +123,14 @@ const BankDeatils = () => {
                   style={styles.input}
                   value={bName}
                   onChangeText={setBName}
-                  placeholder="Bank Name"
+                  placeholder={bName || 'Bank Name'}
                   placeholderTextColor="#FFFFFF"
                 />
                 <TextInput
                   style={styles.input}
                   value={accNo}
                   onChangeText={setAccNo}
-                  placeholder="Account No."
+                  placeholder={accNo || 'Account No.'}
                   keyboardType="numeric"
                   placeholderTextColor="#FFFFFF"
                 />
@@ -84,8 +138,7 @@ const BankDeatils = () => {
                   style={styles.input}
                   value={ifscCode}
                   onChangeText={setIfscCode}
-                  placeholder="IFSC Code"
-                  keyboardType="numeric"
+                  placeholder={ifscCode || 'IFSC Code'}
                   placeholderTextColor="#FFFFFF"
                 />
               </View>
