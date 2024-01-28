@@ -54,7 +54,7 @@ const ResultDetails = ({navigation, route}) => {
       .then(res => {
         const data = res.data?.data;
         console.log('getResult', data);
-        // console.log('userInfo?.token', userInfo?.token);
+        console.log('userInfo?.token', userInfo?.token);
         // console.log('game_id', game_id);
         setResults(data);
       })

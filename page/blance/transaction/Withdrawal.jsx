@@ -33,6 +33,7 @@ const Withdrawal = ({navigation}) => {
   const [isFocus, setIsFocus] = useState(false);
   const [transactionNumber, onChangeTransactionNumber] = useState();
   const [amount, onChangeAmount] = useState();
+  const [settings, setSettings] = useState();
   const {userInfo} = useContext(AuthContext);
   const isFocused = useIsFocused();
 
@@ -98,6 +99,22 @@ const Withdrawal = ({navigation}) => {
         console.log('title bal', er);
       });
   };
+
+  const getSettings = async () => {
+    await axios
+      .get(`${BASE_URL}/setting`, {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      })
+      .then(res => {
+        setSettings(res.data?.data[0]);
+      });
+  };
+
+  useEffect(() => {
+    getSettings();
+  }, [isFocused]);
 
   return (
     <SafeAreaView>
@@ -186,7 +203,8 @@ const Withdrawal = ({navigation}) => {
               />
               <TouchableOpacity
                 onPress={handleRequest}
-                style={styles.submitButton}>
+                style={styles.submitButton}
+                disabled={settings?.withdrawal_flag == 'Y' ? false : true}>
                 <Text
                   style={[
                     styles.insideBoxTextStyle,
@@ -194,7 +212,7 @@ const Withdrawal = ({navigation}) => {
                       textAlign: 'center',
                       fontSize: normalize(20),
                       fontWeight: '700',
-                    },
+                    },``
                   ]}>
                   SUBMIT
                 </Text>

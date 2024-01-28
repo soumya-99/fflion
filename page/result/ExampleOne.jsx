@@ -41,26 +41,27 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
             ))}
           </View>
         ))} */}
-
         {Array.from({length: maxColumns}).map((_, j) => (
-          <View key={j} style={{flexDirection: 'row'}}>
-            {data?.nested_results.map((item, i) => (
-              <View
-                key={i}
-                style={{
-                  flex: 1,
-                  borderWidth: 1,
-                  borderColor: 'purple',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 0,
-                }}>
-                <Text style={{color: '#FFFFFF'}}>
-                  {item?.final_results[j]?.result || '-'}
-                </Text>
-              </View>
-            ))}
-          </View>
+          <>
+            <View key={j} style={{flexDirection: 'row'}}>
+              {data?.nested_results.map((item, i) => (
+                <View
+                  key={i}
+                  style={{
+                    flex: 1,
+                    borderWidth: 1,
+                    borderColor: 'purple',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 0,
+                  }}>
+                  <Text style={{color: '#FFFFFF'}}>
+                    {item?.final_results[j]?.result || '-'}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </>
         ))}
       </View>
     </>
