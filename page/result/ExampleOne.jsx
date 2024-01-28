@@ -3,6 +3,11 @@ import {StyleSheet, View, Text} from 'react-native';
 import {Table, Rows} from 'react-native-table-component';
 
 const ExampleOne = ({data, isSingle, gameLength}) => {
+  const maxColumns = Math.max(
+    ...data?.nested_results.map(item => item?.final_results.length || 0),
+    0,
+  );
+
   return (
     <>
       <View style={styles.container}>
@@ -37,7 +42,7 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
           </View>
         ))} */}
 
-        {data?.nested_results[0]?.final_results?.map((_, j) => (
+        {Array.from({length: maxColumns}).map((_, j) => (
           <View key={j} style={{flexDirection: 'row'}}>
             {data?.nested_results.map((item, i) => (
               <View
@@ -51,7 +56,7 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
                   borderRadius: 0,
                 }}>
                 <Text style={{color: '#FFFFFF'}}>
-                  {item?.final_results[j]?.result}
+                  {item?.final_results[j]?.result || '-'}
                 </Text>
               </View>
             ))}
