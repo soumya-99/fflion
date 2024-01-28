@@ -55,7 +55,9 @@ const ResultDetails = ({navigation, route}) => {
     getResult(game_id, userInfo?.token)
       .then(res => {
         const data = res.data.data;
-        console.log(data);
+        console.log('getResult', data);
+        console.log('userInfo?.token', userInfo?.token);
+        console.log('game_id', game_id);
         setResults(data);
       })
       .catch(error => console.error(error));
@@ -137,7 +139,8 @@ export default ResultDetails;
 
 const styles = StyleSheet.create({
   linearGradientBg: {
-    height: SCREEN_HEIGHT,
+    minHeight: SCREEN_HEIGHT,
+    height: 'auto',
     alignItems: 'center',
     padding: normalize(10),
     // marginHorizontal: normalize(20),

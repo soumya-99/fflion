@@ -211,7 +211,8 @@ export default Withdrawal;
 
 const styles = StyleSheet.create({
   linearGradientBg: {
-    height: SCREEN_HEIGHT,
+    minHeight: SCREEN_HEIGHT,
+    height: 'auto',
     alignItems: 'center',
     padding: normalize(10),
   },
