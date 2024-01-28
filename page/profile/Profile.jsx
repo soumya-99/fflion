@@ -1,9 +1,6 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import React, {useContext} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
-import {authstyles} from '../style/pagestyle';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import {AuthContext} from '../../src/context/AuthContext';
 import LinearGradient from 'react-native-linear-gradient';

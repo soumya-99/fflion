@@ -8,10 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
-import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
 import DatePicker from 'react-native-date-picker';
 import axios from 'axios';
 import {BASE_URL} from '../../src/config';

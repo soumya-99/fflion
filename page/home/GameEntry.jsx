@@ -15,12 +15,7 @@ import {BASE_URL} from '../../src/config';
 import {AuthContext} from '../../src/context/AuthContext';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  areDigitsUnique,
-  generateUniqueThreeDigitNumbersFromFiveDigit,
-  generatePermutations,
-  findPermute,
-} from '../../src/utils/cp_algorithm';
+import {areDigitsUnique, findPermute} from '../../src/utils/cp_algorithm';
 
 const GameEntry = ({route, navigation}) => {
   const {itemData} = route.params;
@@ -163,6 +158,13 @@ const GameEntry = ({route, navigation}) => {
       if (singleAmount < 5) {
         ToastAndroid.show(
           'Single amount should be more than ₹5.',
+          ToastAndroid.SHORT,
+        );
+        return;
+      }
+      if (singleAmount > 9999) {
+        ToastAndroid.show(
+          'Single amount should be less than ₹9999.',
           ToastAndroid.SHORT,
         );
         return;
@@ -788,7 +790,6 @@ export default GameEntry;
 
 const styles = StyleSheet.create({
   linearGradientBg: {
-    // height: SCREEN_HEIGHT * 1.1,
     minHeight: SCREEN_HEIGHT,
     height: 'auto',
     alignItems: 'center',

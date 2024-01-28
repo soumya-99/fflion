@@ -3,18 +3,13 @@ import {
   Text,
   View,
   TouchableOpacity,
-  FlatList,
   SafeAreaView,
   ScrollView,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
-import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
 import handleGetGameTime from '../../hooks/controller/Game/handleGetGameTime';
 import {AuthContext} from '../../src/context/AuthContext';
-import OfferText from '../../component/offerText/OfferText';
-import Banner from '../../component/banner/Banner';
-import TransComp from '../../component/trans_component/TransComp';
 import {useIsFocused} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';

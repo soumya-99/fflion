@@ -9,9 +9,7 @@ import {
 import React, {useState, useContext, useEffect} from 'react';
 import {authstyles} from '../style/pagestyle';
 import TitleBar from '../../component/titlebar/TitleBar';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import ExampleOne from './ExampleOne';
-import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
 import {AuthContext} from '../../src/context/AuthContext';
 import handleGetResult from '../../hooks/controller/Game/Results/handleGetResult';
 import handleGetGameTime from '../../hooks/controller/Game/handleGetGameTime';
@@ -54,10 +52,10 @@ const ResultDetails = ({navigation, route}) => {
     }
     getResult(game_id, userInfo?.token)
       .then(res => {
-        const data = res.data.data;
+        const data = res.data?.data;
         console.log('getResult', data);
-        console.log('userInfo?.token', userInfo?.token);
-        console.log('game_id', game_id);
+        // console.log('userInfo?.token', userInfo?.token);
+        // console.log('game_id', game_id);
         setResults(data);
       })
       .catch(error => console.error(error));

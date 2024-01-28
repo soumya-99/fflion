@@ -1,25 +1,8 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Linking,
-  SafeAreaView,
-  ImageBackground,
-} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import React from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
-import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
-import {AuthContext} from '../../src/context/AuthContext';
-import axios from 'axios';
-import {BASE_URL} from '../../src/config';
+import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import {ScrollView} from 'react-native-gesture-handler';
-
-import carou1 from '../../assets/carou1.jpeg';
-import phone from '../../assets/logo/phone.png';
-import whatsapp from '../../assets/logo/whatsapp.png';
-import LinearGradient from 'react-native-linear-gradient';
 
 const Matrix = ({matrix}) => {
   let head = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];

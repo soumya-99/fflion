@@ -196,14 +196,6 @@ const GameTime = ({navigation, route}) => {
           end={{x: 1, y: 0}}
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
-          {/* <FlatList
-            data={gameTime}
-            keyExtractor={item => item.game_id}
-            renderItem={({item, index}) => (
-              <GameListTwo item={item} index={index} />
-            )}
-          /> */}
-
           {gameTime?.map((item, index) => (
             <GameListTwo key={item.game_id} item={item} index={index} />
           ))}

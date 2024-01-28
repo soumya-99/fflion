@@ -4,7 +4,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  PixelRatio,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
@@ -12,7 +11,6 @@ import React, {useContext, useState, useEffect} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {AuthContext} from '../../src/context/AuthContext';
 import handleGetGameName from '../../hooks/controller/Game/handleGetGameName';
-import LudoImage from '../../assets/icon/dice.png';
 import {useIsFocused} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
