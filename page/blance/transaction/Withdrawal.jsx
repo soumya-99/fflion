@@ -6,24 +6,22 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState, useContext, useEffect} from 'react';
-import {authstyles} from '../../style/pagestyle';
 import TitleBar from '../../../component/titlebar/TitleBar';
 import {Dropdown} from 'react-native-element-dropdown';
 import axios from 'axios';
 import {BASE_URL} from '../../../src/config';
 import {AuthContext} from '../../../src/context/AuthContext';
-import Banner from '../../../component/banner/Banner';
-import TransComp from '../../../component/trans_component/TransComp';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import normalize, {SCREEN_HEIGHT, SCREEN_WIDTH} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 
 const data = [
   {label: 'Phone Pe', value: '1'},
   {label: 'Google Pay', value: '2'},
   {label: 'PayTM', value: '3'},
+  {label: 'Bank', value: '4'},
 ];
 
 const Withdrawal = ({navigation}) => {
@@ -212,7 +210,8 @@ const Withdrawal = ({navigation}) => {
                       textAlign: 'center',
                       fontSize: normalize(20),
                       fontWeight: '700',
-                    },``
+                    },
+                    ``,
                   ]}>
                   SUBMIT
                 </Text>

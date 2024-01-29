@@ -7,7 +7,7 @@ import {
   View,
   SafeAreaView,
 } from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import TitleBar from '../../component/titlebar/TitleBar';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -20,6 +20,11 @@ import {areDigitsUnique, findPermute} from '../../src/utils/cp_algorithm';
 const GameEntry = ({route, navigation}) => {
   const {itemData} = route.params;
   const {userInfo} = useContext(AuthContext);
+
+  const singleAmountInputRef = useRef(null);
+  const jodiAmountInputRef = useRef(null);
+  const pattiAmountInputRef = useRef(null);
+  const cpAmountInputRef = useRef(null);
 
   const [singleNumber, changeSingleNumber] = useState('');
   const [singleAmount, changeSingleAmount] = useState('');
@@ -41,7 +46,32 @@ const GameEntry = ({route, navigation}) => {
   const [patti, setPatti] = useState(() => false);
   const [cp, setCp] = useState(() => false);
 
-  const handleSingleChnage = () => {
+  const handleChangeSingleNumber = txt => {
+    changeSingleNumber(txt);
+    if (txt.length === 1) {
+      singleAmountInputRef.current.focus();
+    }
+  };
+  const handleChangeJodiNumber = txt => {
+    changeJurieNumber(txt);
+    if (txt.length === 2) {
+      jodiAmountInputRef.current.focus();
+    }
+  };
+  const handleChangePattiNumber = txt => {
+    changePattiNumber(txt);
+    if (txt.length === 3) {
+      pattiAmountInputRef.current.focus();
+    }
+  };
+  const handleChangeCpNumber = txt => {
+    changeCpNumber(txt);
+    if (txt.length === 5) {
+      cpAmountInputRef.current.focus();
+    }
+  };
+
+  const handleSingleChnage = txt => {
     setSingle(true);
     setJodi(false);
     setPatti(false);
@@ -55,7 +85,7 @@ const GameEntry = ({route, navigation}) => {
     changeCpNumber('');
     changeCpAmount('');
   };
-  const handleJodiChnage = () => {
+  const handleJodiChnage = txt => {
     setJodi(true);
     setSingle(false);
     setPatti(false);
@@ -69,7 +99,7 @@ const GameEntry = ({route, navigation}) => {
     changeCpNumber('');
     changeCpAmount('');
   };
-  const handlePattiChnage = () => {
+  const handlePattiChnage = txt => {
     setPatti(true);
     setSingle(false);
     setJodi(false);
@@ -84,7 +114,7 @@ const GameEntry = ({route, navigation}) => {
     changeCpAmount('');
   };
 
-  const handleCpChnage = () => {
+  const handleCpChnage = txt => {
     setCp(true);
     setPatti(false);
     setSingle(false);
@@ -471,8 +501,9 @@ const GameEntry = ({route, navigation}) => {
               <View style={{}}>
                 <Text style={styles.titleStyle}> SINGLE </Text>
                 <TextInput
+                  autoFocus
                   style={styles.textInputStyle}
-                  onChangeText={changeSingleNumber}
+                  onChangeText={handleChangeSingleNumber}
                   placeholder="Number"
                   value={singleNumber}
                   numberOfLines={2}
@@ -481,6 +512,7 @@ const GameEntry = ({route, navigation}) => {
                   maxLength={1}
                 />
                 <TextInput
+                  ref={singleAmountInputRef}
                   style={styles.textInputStyle}
                   onChangeText={changeSingleAmount}
                   placeholder="Amount"
@@ -495,8 +527,9 @@ const GameEntry = ({route, navigation}) => {
               <View style={{}}>
                 <Text style={styles.titleStyle}> JODI </Text>
                 <TextInput
+                  autoFocus
                   style={styles.textInputStyle}
-                  onChangeText={changeJurieNumber}
+                  onChangeText={handleChangeJodiNumber}
                   placeholder="Number"
                   value={juriNumber}
                   placeholderTextColor={'black'}
@@ -504,6 +537,7 @@ const GameEntry = ({route, navigation}) => {
                   maxLength={2}
                 />
                 <TextInput
+                  ref={jodiAmountInputRef}
                   style={styles.textInputStyle}
                   onChangeText={changeJuriAmount}
                   placeholder="Amount"
@@ -518,8 +552,9 @@ const GameEntry = ({route, navigation}) => {
               <View style={{}}>
                 <Text style={styles.titleStyle}> PATTI </Text>
                 <TextInput
+                  autoFocus
                   style={styles.textInputStyle}
-                  onChangeText={changePattiNumber}
+                  onChangeText={handleChangePattiNumber}
                   placeholder="Number"
                   value={pattiNumber}
                   placeholderTextColor={'black'}
@@ -527,6 +562,7 @@ const GameEntry = ({route, navigation}) => {
                   maxLength={3}
                 />
                 <TextInput
+                  ref={pattiAmountInputRef}
                   style={styles.textInputStyle}
                   onChangeText={changePattiAmount}
                   placeholder="Amount"
@@ -541,8 +577,9 @@ const GameEntry = ({route, navigation}) => {
               <View style={{}}>
                 <Text style={styles.titleStyle}> CP </Text>
                 <TextInput
+                  autoFocus
                   style={styles.textInputStyle}
-                  onChangeText={changeCpNumber}
+                  onChangeText={handleChangeCpNumber}
                   placeholder="Number"
                   value={cpNumber}
                   placeholderTextColor={'black'}
@@ -550,6 +587,7 @@ const GameEntry = ({route, navigation}) => {
                   maxLength={5}
                 />
                 <TextInput
+                  ref={cpAmountInputRef}
                   style={styles.textInputStyle}
                   onChangeText={changeCpAmount}
                   placeholder="Amount"

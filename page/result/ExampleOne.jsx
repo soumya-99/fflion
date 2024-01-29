@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import normalize from 'react-native-normalize';
 
 const ExampleOne = ({data, isSingle, gameLength}) => {
@@ -20,7 +20,7 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
             color: '#FFFFFF',
             padding: 2,
           }}>
-          {data?.result_date}
+          {new Date(data?.result_date).toLocaleDateString('en-GB')}
         </Text>
         {/* {data?.nested_results.map((item, i) => (
           // item?.final_results?.map((resItem, i) => {
@@ -44,19 +44,19 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
           </View>
         ))} */}
         {Array.from({length: maxColumns}).map((_, j) => (
-          <>
-            <View key={j} style={{flexDirection: 'row'}}>
-              {data?.nested_results.map((item, i) => (
-                <View
-                  key={i}
-                  style={{
-                    flex: 1,
-                    borderWidth: 1,
-                    borderColor: 'purple',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 0,
-                  }}>
+          <View key={j} style={{flexDirection: 'row'}}>
+            {data?.nested_results.map((item, i) => (
+              <View
+                key={i}
+                style={{
+                  flex: 1,
+                  borderWidth: 1,
+                  borderColor: 'purple',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 0,
+                }}>
+                <ScrollView horizontal={true}>
                   {isSingle
                     ? (item?.final_results[j]?.game_type === 'S' ||
                         item?.final_results[j]?.game_type === 'P') && (
@@ -69,10 +69,10 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
                           {item?.final_results[j]?.result || '-'}
                         </Text>
                       )}
-                </View>
-              ))}
-            </View>
-          </>
+                </ScrollView>
+              </View>
+            ))}
+          </View>
         ))}
       </View>
     </>
@@ -88,11 +88,11 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    margin: 6,
+    margin: 5,
     fontWeight: '800',
     color: '#FFFFFF',
     textAlign: 'center',
-    fontSize: normalize(18),
+    fontSize: normalize(15),
   },
 });
 
