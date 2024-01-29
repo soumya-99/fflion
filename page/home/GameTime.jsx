@@ -196,6 +196,16 @@ const GameTime = ({navigation, route}) => {
           end={{x: 1, y: 0}}
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
+          <View style={{padding: normalize(10)}}>
+            <Text
+              style={{
+                fontSize: normalize(20),
+                color: '#FFFFFF',
+                fontWeight: '800',
+              }}>
+              {game_name}
+            </Text>
+          </View>
           {gameTime?.map((item, index) => (
             <GameListTwo key={item.game_id} item={item} index={index} />
           ))}
