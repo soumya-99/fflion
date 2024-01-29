@@ -80,6 +80,7 @@ const TitleBar = () => {
       <View style={styles.coldiv}>
         <View style={styles.rupeeicon}>
           <Text style={styles.compName}>FF Lion</Text>
+          <Text style={styles.version}>(v2.0.0)</Text>
         </View>
       </View>
       <View style={styles.coldiv}>
@@ -120,6 +121,13 @@ const styles = StyleSheet.create({
   rupeeicon: {
     fontSize: normalize(20),
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  version: {
+    fontSize: normalize(15),
+    fontWeight: '800',
+    textAlign: 'center',
   },
   rupeeicon_content: {
     fontSize: normalize(20),
