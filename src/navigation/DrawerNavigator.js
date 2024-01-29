@@ -183,7 +183,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="Deposit"
+        name="Deposit History"
         component={Deposit}
         options={{
           drawerIcon: ({focused, color, size}) => (
@@ -197,7 +197,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="Withdrawal"
+        name="Withdrawal History"
         component={Withdrawal}
         options={{
           drawerIcon: ({focused, color, size}) => (
