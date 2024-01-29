@@ -387,6 +387,7 @@ const GameEntry = ({route, navigation}) => {
         if (res.data.status == 'SUCCESS') {
           setGameEntry([]);
           navigation.navigate('GameEntry', {itemData});
+          navigation.navigate('HomeNav');
         }
       })
       .catch(error => {
@@ -798,7 +799,6 @@ const GameEntry = ({route, navigation}) => {
           <TouchableOpacity
             onPress={() => {
               handleUploadToTheServer();
-              // navigation.navigate('FFLION');
             }}
             style={{
               alignSelf: 'center',
