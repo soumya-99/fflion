@@ -166,13 +166,13 @@ const Withdrawal = ({navigation}) => {
                 alignItems: 'center',
               }}>
               <Text style={{color: '#FFFFFF'}}>Withdraw Balance</Text>
-              <TextInput
+              {/* <TextInput
                 style={styles.input}
                 onChangeText={onChangeTransactionNumber}
                 value={transactionNumber}
                 placeholder="TNX. NO."
                 keyboardType="numeric"
-              />
+              /> */}
               <TextInput
                 style={styles.input}
                 onChangeText={onChangeAmount}

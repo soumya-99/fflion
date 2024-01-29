@@ -3,9 +3,23 @@ import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import normalize from 'react-native-normalize';
 
 const ExampleOne = ({data, isSingle, gameLength}) => {
+  // const maxColumns = Math.max(
+  //   ...data?.nested_results.map(item => item?.final_results.length || 0),
+  //   0,
+  // );
+
   const maxColumns = Math.max(
     ...data?.nested_results.map(item => item?.final_results.length || 0),
     0,
+  );
+
+  // Filter out unnecessary cells
+  const filteredData = data?.nested_results.map(item =>
+    item.final_results.filter(result =>
+      !isSingle
+        ? result.game_type === 'S' || result.game_type === 'P'
+        : result.game_type === 'J',
+    ),
   );
 
   return (
@@ -43,7 +57,7 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
             ))}
           </View>
         ))} */}
-        {Array.from({length: maxColumns}).map((_, j) => (
+        {/* {Array.from({length: maxColumns}).map((_, j) => (
           <View key={j} style={{flexDirection: 'row'}}>
             {data?.nested_results.map((item, i) => (
               <View
@@ -69,6 +83,31 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
                           {item?.final_results[j]?.result || '-'}
                         </Text>
                       )}
+                </ScrollView>
+              </View>
+            ))}
+          </View>
+        ))} */}
+
+        {Array.from({length: maxColumns}).map((_, j) => (
+          <View key={j} style={{flexDirection: 'row'}}>
+            {filteredData.map((item, i) => (
+              <View
+                key={i}
+                style={{
+                  flex: 1,
+                  borderWidth: 1,
+                  borderColor: 'purple',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 0,
+                }}>
+                <ScrollView horizontal={true}>
+                  {item[j] ? (
+                    <Text key={i} style={styles.text}>
+                      {item[j]?.result || '-'}
+                    </Text>
+                  ) : null}
                 </ScrollView>
               </View>
             ))}
