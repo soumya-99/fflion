@@ -80,7 +80,7 @@ const ResultDetails = ({navigation, route}) => {
           }}>
           {game_name}
         </Text>
-        {/* <View
+        <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
@@ -117,7 +117,7 @@ const ResultDetails = ({navigation, route}) => {
             }}>
             Jodi
           </Text>
-        </View> */}
+        </View>
         <ScrollView style={{marginHorizontal: normalize(15), width: '100%'}}>
           {results &&
             results.map((props, index) => (

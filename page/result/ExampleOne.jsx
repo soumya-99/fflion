@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {Table, Rows} from 'react-native-table-component';
+import normalize from 'react-native-normalize';
 
 const ExampleOne = ({data, isSingle, gameLength}) => {
   const maxColumns = Math.max(
@@ -14,6 +14,8 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
         <Text
           style={{
             textAlign: 'center',
+            fontSize: normalize(18),
+            fontWeight: '800',
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
             color: '#FFFFFF',
             padding: 2,
@@ -55,9 +57,18 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
                     alignItems: 'center',
                     borderRadius: 0,
                   }}>
-                  <Text style={{color: '#FFFFFF'}}>
-                    {item?.final_results[j]?.result || '-'}
-                  </Text>
+                  {isSingle
+                    ? (item?.final_results[j]?.game_type === 'S' ||
+                        item?.final_results[j]?.game_type === 'P') && (
+                        <Text key={i} style={styles.text}>
+                          {item?.final_results[j]?.result || '-'}
+                        </Text>
+                      )
+                    : item?.final_results[j]?.game_type === 'J' && (
+                        <Text key={i} style={styles.text}>
+                          {item?.final_results[j]?.result || '-'}
+                        </Text>
+                      )}
                 </View>
               ))}
             </View>
@@ -76,7 +87,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
 
-  text: {margin: 6, fontWeight: '600', color: '#FFFFFF', textAlign: 'center'},
+  text: {
+    margin: 6,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontSize: normalize(18),
+  },
 });
 
 export default ExampleOne;
