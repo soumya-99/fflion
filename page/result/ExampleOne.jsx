@@ -57,7 +57,7 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
                   borderRadius: 0,
                 }}>
                 <ScrollView horizontal={true}>
-                  {isSingle
+                  {!isSingle
                     ? (item?.final_results[j]?.game_type === 'S' ||
                         item?.final_results[j]?.game_type === 'P') && (
                         <Text key={i} style={styles.text}>
