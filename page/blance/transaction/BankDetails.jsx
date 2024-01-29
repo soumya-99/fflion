@@ -6,6 +6,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import TitleBar from '../../../component/titlebar/TitleBar';
@@ -50,6 +51,10 @@ const BankDeatils = () => {
   }, [isFocused]);
 
   const handleUpdateDetails = async () => {
+    if (!bName || !accNo || !ifscCode) {
+      Alert.alert("Can't Update!", 'Fill all the details to update details');
+      return;
+    }
     console.log('handleUpdateDetails');
     await axios
       .post(

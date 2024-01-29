@@ -64,7 +64,8 @@ const About = () => {
           </View>
           <View
             style={{
-              height: '70%',
+              minHeight: '70%',
+              height: 'auto',
               width: SCREEN_WIDTH / 1.1,
               borderWidth: 2,
               borderRadius: normalize(30),
