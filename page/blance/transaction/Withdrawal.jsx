@@ -52,7 +52,7 @@ const Withdrawal = ({navigation}) => {
         {
           amt: amount,
           paymod: paymentMod,
-          transNo: transactionNumber,
+          transNo: 0,
         },
         {
           headers: {
