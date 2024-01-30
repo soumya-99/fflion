@@ -181,6 +181,11 @@ const GameEntry = ({route, navigation}) => {
     }
 
     if (singleNumber) {
+      if (singleNumber[0] === '0') {
+        ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
+        return;
+      }
+
       if (!singleAmount) {
         ToastAndroid.show('Please add Single Amount', ToastAndroid.SHORT);
         return;
@@ -202,6 +207,11 @@ const GameEntry = ({route, navigation}) => {
     }
 
     if (juriNumber) {
+      if (juriNumber[0] === '0') {
+        ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
+        return;
+      }
+
       if (!juriAmount) {
         ToastAndroid.show('Please add Juri Amount', ToastAndroid.SHORT);
         return;
@@ -227,6 +237,11 @@ const GameEntry = ({route, navigation}) => {
     if (pattiNumber) {
       if (!pattiAmount) {
         ToastAndroid.show('Please add Patti Amount', ToastAndroid.SHORT);
+        return;
+      }
+
+      if (pattiNumber[0] === '0') {
+        ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
         return;
       }
 
@@ -264,6 +279,17 @@ const GameEntry = ({route, navigation}) => {
     if (cpNumber) {
       if (cpNumber.length < 5) {
         ToastAndroid.show('CP number must be 5 digits.', ToastAndroid.SHORT);
+        return;
+      }
+      if (parseInt(cpNumber) === 0) {
+        ToastAndroid.show(
+          'CP number must be greater than 0.',
+          ToastAndroid.SHORT,
+        );
+        return;
+      }
+      if (cpNumber[0] === '0') {
+        ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
         return;
       }
       let isUnique = areDigitsUnique(parseInt(cpNumber));

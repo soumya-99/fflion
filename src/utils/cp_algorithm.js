@@ -5,16 +5,22 @@
  * @returns The function `areDigitsUnique` returns a boolean value. It returns `true` if all the digits
  * in the given number are unique, and `false` otherwise.
  */
+// export function areDigitsUnique(number) {
+//   const numString = number.toString();
+//   for (let i = 0; i < numString.length; i++) {
+//     for (let j = i + 1; j < numString.length; j++) {
+//       if (numString[i] === numString[j]) {
+//         return false;
+//       }
+//     }
+//   }
+//   return true;
+// }
+
 export function areDigitsUnique(number) {
-  const numString = number.toString();
-  for (let i = 0; i < numString.length; i++) {
-    for (let j = i + 1; j < numString.length; j++) {
-      if (numString[i] === numString[j]) {
-        return false;
-      }
-    }
-  }
-  return true;
+  const digits = String(number).split('');
+  const uniqueDigits = new Set(digits);
+  return uniqueDigits.size === digits.length;
 }
 
 /**
