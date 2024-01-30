@@ -62,7 +62,7 @@ const Withdrawal = ({navigation}) => {
       )
       .then(res => {
         if (res.data.status == 'SUCCESS') {
-          navigation.navigate('Transaction');
+          navigation.navigate('Withdrawal History');
         }
         if (res.data.status == 'ERROR') {
           alert(res.data.data);

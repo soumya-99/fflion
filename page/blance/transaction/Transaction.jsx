@@ -98,7 +98,7 @@ const Transaction = () => {
               borderRadius: 5,
             }}>
             {/* {item.trns_flag == 'WI' ? 'WIN' : 'SUCCESSFUL'} */}
-            WIN
+            WINNING
           </Text>
         </View>
       </View>

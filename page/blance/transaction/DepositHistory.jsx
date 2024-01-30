@@ -66,7 +66,7 @@ const DepositHistory = () => {
           {/* All Texts */}
           <View>
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-            ₹ {item.amount}
+              ₹ {item.amount}
             </Text>
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>

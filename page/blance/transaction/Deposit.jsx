@@ -63,7 +63,7 @@ const Deposit = ({navigation}) => {
       .then(res => {
         console.log(res.data);
         if (res.data.status == 'SUCCESS') {
-          navigation.navigate('Transaction');
+          navigation.navigate('Deposit History');
         }
         if (res.data.status == 'ERROR') {
           alert(res.data.data);
