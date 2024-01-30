@@ -69,24 +69,19 @@ const Transaction = () => {
           {/* All Texts */}
           <View>
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              ₹ {item.amount}
+              {item?.game_name}
             </Text>
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              {newdate.toLocaleString()}
+              {newdate.toLocaleString('en-GB')}
             </Text>
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              Game: {item?.game_name}
-              {/* {item.trns_flag == 'D'
-                ? 'DEPOSIT'
-                : item.trns_flag == 'W'
-                ? 'WITHDRAL'
-                : item.trns_flag == 'WI'
-                ? 'WINING'
-                : item.trns_flag == 'EF'
-                ? 'ENTRY FEE'
-                : ''} */}
+              BAZI: {item.game_time}
+            </Text>
+
+            <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
+              BALANCE: ₹ {item.amount}
             </Text>
           </View>
         </View>
