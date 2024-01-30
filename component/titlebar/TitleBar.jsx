@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     justifyContent: 'space-between',
     paddingHorizontal: normalize(5),
-    paddingVertical: normalize(5),
+    paddingVertical: normalize(8),
   },
   coldiv: {
     flexDirection: 'row',
