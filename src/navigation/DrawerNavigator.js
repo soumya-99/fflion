@@ -34,6 +34,8 @@ import Shere from '../../page/contact/Shere';
 import {useNavigation} from '@react-navigation/native';
 import {useIsFocused} from '@react-navigation/native';
 import BankDeatils from '../../page/blance/transaction/BankDetails';
+import DepositHistory from '../../page/blance/transaction/DepositHistory';
+import WithdrawalHistory from '../../page/blance/transaction/WithdrawalHistory';
 
 const Drawer = createDrawerNavigator();
 
@@ -183,7 +185,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="Deposit History"
+        name="Deposit"
         component={Deposit}
         options={{
           drawerIcon: ({focused, color, size}) => (
@@ -197,13 +199,40 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name="Withdrawal History"
+        name="Withdrawal"
         component={Withdrawal}
+        options={{
+          drawerIcon: ({focused, color, size}) => (
+            <MaterialIcons
+              name={focused ? 'show-chart' : 'show-chart'}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Deposit History"
+        component={DepositHistory}
         options={{
           drawerIcon: ({focused, color, size}) => (
             // <MaterialIcons name="home" color={color} size={size} />
             <MaterialIcons
-              name={focused ? 'show-chart' : 'show-chart'}
+              name={focused ? 'history' : 'history'}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Withdrawal History"
+        component={WithdrawalHistory}
+        options={{
+          drawerIcon: ({focused, color, size}) => (
+            // <MaterialIcons name="home" color={color} size={size} />
+            <MaterialIcons
+              name={focused ? 'history' : 'history'}
               size={size}
               color={color}
             />

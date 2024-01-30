@@ -8,12 +8,12 @@ const TransComp = () => {
   return (
     <View style={styles.transCompContainer}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Deposit History')}
+        onPress={() => navigation.navigate('Deposit')}
         style={styles.buttonComponent}>
         <Text style={styles.buttonText}>Add Money</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Withdrawal History')}
+        onPress={() => navigation.navigate('Withdrawal')}
         style={styles.buttonComponent}>
         <Text style={styles.buttonText}>Withdrawal</Text>
       </TouchableOpacity>
