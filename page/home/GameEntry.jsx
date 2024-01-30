@@ -375,7 +375,7 @@ const GameEntry = ({route, navigation}) => {
 
   const handleUploadToTheServer = async () => {
     if (gameEntryArray.length == 0) {
-      return ToastAndroid.show('Please add Data', ToastAndroid.LONG);
+      return ToastAndroid.show('Please fill properly.', ToastAndroid.LONG);
     }
     const totalBidAmount = calculateTotalAmount(gameEntryArray);
     if (totalBidAmount > wlBal) {
@@ -546,6 +546,7 @@ const GameEntry = ({route, navigation}) => {
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
                   value={singleAmount}
+                  maxLength={4}
                 />
               </View>
             )}
@@ -571,6 +572,7 @@ const GameEntry = ({route, navigation}) => {
                   value={juriAmount}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
+                  maxLength={3}
                 />
               </View>
             )}
@@ -596,6 +598,7 @@ const GameEntry = ({route, navigation}) => {
                   value={pattiAmount}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
+                  maxLength={3}
                 />
               </View>
             )}
@@ -621,6 +624,7 @@ const GameEntry = ({route, navigation}) => {
                   value={cpAmount}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
+                  maxLength={3}
                 />
               </View>
             )}
