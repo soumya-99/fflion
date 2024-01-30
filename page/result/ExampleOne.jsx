@@ -57,37 +57,6 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
             ))}
           </View>
         ))} */}
-        {/* {Array.from({length: maxColumns}).map((_, j) => (
-          <View key={j} style={{flexDirection: 'row'}}>
-            {data?.nested_results.map((item, i) => (
-              <View
-                key={i}
-                style={{
-                  flex: 1,
-                  borderWidth: 1,
-                  borderColor: 'purple',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 0,
-                }}>
-                <ScrollView horizontal={true}>
-                  {!isSingle
-                    ? (item?.final_results[j]?.game_type === 'S' ||
-                        item?.final_results[j]?.game_type === 'P') && (
-                        <Text key={i} style={styles.text}>
-                          {item?.final_results[j]?.result || '-'}
-                        </Text>
-                      )
-                    : item?.final_results[j]?.game_type === 'J' && (
-                        <Text key={i} style={styles.text}>
-                          {item?.final_results[j]?.result || '-'}
-                        </Text>
-                      )}
-                </ScrollView>
-              </View>
-            ))}
-          </View>
-        ))} */}
 
         {Array.from({length: maxColumns}).map((_, j) => (
           <View key={j} style={{flexDirection: 'row'}}>
@@ -105,7 +74,7 @@ const ExampleOne = ({data, isSingle, gameLength}) => {
                 <ScrollView horizontal={true}>
                   {item[j] ? (
                     <Text key={i} style={styles.text}>
-                      {item[j]?.result || '-'}
+                      {item[j]?.result}
                     </Text>
                   ) : null}
                 </ScrollView>
