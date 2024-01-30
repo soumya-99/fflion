@@ -319,19 +319,7 @@ const GameEntry = ({route, navigation}) => {
             {...newFieldsObject, pattiNumber: itemStr, pattiAmount: cpAmount},
           ]);
         });
-      }
-      // else if (single) {
-      //   if (GameEntry.length < 6) {
-      //     setGameEntry(oldFieldsObject => [
-      //       ...oldFieldsObject,
-      //       newFieldsObject,
-      //     ]);
-      //   } else {
-      //     ToastAndroid.show("Can't add more Single!");
-      //     return;
-      //   }
-      // }
-      else {
+      } else {
         setGameEntry(oldFieldsObject => [...oldFieldsObject, newFieldsObject]);
       }
     }
