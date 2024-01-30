@@ -69,7 +69,7 @@ const Transaction = () => {
           {/* All Texts */}
           <View>
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              ₹ {item.amount}
+              {item.amount}
             </Text>
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
@@ -77,8 +77,8 @@ const Transaction = () => {
             </Text>
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              Game: {item?.game_name}
-              {/* {item.trns_flag == 'D'
+              Type :{' '}
+              {item.trns_flag == 'D'
                 ? 'DEPOSIT'
                 : item.trns_flag == 'W'
                 ? 'WITHDRAL'
@@ -86,7 +86,7 @@ const Transaction = () => {
                 ? 'WINING'
                 : item.trns_flag == 'EF'
                 ? 'ENTRY FEE'
-                : ''} */}
+                : ''}
             </Text>
           </View>
         </View>
@@ -95,15 +95,14 @@ const Transaction = () => {
         <View style={{flexDirection: 'column', justifyContent: 'center'}}>
           <Text
             style={{
-              backgroundColor: '#5BB450',
+              backgroundColor: '#fff',
               fontSize: 14,
-              color: '#FFFFFF',
+              color: 'black',
               fontWeight: '600',
               padding: 10,
               borderRadius: 5,
             }}>
-            {/* {item.trns_flag == 'WI' ? 'WIN' : 'SUCCESSFUL'} */}
-            WIN
+            {item.status == '0' ? 'PENDING' : 'SUCCESSFUL'}
           </Text>
         </View>
       </View>
@@ -121,24 +120,9 @@ const Transaction = () => {
           end={{x: 1, y: 0}}
           colors={['#5ce1ff', '#8c1e96', '#1b2196']}
           style={styles.linearGradientBg}>
-          <View>
-            <Text
-              style={{
-                fontSize: normalize(20),
-                color: '#FFFFFF',
-                textTransform: 'uppercase',
-                fontWeight: '800',
-                padding: 10,
-              }}>
-              Transaction
-            </Text>
-          </View>
-
-          {allTransaction
-            .filter(item => item?.trns_flag === 'WI')
-            .map((item, index) => (
-              <TransactionCardUi item={item} key={index} />
-            ))}
+          {allTransaction?.map((item, index) => (
+            <TransactionCardUi item={item} key={index} />
+          ))}
         </LinearGradient>
       </ScrollView>
     </SafeAreaView>
