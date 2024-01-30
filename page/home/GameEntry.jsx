@@ -48,7 +48,7 @@ const GameEntry = ({route, navigation}) => {
 
   const handleChangeSingleNumber = txt => {
     changeSingleNumber(txt);
-    if (txt.length === 1) {
+    if (txt.length === 6) {
       singleAmountInputRef.current.focus();
     }
   };
@@ -192,9 +192,9 @@ const GameEntry = ({route, navigation}) => {
         );
         return;
       }
-      if (singleAmount > 9999) {
+      if (singleAmount > 4999) {
         ToastAndroid.show(
-          'Single amount should be less than ₹9999.',
+          'Single amount should be less than ₹4999.',
           ToastAndroid.SHORT,
         );
         return;
@@ -353,7 +353,7 @@ const GameEntry = ({route, navigation}) => {
     }
     const totalBidAmount = calculateTotalAmount(gameEntryArray);
     if (totalBidAmount > wlBal) {
-      return alert('your wallet balance is low');
+      return alert('Your wallet balance is low');
     }
     // {"juriAmount": undefined, "juriNumber": undefined, "pattiAmount": undefined, "pattiNumber": undefined, "singleAmount": "999", "singleNumber": "89"}
     const data = [];
@@ -510,7 +510,7 @@ const GameEntry = ({route, navigation}) => {
                   numberOfLines={2}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
-                  maxLength={1}
+                  maxLength={6}
                 />
                 <TextInput
                   ref={singleAmountInputRef}

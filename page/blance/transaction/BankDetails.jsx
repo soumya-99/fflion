@@ -22,6 +22,7 @@ const BankDeatils = () => {
   const [bName, setBName] = useState('');
   const [accNo, setAccNo] = useState('');
   const [ifscCode, setIfscCode] = useState('');
+  const [mobileOrTnxNumber, setMobileOrTnxNumber] = useState('');
 
   const fetchBankDetails = async () => {
     await axios
@@ -51,8 +52,8 @@ const BankDeatils = () => {
   }, [isFocused]);
 
   const handleUpdateDetails = async () => {
-    if (!bName || !accNo || !ifscCode) {
-      Alert.alert("Can't Update!", 'Fill all the details to update details');
+    if (!bName || !accNo || !ifscCode || !mobileOrTnxNumber) {
+      Alert.alert("Can't Update!", 'Fill all the details to update details.');
       return;
     }
     console.log('handleUpdateDetails');
@@ -63,6 +64,7 @@ const BankDeatils = () => {
           account_no: accNo.toString(),
           bank_name: bName,
           ifsc_code: ifscCode,
+          // tnx_val: mobileOrTnxNumber
         },
         {
           headers: {
@@ -122,6 +124,9 @@ const BankDeatils = () => {
                 <Text style={{color: '#FFF', fontSize: normalize(18)}}>
                   IFSC Code
                 </Text>
+                <Text style={{color: '#FFF', fontSize: normalize(18)}}>
+                  Tnx. Number
+                </Text>
               </View>
               <View style={{justifyContent: 'space-evenly', height: '80%'}}>
                 <TextInput
@@ -144,6 +149,13 @@ const BankDeatils = () => {
                   value={ifscCode}
                   onChangeText={setIfscCode}
                   placeholder={ifscCode || 'IFSC Code'}
+                  placeholderTextColor="#FFFFFF"
+                />
+                <TextInput
+                  style={styles.input}
+                  value={mobileOrTnxNumber}
+                  onChangeText={setMobileOrTnxNumber}
+                  placeholder={mobileOrTnxNumber || 'Tnx. Number'}
                   placeholderTextColor="#FFFFFF"
                 />
               </View>
