@@ -4,8 +4,8 @@ import {
   DrawerItemList,
   createDrawerNavigator,
 } from '@react-navigation/drawer';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomTabNavigator from './TabNavigator';
-import Login from '../../page/auth/Login';
 import Contact from '../../page/contact/Contact';
 import Profile from '../../page/profile/Profile';
 import Transaction from '../../page/blance/transaction/Transaction';
@@ -69,6 +69,10 @@ function ImageDrawerContent(navigation) {
       });
   };
 
+  const fetchTotalBalance = () => {
+    getGameNameData();
+  };
+
   return (
     <DrawerContentScrollView {...navigation}>
       <View style={styles.cont}>
@@ -95,7 +99,24 @@ function ImageDrawerContent(navigation) {
           <Text style={styles.textview}>
             {userInfo?.user?.name.toUpperCase()}
           </Text>
-          <Text style={styles.textview}>₹{wlBal}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+            }}>
+            <View style={styles.logo_icon}>
+              <TouchableOpacity onPress={fetchTotalBalance}>
+                {/* <Ionicons name="wallet" size={20} color="#555555" /> */}
+                <MaterialCommunityIcons
+                  name="refresh-circle"
+                  size={25}
+                  color="#FFFFFF"
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.textview}> ₹{wlBal}</Text>
+          </View>
         </View>
       </View>
 
@@ -334,7 +355,10 @@ const styles = StyleSheet.create({
   drawerStyle: {
     backgroundColor: '#f0f0f0',
   },
-
+  logo_icon: {
+    justifyContent: 'center',
+    marginHorizontal: normalize(2),
+  },
   cont: {
     flex: 1,
     flexDirection: 'row',
@@ -349,5 +373,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

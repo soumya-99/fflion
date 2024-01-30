@@ -10,6 +10,7 @@ import React, {useContext, useEffect, useState} from 'react';
 
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import normalize from 'react-native-normalize';
 import {AuthContext} from '../../src/context/AuthContext';
@@ -54,7 +55,7 @@ const TitleBar = () => {
   const handleOpenDrawer = () => {
     navigation.openDrawer();
   };
-  const handleCopyToClipboard = () => {
+  const fetchTotalBalance = () => {
     getGameNameData();
   };
 
@@ -64,18 +65,11 @@ const TitleBar = () => {
         <View style={styles.logo_icon}>
           <AntDesign
             name="menuunfold"
-            size={40}
+            size={25}
             color="#000000"
             onPress={handleOpenDrawer}
           />
         </View>
-        {/* <View style={styles.logo_icon}>
-          <Image
-            source={require('../../assets/logo/Star-Line__2.png')}
-            style={{width: logoWidth}}
-            resizeMode="contain"
-          />
-        </View> */}
       </View>
       <View style={styles.coldiv}>
         <View style={styles.rupeeicon}>
@@ -85,8 +79,13 @@ const TitleBar = () => {
       </View>
       <View style={styles.coldiv}>
         <View style={styles.logo_icon}>
-          <TouchableOpacity onPress={handleCopyToClipboard}>
-            <Ionicons name="wallet" size={20} color="#555555" />
+          <TouchableOpacity onPress={fetchTotalBalance}>
+            {/* <Ionicons name="wallet" size={20} color="#555555" /> */}
+            <MaterialCommunityIcons
+              name="refresh-circle"
+              size={20}
+              color="#555555"
+            />
           </TouchableOpacity>
         </View>
 
@@ -108,7 +107,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     justifyContent: 'space-between',
-    paddingHorizontal: normalize(1),
+    paddingHorizontal: normalize(5),
+    paddingVertical: normalize(5),
   },
   coldiv: {
     flexDirection: 'row',

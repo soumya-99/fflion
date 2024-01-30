@@ -415,7 +415,7 @@ const GameEntry = ({route, navigation}) => {
               onPress={handleSingleChnage}
               style={{
                 alignSelf: 'center',
-                backgroundColor: 'orange',
+                backgroundColor: '#FF9800',
                 paddingHorizontal: 10,
                 paddingVertical: 5,
                 margin: 10,
@@ -435,7 +435,7 @@ const GameEntry = ({route, navigation}) => {
               onPress={handleJodiChnage}
               style={{
                 alignSelf: 'center',
-                backgroundColor: 'lavender',
+                backgroundColor: '#6FC276',
                 paddingHorizontal: 10,
                 paddingVertical: 5,
                 margin: 10,
@@ -475,7 +475,7 @@ const GameEntry = ({route, navigation}) => {
               onPress={handleCpChnage}
               style={{
                 alignSelf: 'center',
-                backgroundColor: 'tomato',
+                backgroundColor: '#f5564a',
                 paddingHorizontal: 10,
                 paddingVertical: 5,
                 margin: 10,
@@ -604,7 +604,7 @@ const GameEntry = ({route, navigation}) => {
             onPress={handleSetGameEntryArray}
             style={{
               alignSelf: 'center',
-              backgroundColor: 'orange',
+              backgroundColor: '#ba184f',
               paddingHorizontal: 20,
               paddingVertical: 10,
               margin: 10,

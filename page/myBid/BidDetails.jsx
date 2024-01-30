@@ -189,113 +189,212 @@ const BidDetails = ({navigation, route}) => {
           </View>
 
           {gameBidArray &&
-            gameBidArray.map((props, index) => {
-              let newdate = props.created_at
-                ? new Date(props.created_at)
-                : false;
-
-              // console.log(
-              //   '19593465316589761387563485837468957362',
-              //   props.created_at,
-              // );
-              // console.log('19593465316589761387563485837468957362', props);
-
-              return (
-                <View
-                  key={index}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-around',
-                    borderWidth: 1,
-                    backgroundColor: '#FFFFFFAA',
-                    width: '100%',
-                  }}>
+          gameBidArray?.filter((item, i) => item?.trns_flag == 'WI').length !==
+            0
+            ? gameBidArray.map((props, index) => {
+                let newdate = props.created_at
+                  ? new Date(props.created_at)
+                  : false;
+                return (
                   <View
+                    key={index}
                     style={{
-                      // paddingHorizontal: 2,
-                      height: 40,
-                      justifyContent: 'center',
-                      borderRadius: 2,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-around',
+                      borderWidth: 1,
+                      backgroundColor: '#FFFFFFAA',
+                      width: '100%',
                     }}>
-                    <Text
-                      style={{
-                        fontWeight: '700',
-                        fontSize: 12,
-                        color: '#FFFFFF',
-                        width: 65,
-                      }}>
-                      {newdate && newdate?.toLocaleDateString('en-GB')}
-                    </Text>
-                  </View>
-                  {/* table start */}
-                  <View>
                     <View
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        alignItems: 'center',
-                        borderBottomWidth: 1,
-                        borderStyle: 'dashed',
+                        // paddingHorizontal: 2,
+                        height: 40,
+                        justifyContent: 'center',
+                        borderRadius: 2,
                       }}>
-                      {/* single Text */}
-                      <Text style={styles.cellText}>
-                        {props.single || ' - '}
-                      </Text>
-                      {/* Juri Text */}
-                      <Text style={styles.cellText}>{props.jodi || ' - '}</Text>
-                      {/* Patti Text */}
-                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
-                        {props.patti || ' - '}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        alignItems: 'center',
-                      }}>
-                      {/* single Text */}
-                      <Text style={styles.cellText}>{props.single_amt}</Text>
-                      {/* Juri Text */}
-                      <Text style={styles.cellText}>{props.jodi_amt}</Text>
-                      {/* Patti Text */}
-                      <Text style={{...styles.cellText, borderRightWidth: 1}}>
-                        {props.patti_amt}
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={{
-                      // paddingHorizontal: 0,
-                      height: normalize(30),
-                      justifyContent: 'center',
-                      // borderRadius: 2,
-                    }}>
-                    {props.trns_flag == 'WI' ? (
                       <Text
                         style={{
                           fontWeight: '700',
                           fontSize: 12,
-                          color: 'green',
+                          color: '#FFFFFF',
+                          width: 65,
                         }}>
-                        {'WIN'}
+                        {newdate && newdate?.toLocaleDateString('en-GB')}
                       </Text>
-                    ) : (
+                    </View>
+                    {/* table start */}
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          borderBottomWidth: 1,
+                          borderStyle: 'dashed',
+                        }}>
+                        {/* single Text */}
+                        <Text style={styles.cellText}>
+                          {props.single || ' - '}
+                        </Text>
+                        {/* Juri Text */}
+                        <Text style={styles.cellText}>
+                          {props.jodi || ' - '}
+                        </Text>
+                        {/* Patti Text */}
+                        <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                          {props.patti || ' - '}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                        }}>
+                        {/* single Text */}
+                        <Text style={styles.cellText}>{props.single_amt}</Text>
+                        {/* Juri Text */}
+                        <Text style={styles.cellText}>{props.jodi_amt}</Text>
+                        {/* Patti Text */}
+                        <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                          {props.patti_amt}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View
+                      style={{
+                        // paddingHorizontal: 0,
+                        height: normalize(30),
+                        justifyContent: 'center',
+                        // borderRadius: 2,
+                      }}>
+                      {props.trns_flag == 'WI' ? (
+                        <Text
+                          style={{
+                            fontWeight: '700',
+                            fontSize: 12,
+                            color: 'green',
+                          }}>
+                          {'WIN'}
+                        </Text>
+                      ) : (
+                        <Text
+                          style={{
+                            fontWeight: '700',
+                            fontSize: 12,
+                            color: 'red',
+                          }}>
+                          LOSS
+                        </Text>
+                      )}
+                    </View>
+                  </View>
+                );
+              })
+            : gameBidArray.map((props, index) => {
+                let newdate = props.created_at
+                  ? new Date(props.created_at)
+                  : false;
+                return (
+                  <View
+                    key={index}
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-around',
+                      borderWidth: 1,
+                      backgroundColor: '#FFFFFFAA',
+                      width: '100%',
+                    }}>
+                    <View
+                      style={{
+                        // paddingHorizontal: 2,
+                        height: 40,
+                        justifyContent: 'center',
+                        borderRadius: 2,
+                      }}>
                       <Text
                         style={{
                           fontWeight: '700',
                           fontSize: 12,
-                          color: 'red',
+                          color: '#FFFFFF',
+                          width: 65,
                         }}>
-                        LOSS
+                        {newdate && newdate?.toLocaleDateString('en-GB')}
                       </Text>
-                    )}
+                    </View>
+                    {/* table start */}
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          borderBottomWidth: 1,
+                          borderStyle: 'dashed',
+                        }}>
+                        {/* single Text */}
+                        <Text style={styles.cellText}>
+                          {props.single || ' - '}
+                        </Text>
+                        {/* Juri Text */}
+                        <Text style={styles.cellText}>
+                          {props.jodi || ' - '}
+                        </Text>
+                        {/* Patti Text */}
+                        <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                          {props.patti || ' - '}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                        }}>
+                        {/* single Text */}
+                        <Text style={styles.cellText}>{props.single_amt}</Text>
+                        {/* Juri Text */}
+                        <Text style={styles.cellText}>{props.jodi_amt}</Text>
+                        {/* Patti Text */}
+                        <Text style={{...styles.cellText, borderRightWidth: 1}}>
+                          {props.patti_amt}
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View
+                      style={{
+                        // paddingHorizontal: 0,
+                        height: normalize(30),
+                        justifyContent: 'center',
+                        // borderRadius: 2,
+                      }}>
+                      {props.trns_flag == 'WI' ? (
+                        <Text
+                          style={{
+                            fontWeight: '700',
+                            fontSize: 12,
+                            color: 'green',
+                          }}>
+                          {'WIN'}
+                        </Text>
+                      ) : (
+                        <Text
+                          style={{
+                            fontWeight: '700',
+                            fontSize: 12,
+                            color: 'red',
+                          }}>
+                          {'    '}
+                        </Text>
+                      )}
+                    </View>
                   </View>
-                </View>
-              );
-            })}
+                );
+              })}
         </LinearGradient>
       </ScrollView>
     </SafeAreaView>

@@ -55,7 +55,7 @@ const WithdrawalHistory = () => {
               borderRadius: 50,
               marginRight: 10,
             }}>
-            <FontAwesome name="trophy" size={30} color="#000000" />
+            <FontAwesome name="arrow-down" size={30} color="#000000" />
           </View>
           {/* All Texts */}
           <View>
