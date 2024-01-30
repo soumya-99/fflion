@@ -64,7 +64,7 @@ const BankDeatils = () => {
           account_no: accNo.toString(),
           bank_name: bName,
           ifsc_code: ifscCode,
-          tnx_number: mobileOrTnxNumber
+          tnx_number: mobileOrTnxNumber,
         },
         {
           headers: {
@@ -157,7 +157,7 @@ const BankDeatils = () => {
                   onChangeText={setMobileOrTnxNumber}
                   placeholder={mobileOrTnxNumber || 'Tnx. Number'}
                   placeholderTextColor="#FFFFFF"
-                  keyboardType="phone-pad"
+                  keyboardType="numeric"
                 />
               </View>
             </View>
