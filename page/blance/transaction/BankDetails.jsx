@@ -16,7 +16,7 @@ import axios from 'axios';
 import {BASE_URL} from '../../../src/config';
 import {AuthContext} from '../../../src/context/AuthContext';
 import {useIsFocused} from '@react-navigation/native';
-const BankDeatils = () => {
+const BankDeatils = ({navigation}) => {
   const isFocused = useIsFocused();
   const {userInfo} = useContext(AuthContext);
   const [bName, setBName] = useState('');
@@ -75,6 +75,7 @@ const BankDeatils = () => {
       )
       .then(res => {
         console.log('handleUpdateDetails SUCC', res.data);
+        navigation.navigate('HomeNav');
       })
       .catch(err => {
         console.log('handleUpdateDetails ERRR', err);
