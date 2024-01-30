@@ -69,16 +69,18 @@ const Transaction = () => {
           {/* All Texts */}
           <View>
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              {item?.game_name}
+              {item?.paymentMod === 'Bonus Money' ? 'Bonus' : item?.game_name}
             </Text>
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
               {newdate.toLocaleString('en-GB')}
             </Text>
 
-            <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
-              BAZI: {item.game_time}
-            </Text>
+            {item?.paymentMod !== 'Bonus Money' && (
+              <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
+                BAZI: {item.game_time}
+              </Text>
+            )}
 
             <Text style={{color: '#FFFFFF', fontWeight: '500'}}>
               BALANCE: ₹ {item.amount}
