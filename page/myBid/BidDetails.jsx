@@ -147,10 +147,10 @@ const BidDetails = ({navigation, route}) => {
             <Text
               style={{
                 ...styles.cellText,
-                width: 98,
+                width: 109,
                 textAlign: 'center',
               }}>
-              {' Date '}
+              {'Date'}
             </Text>
             {/* single Text */}
             <Text
@@ -168,7 +168,7 @@ const BidDetails = ({navigation, route}) => {
                 borderRightWidth: 0,
                 textAlign: 'center',
               }}>
-              {'Judi'}
+              {'Jodi'}
             </Text>
             {/* Patti Text */}
             <Text
@@ -214,7 +214,7 @@ const BidDetails = ({navigation, route}) => {
                   <View
                     style={{
                       // paddingHorizontal: 2,
-                      height: 30,
+                      height: 40,
                       justifyContent: 'center',
                       borderRadius: 2,
                     }}>
@@ -223,9 +223,9 @@ const BidDetails = ({navigation, route}) => {
                         fontWeight: '700',
                         fontSize: 12,
                         color: '#FFFFFF',
-                        width: 55,
+                        width: 65,
                       }}>
-                      {newdate && newdate?.toLocaleDateString()}
+                      {newdate && newdate?.toLocaleDateString('en-GB')}
                     </Text>
                   </View>
                   {/* table start */}
@@ -266,22 +266,32 @@ const BidDetails = ({navigation, route}) => {
                     </View>
                   </View>
 
-                  {/* delete button */}
                   <View
                     style={{
-                      paddingHorizontal: 2,
-                      height: 30,
+                      // paddingHorizontal: 0,
+                      height: normalize(30),
                       justifyContent: 'center',
-                      borderRadius: 2,
+                      // borderRadius: 2,
                     }}>
-                    <Text
-                      style={{
-                        fontWeight: '700',
-                        fontSize: 12,
-                        color: 'black',
-                      }}>
-                      {props.trns_flag == 'WI' ? 'WIN' : '      '}
-                    </Text>
+                    {props.trns_flag == 'WI' ? (
+                      <Text
+                        style={{
+                          fontWeight: '700',
+                          fontSize: 12,
+                          color: 'green',
+                        }}>
+                        {'WIN'}
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          fontWeight: '700',
+                          fontSize: 12,
+                          color: 'red',
+                        }}>
+                        LOSS
+                      </Text>
+                    )}
                   </View>
                 </View>
               );
