@@ -48,7 +48,7 @@ const GameEntry = ({route, navigation}) => {
 
   const handleChangeSingleNumber = txt => {
     changeSingleNumber(txt);
-    if (txt.length === 6) {
+    if (txt.length === 1) {
       singleAmountInputRef.current.focus();
     }
   };
@@ -273,9 +273,9 @@ const GameEntry = ({route, navigation}) => {
       }
     }
 
-    if (gameEntryArray.length + 1 > 7) {
+    if (gameEntryArray.length + 1 > 6) {
       return ToastAndroid.showWithGravity(
-        'Maximum Bid limit Reached',
+        'Maximum Bid limit Reached.',
         ToastAndroid.SHORT,
         ToastAndroid.CENTER,
       );
@@ -319,7 +319,19 @@ const GameEntry = ({route, navigation}) => {
             {...newFieldsObject, pattiNumber: itemStr, pattiAmount: cpAmount},
           ]);
         });
-      } else {
+      }
+      // else if (single) {
+      //   if (GameEntry.length < 6) {
+      //     setGameEntry(oldFieldsObject => [
+      //       ...oldFieldsObject,
+      //       newFieldsObject,
+      //     ]);
+      //   } else {
+      //     ToastAndroid.show("Can't add more Single!");
+      //     return;
+      //   }
+      // }
+      else {
         setGameEntry(oldFieldsObject => [...oldFieldsObject, newFieldsObject]);
       }
     }
@@ -510,7 +522,7 @@ const GameEntry = ({route, navigation}) => {
                   numberOfLines={2}
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
-                  maxLength={6}
+                  maxLength={1}
                 />
                 <TextInput
                   ref={singleAmountInputRef}
