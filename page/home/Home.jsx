@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: normalize(5),
-    borderRadius: normalize(10),
+    borderRadius: normalize(15),
   },
   linearGradientbuttonText: {
     color: 'white',
