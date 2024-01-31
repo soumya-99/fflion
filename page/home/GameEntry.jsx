@@ -16,6 +16,7 @@ import {AuthContext} from '../../src/context/AuthContext';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
 import {areDigitsUnique, findPermute} from '../../src/utils/cp_algorithm';
+import { useIsFocused } from '@react-navigation/native';
 
 const GameEntry = ({route, navigation}) => {
   const {itemData} = route.params;
@@ -45,6 +46,8 @@ const GameEntry = ({route, navigation}) => {
   const [jodi, setJodi] = useState(() => false);
   const [patti, setPatti] = useState(() => false);
   const [cp, setCp] = useState(() => false);
+
+  const isFocus = useIsFocused()
 
   const handleChangeSingleNumber = txt => {
     changeSingleNumber(txt);
@@ -128,6 +131,10 @@ const GameEntry = ({route, navigation}) => {
     changePattiNumber('');
     changePattiAmount('');
   };
+
+  useEffect(() => {
+    handleSingleChnage()
+  }, [isFocus])
 
   const getGameNameData = async () => {
     await axios
