@@ -15,7 +15,11 @@ import {BASE_URL} from '../../src/config';
 import {AuthContext} from '../../src/context/AuthContext';
 import normalize, {SCREEN_HEIGHT} from 'react-native-normalize';
 import LinearGradient from 'react-native-linear-gradient';
-import {areDigitsUnique, findPermute} from '../../src/utils/cp_algorithm';
+import {
+  areDigitsUnique,
+  findPermute,
+  generatePermutations,
+} from '../../src/utils/cp_algorithm';
 import {useIsFocused} from '@react-navigation/native';
 
 const GameEntry = ({route, navigation}) => {

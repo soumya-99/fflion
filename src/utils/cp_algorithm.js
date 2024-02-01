@@ -56,8 +56,15 @@ export const generateUniqueThreeDigitNumbersFromFiveDigit = baseNumber => {
  * ascending order.
  */
 export function generatePermutations(inputNumber) {
+  let lastZero;
   const digits = String(inputNumber).split('').map(Number);
-  digits.sort((a, b) => a - b);
+  if (digits[digits.length - 1] === 0) {
+    lastZero = digits.pop();
+    digits.sort((a, b) => a - b);
+    digits.push(lastZero);
+  } else {
+    digits.sort((a, b) => a - b);
+  }
   const permutations = [];
 
   for (let i = 0; i < digits.length - 2; i++) {
@@ -72,14 +79,55 @@ export function generatePermutations(inputNumber) {
 }
 
 // Optimized version of the previous function
+// export function findPermute(input, k, res, temp, i) {
+//   let sortedNumber = input
+//     .split('')
+//     .map(Number)
+//     .sort((a, b) => a - b)
+//     .join('');
+
+//   // if (sortedNumber[sortedNumber.length - 1] === 0) {
+//   //   lastZero = sortedNumber.pop();
+//   //   sortedNumber.sort((a, b) => a - b);
+//   //   sortedNumber.push(lastZero);
+//   // } else {
+//   //   sortedNumber.sort((a, b) => a - b).join('');
+//   // }
+
+//   if (temp.length === k) {
+//     res.push(temp.join('')); // Join the characters to form a string
+//     return;
+//   }
+
+//   for (let j = i; j < sortedNumber.length; j++) {
+//     temp.push(sortedNumber[j]);
+//     findPermute(sortedNumber, k, res, temp, j + 1);
+//     temp.pop();
+//   }
+// }
+
 export function findPermute(input, k, res, temp, i) {
-  let sortedNumber = input
-    .split('')
-    .map(Number)
-    .sort((a, b) => a - b)
-    .join('');
+  let sortedNumber;
+
+  // Check if the input contains 0, exclude the last 0 before sorting
+  if (input.includes('0')) {
+    let withoutLastZero = input.replace(/0/g, '');
+    sortedNumber =
+      withoutLastZero
+        .split('')
+        .map(Number)
+        .sort((a, b) => a - b)
+        .join('') + '0';
+  } else {
+    sortedNumber = input
+      .split('')
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join('');
+  }
+
   if (temp.length === k) {
-    res.push(temp.join('')); // Join the characters to form a string
+    res.push(temp.join(''));
     return;
   }
 
