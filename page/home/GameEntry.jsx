@@ -192,10 +192,10 @@ const GameEntry = ({route, navigation}) => {
     }
 
     if (singleNumber) {
-      if (singleNumber[0] === '0') {
-        ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
-        return;
-      }
+      // if (singleNumber[0] === '0') {
+      //   ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
+      //   return;
+      // }
 
       if (!singleAmount) {
         ToastAndroid.show('Please add Single Amount', ToastAndroid.SHORT);
@@ -218,10 +218,10 @@ const GameEntry = ({route, navigation}) => {
     }
 
     if (juriNumber) {
-      if (juriNumber[0] === '0') {
-        ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
-        return;
-      }
+      // if (juriNumber[0] === '0') {
+      //   ToastAndroid.show('Digits cannot start with 0.', ToastAndroid.SHORT);
+      //   return;
+      // }
 
       if (!juriAmount) {
         ToastAndroid.show('Please add Juri Amount', ToastAndroid.SHORT);
@@ -552,7 +552,9 @@ const GameEntry = ({route, navigation}) => {
                 <TextInput
                   ref={singleAmountInputRef}
                   style={styles.textInputStyle}
-                  onChangeText={changeSingleAmount}
+                  onChangeText={(e)=>{
+                    changeSingleAmount(Math.round(e))
+                  }}
                   placeholder="Amount"
                   placeholderTextColor={'black'}
                   keyboardType="numeric"
@@ -578,7 +580,11 @@ const GameEntry = ({route, navigation}) => {
                 <TextInput
                   ref={jodiAmountInputRef}
                   style={styles.textInputStyle}
-                  onChangeText={changeJuriAmount}
+                  onChangeText={
+                    (e)=>{
+                    changeJuriAmount(Math.round(e))
+                  }
+                  }
                   placeholder="Amount"
                   value={juriAmount}
                   placeholderTextColor={'black'}
@@ -604,7 +610,9 @@ const GameEntry = ({route, navigation}) => {
                 <TextInput
                   ref={pattiAmountInputRef}
                   style={styles.textInputStyle}
-                  onChangeText={changePattiAmount}
+                  onChangeText={(e)=>{
+                    changePattiAmount(Math.round(e))
+                  }}
                   placeholder="Amount"
                   value={pattiAmount}
                   placeholderTextColor={'black'}

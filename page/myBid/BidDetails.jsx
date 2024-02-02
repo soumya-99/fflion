@@ -192,9 +192,7 @@ const BidDetails = ({navigation, route}) => {
           gameBidArray?.filter((item, i) => item?.trns_flag == 'WI').length !==
             0
             ? gameBidArray.map((props, index) => {
-                let newdate = props.created_at
-                  ? new Date(props.created_at)
-                  : false;
+                let newdate = props.created_at ? new Date(props.created_at) : false;
                 return (
                   <View
                     key={index}

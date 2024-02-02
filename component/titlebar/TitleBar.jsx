@@ -74,7 +74,7 @@ const TitleBar = () => {
       <View style={styles.coldiv}>
         <View style={styles.rupeeicon}>
           <Text style={styles.compName}>FF Lion</Text>
-          <Text style={styles.version}> (v5.0)</Text>
+          <Text style={styles.version}> (v6.0)</Text>
         </View>
       </View>
       <View style={styles.coldiv}>
