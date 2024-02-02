@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     width: 65,
     fontWeight: '500',
-    color: '#FFFFFF',
+    color: '#000000',
     textAlign: 'center',
   },
 });
