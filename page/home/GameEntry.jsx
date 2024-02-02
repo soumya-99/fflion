@@ -201,7 +201,7 @@ const GameEntry = ({route, navigation}) => {
         ToastAndroid.show('Please add Single Amount', ToastAndroid.SHORT);
         return;
       }
-      if (singleAmount < 5) {
+      if (singleAmount < 1) {
         ToastAndroid.show(
           'Single amount should be more than ₹5.',
           ToastAndroid.SHORT,
